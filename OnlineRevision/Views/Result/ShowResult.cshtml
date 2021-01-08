@@ -1,0 +1,351 @@
+﻿@model List<OnlineRevision.DbContext.QuestionSetViewModel>
+@{
+    Layout = null;
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-header {
+        color: white;
+        background-color: #236EAB;
+        width: 100vw;
+        height: 10vh;
+        font-size: 140%;
+        font: normal normal 700 24px/1.4em proxima-n-w01-reg,sans-serif;
+    }
+
+    #siteHeading {
+        color: white;
+        margin-left: 2%;
+        margin-top: 10%;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .midLayer {
+        background-color: #81AFE1;
+        height: 6%;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        height: 10vh;
+        color: white;
+        background-color: #236EAB;
+        width: 100%;
+        margin-left: -1.6%;
+    }
+
+    .linkAside {
+        float: right;
+    }
+
+    .button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: 2px solid white;
+        font-size: 120%;
+        font: normal normal verdana,geneva,sans-serif;
+        float: right;
+    }
+
+    .button3 {
+        padding: 14px 40px;
+    }
+
+    .divs {
+        text-align: center,justify;
+        font-size: 120%;
+        padding: 60px;
+        font-weight: bold;
+        font-family: proxima-n-w01-reg,sans-serif;
+    }
+
+    /*.divs {
+        font-size: 100%;
+        padding: 10px;
+        font-weight: bold;
+        font-family: proxima-n-w01-reg,sans-serif;
+        background: beige;
+    }*/
+
+    .divsIncorrect {
+        font-size: 20px;
+        padding: 10px;
+        font-weight: bold;
+        font-family: "Montserrat","Source Sans Pro",sans-serif;
+        background-color: #52C4B9;
+        border-right: 220px solid #E26767;
+        height: 46px;
+        color: white;
+    }
+
+    .divsCorrect {
+        font-size: 20px;
+        padding: 10px;
+        font-weight: bold;
+        font-family: "Montserrat","Source Sans Pro",sans-serif;
+        background-color: #52C4B9;
+        border-right: 220px solid #67E276;
+        height: 46px;
+        color: white;
+    }
+
+    #finish {
+        float: left;
+    }
+
+    .icon-wrap {
+        width: 100px;
+        background: gray;
+        border-radius: 50px;
+        height: 100px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .gem-counter-icon {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+
+    .icon {
+        font-family: "passmed";
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        display: inline-block;
+        text-decoration: inherit;
+        width: 1em;
+        margin-right: .2em;
+        text-align: center;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1em;
+        margin-left: .2em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .icon-thumbs-up {
+        content: url(../../img/iconfinder_thumbs-up_2561480.png);
+        height: 60px;
+        width: 60px;
+        color: white;
+    }
+
+    .icon-thumbs-down {
+        content: url(../../img/iconfinder_thumbs-down_2561481.png);
+        height: 60px;
+        width: 60px;
+        color: white;
+    }
+
+    .gem-counter-number {
+        margin-left: 22%;
+        font-size: 40px;
+    }
+
+    .gem-counter-text {
+        margin-left: 8%;
+        font-size: 20px;
+    }
+
+    .contain {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .alignPara {
+        text-align: justify;
+    }
+
+    .customClearfix {
+        /*color: #3A87AD;
+        width: 90%;
+        margin: 0 auto;
+        height: 0px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        padding-top: 10px;*/
+    }
+
+    .column {
+        border: 1px solid black;
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 60px; /* Should be removed. Only for demonstration */
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .status {
+        color: orange;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a.getVal {
+        text-decoration: none;
+        float: right;
+    }
+
+    .quesName {
+        list-style-type: none;
+    }
+</style>
+
+<div class="container">
+    <div class="divs">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><b>Test Result</b></h3>
+                    </div>
+
+                    <!-- Table row -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="percent" style="width:280px;height:280px;">
+                                    <p style="display:none;">@ViewBag.Percentage %</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+
+                                <div class="icon-wrap">
+                                    <i class="icon-thumbs-up"></i>
+                                </div>
+                                <div class="gem-counter-number" style="color: #00bcd4">
+                                    <span id="noCorrect" class="single">
+                                        @Model.Where(c => c.QuestionAnswers.Contains("Correct")).Count()
+                                    </span>
+                                </div>
+
+                                <div class="gem-counter-text" style="color: #2c2e3d">Correct</div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="icon-wrap">
+                                    <i class="icon-thumbs-down"></i>
+                                </div>
+
+                                <div class="gem-counter-number" style="color: #00bcd4">
+                                    <span id="noCorrect" class="single">
+                                        @Model.Where(c => c.QuestionAnswers.Contains("Wrong")).Count()
+                                    </span>
+                                </div>
+
+                                <div class="gem-counter-text" style="color: #2c2e3d">Incorrect</div>
+                            </div>
+
+                            <div class="col-md-2">
+
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    if (item.QuestionAnswers.Contains("Wrong"))
+    {
+        <div class="container">
+            <div class="majorpoints">
+                <legend class="divsIncorrect majorpointslegend">@item.QuestionName.Substring(0, 100)</legend>
+                <div class="hiders" style="display:none">
+                    <ul>
+                        <b>Q: </b><li class="quesName">@item.QuestionName</li>
+                    </ul>
+
+                    <ul>
+                        <li>@item.QuestionAnswers.Replace("Wrong", "")</li>
+                    </ul>
+                    <h2>Explanation</h2>
+                    <p class="alignPara">
+                        @item.Explanation
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="customClearfix"></div>
+
+    if (item.QuestionAnswers.Contains("Correct"))
+    {
+        <div class="container">
+            <div class="majorpoints">
+                <legend class="divsCorrect majorpointslegend">@item.QuestionName.Substring(0, 100)</legend>
+                <div class="hiders" style="display:none">
+                    <ul>
+                        <b>Q: </b> <li class="quesName">@item.QuestionName</li>
+                    </ul>
+
+                    <ul>
+                        <li>@item.QuestionAnswers.Replace("Correct", "")</li>
+                    </ul>
+                    <h2>Explanation</h2>
+                    <p class="alignPara">
+                        @item.Explanation
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    //Show explanation of answers
+    $('.majorpoints').click(function () {
+        $(this).find('.hiders').toggle();
+    });
+</script>
+

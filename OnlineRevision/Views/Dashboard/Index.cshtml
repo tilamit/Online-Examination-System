@@ -1,0 +1,644 @@
+﻿@{
+    Layout = "~/Views/Shared/LayoutDashboard.cshtml";
+}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="~/Calendar/css/style.css">
+<link rel="stylesheet" href="~/Calendar/aicon/jquery-pseudo-ripple.css">
+<link rel="stylesheet" href="~/Calendar/aicon/jquery-nao-calendar.css">
+
+<style>
+    .box.box-primary {
+        border-top-color: white !important;
+    }
+
+    .aside {
+        margin-left: 4%;
+    }
+
+    .we {
+        color: white;
+        font-size: 20px;
+        padding: 0%;
+        font-family: normal normal normal 15px/1.4em proxima-n-w01-reg,sans-serif;
+    }
+
+    hr {
+        border: 1px thin;
+        border-color: #222222;
+        display: block;
+        height: 1px;
+        margin: 0.0em auto;
+    }
+
+    .small-box > .small-box-footer {
+        color: black;
+    }
+
+    .small-box > .box-new {
+        color: white;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: gray;
+    }
+
+    .sidebar-menu {
+        margin-left: -2.2%;
+    }
+
+    #pieChart {
+        width: 100%;
+    }
+
+    .headingChart {
+        text-align: center;
+    }
+
+    #innerElements {
+        text-align: center;
+    }
+
+    .myCalendar.nao-month td, .month-week {
+        padding: 1.6%;
+        color: white;
+    }
+
+    .myCalendar .month-head > div,
+    .myCalendar .month-head > button {
+        padding: 10px;
+        color: white;
+    }
+
+    .ic-arrow-circle-angle-down, .ic-target {
+        display: none !important;
+    }
+
+    .month-week th, td {
+        font-size: 10px;
+    }
+
+    .bd {
+        background-color: #EDF5FA !important;
+        border: 1px double;
+        border-radius: 6%;
+    }
+
+    .bg-aqua {
+        background-color: #EDF5FA;
+        border: 1px double;
+        border-radius: 6%;
+    }
+
+    .bg-red {
+        background-color: #dd4b39;
+        border: 1px double;
+        border-radius: 6%;
+    }
+
+    p.paraStudy {
+        color: black;
+        font-size: 160%;
+    }
+
+    .skin-blue .sidebar-menu .treeview-menu > li > a {
+        font-size: 20px;
+        color: white;
+    }
+
+    ul {
+        list-style-type: none;
+        /*use padding to move list item from left to right*/
+        padding-left: 1em;
+    }
+
+        ul li:before {
+            content: "–";
+            position: absolute;
+            /*change margin to move dash around*/
+            margin-left: -1em;
+        }
+
+    hr.newHr {
+        border-top: 1px solid #424242;
+        padding: 0.6%;
+    }
+
+    #Details, .details {
+        font-size: 120%;
+    }
+
+    .guide p, ul {
+        font-size: 140%;
+    }
+
+    .linksTop {
+        /*padding: 0.8%;*/
+        display: inline-block;
+        padding: 14px;
+        color: black;
+        font-size: 140%;
+    }
+
+        /*.linksTop a {
+            background-color: none;
+            display: none;
+            padding: 14%;
+        }*/
+
+        .linksTop a:hover {
+            background-color: none;
+            display: none;
+            padding: 14%;
+        }
+
+    .headingTop {
+        font-weight: 400;
+        margin-top: 3%;
+    }
+
+    .icons li {
+        background: none repeat scroll 0 0 #fff;
+        height: 3px;
+        width: 3px;
+        line-height: 0;
+        list-style: none outside none;
+        margin-right: 15px;
+        margin-top: 3px;
+        vertical-align: top;
+        border-radius: 60%;
+        pointer-events: none;
+    }
+
+    .dropbtn {
+        color: white;
+        border: none;
+        cursor: pointer;
+        float: right;
+    }
+
+    ul li:before {
+        content: "" !important;
+        position: absolute;
+        margin-left: -1em;
+    }
+
+    .div1 {
+        margin-top: 4%;
+    }
+
+    .showLinks {
+        padding: 4%;
+        background-color: white;
+        font-family: 'Proxima Nova';
+        font-size: 12px;
+    }
+
+    div.line {
+        width: 1px;
+        min-height: 18px;
+        background: #222222;
+        display: inline-block;
+    }
+
+    .border {
+        border: 1px rgba(0,0,0,0.1);
+        border-radius: 12px;
+    }
+
+    /*input[type=file] {
+        width: 90px;
+        color: transparent;
+    }*/
+
+    /*.btn-upload {
+        position: relative;
+        overflow: hidden;
+    }*/
+
+    .btn-upload input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        /*min-height: 100%;*/
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+    }
+
+    .imgAside {
+        margin-left: -22%;
+    }
+
+    .partialViewWrapper {
+        height: 560px;
+        max-width: 100%;
+        width: 1200px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        background-color: white;
+    }
+
+    @@media screen and (max-width: 1920px) and (min-width: 1900px) {
+        .partialViewWrapper {
+            height: 880px;
+            max-width: 100%;
+            width: 1700px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: white;
+        }
+    }
+
+    .content-wrapper {
+        background-color: white;
+    }
+</style>
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        var userType = @Session["userType"].ToString();
+        if(userType == 2) {
+            $("#result").load('@Url.Action("LoadPartialView", "Dashboard")', { passVal: "0" });
+        } else {
+            $("#result").load('@Url.Action("LoadPartialView", "Dashboard")', { passVal: "1" });
+        }
+
+        $('.mainAnchor').click(function () {
+            var id = $(this).attr("id");
+            //$("#result").html("Loading ......");
+            $("#result").load('@Url.Action("LoadPartialView", "Dashboard")', { passVal: id });
+
+            $(".chartArea").hide();
+        });
+
+        //Admin Area
+        $('#studentDetails').click(function () {
+            $(this).css("background-color", "black");
+            $('#questionBank').css("background-color", "");
+            $('#dashboardAdmin').css("background-color", "");
+            $('#studySection').css("background-color", "");
+        });
+
+        $('#questionBank').click(function () {
+            $(this).css("background-color", "black");
+            $('#studentDetails').css("background-color", "");
+            $('#dashboardAdmin').css("background-color", "");
+            $('#studySection').css("background-color", "");
+        });
+
+        $('#dashboardAdmin').click(function () {
+            $(this).css("background-color", "black");
+            $('#studentDetails').css("background-color", "");
+            $('#questionBank').css("background-color", "");
+            $('#studySection').css("background-color", "");
+        });
+
+        $('#studySection').click(function () {
+            $(this).css("background-color", "black");
+            $('#dashboardAdmin').css("background-color", "");
+            $('#studentDetails').css("background-color", "");
+            $('#questionBank').css("background-color", "");
+        });
+
+        //Student Area
+        $(".showLinks").hide();
+        $(".examLinks").hide();
+        $(".examLinksBestOfThree").hide();
+
+        $('#simulate').click(function () {
+            $(this).css("background-color", "black");
+            $('#questionBank').css("background-color", "");
+            $('#dashboard').css("background-color", "");
+        });
+
+        $('#questionBank').click(function () {
+            $(this).css("background-color", "black");
+            $('#studentDetails').css("background-color", "");
+            $('#dashboard').css("background-color", "");
+        });
+
+        $('#dashboard').click(function () {
+            $(this).css("background-color", "black");
+            $('#studentDetails').css("background-color", "");
+            $('#questionBank').css("background-color", "");
+        });
+
+        $('#simulate').click(function () {
+            $("#studentArea").hide();
+            $(".hideStudentDash").hide();
+            $(".examLinks").hide();
+            $(".showLinks").hide();
+            $(".examLinksBestOfThree").show();
+            $('#dashboard').css("background-color", "");
+            $('#ranking').css("background-color", "");
+            $('#study').css("background-color", "");
+            $('#results').css("background-color", "");
+            $(this).css("background-color", "#222222");
+        });
+
+        $('#study').click(function () {
+            $(".hideStudentDash").hide();
+            $(".examLinks").hide();
+            $(".examLinksBestOfThree").hide();
+            $(".showLinks").show();
+            $('#dashboard').css("background-color", "");
+            $('#ranking').css("background-color", "");
+            $('#results').css("background-color", "");
+            $('#simulate').css("background-color", "");
+            $(this).css("background-color", "#222222");
+        });
+
+        $('#results').click(function () {
+            $(".hideStudentDash").hide();
+            $(".examLinks").hide();
+            $(".examLinksBestOfThree").hide();
+            $(".showLinks").hide();
+            $('#dashboard').css("background-color", "");
+            $('#ranking').css("background-color", "");
+            $('#simulate').css("background-color", "");
+            $('#study').css("background-color", "");
+            $(this).css("background-color", "#222222");
+        });
+
+        $('#dashboard').click(function () {
+            $(".hideStudentDash").show();
+            $(".examLinks").hide();
+            $(".showLinks").hide();
+            $('#study').css("background-color", "");
+            $('#ranking').css("background-color", "");
+            $('#simulate').css("background-color", "");
+            $('#results').css("background-color", "");
+            $(this).css("background-color", "#222222");
+        });
+
+        $('#ranking').click(function () {
+            $(".hideStudentDash").hide();
+            $(".showLinks").hide();
+            $(".examLinks").show();
+            $(".examLinksBestOfThree").hide();
+            $('#ranking').css("background-color", "");
+            $('#simulate').css("background-color", "");
+            $('#study').css("background-color", "");
+            $('#dashboard').css("background-color", "");
+            $('#results').css("background-color", "");
+            $(this).css("background-color", "#222222");
+        });
+
+        //Animate To Contents
+        $('.top').click(function () {
+            $('html, body').animate({
+                scrollTop: $(".top-section").offset().top
+            }, 1000)
+        }),
+  $('.linksTop1').click(function () {
+      $('html, body').animate({
+          scrollTop: $("#content-1").offset().top
+      }, 1000)
+  }),
+  $('.linksTop2').click(function () {
+      $('html, body').animate({
+          scrollTop: $("#content-2").offset().top
+      }, 1000)
+  }),
+
+        $('.linksTop3').click(function () {
+            $('html, body').animate({
+                scrollTop: $("#content-3").offset().top
+            }, 1000)
+        }),
+         $('.linksTop4').click(function () {
+             $('html, body').animate({
+                 scrollTop: $("#content-4").offset().top
+             }, 1000)
+         }),
+
+          $('.linksTop5').click(function () {
+              $('html, body').animate({
+                  scrollTop: $("#content-5").offset().top
+              }, 1000)
+          }),
+          $('.linksTop6').click(function () {
+              $('html, body').animate({
+                  scrollTop: $("#content-6").offset().top
+              }, 1000)
+          }),
+          $('.linksTop7').click(function () {
+              $('html, body').animate({
+                  scrollTop: $("#content-7").offset().top
+              }, 1000)
+          }),
+          $('.linksTop8').click(function () {
+              $('html, body').animate({
+                  scrollTop: $("#content-8").offset().top
+              }, 1000)
+          })
+
+        var img = "";
+        $("#uploadImg").change(function () {
+            var data = new FormData();
+            var files = $("#uploadImg").get(0).files;
+            if (files.length > 0) {
+                data.append("MyImages", files[0]);
+            }
+
+            $.ajax({
+                url: "/Dashboard/UploadImg",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function (response) {
+                    $(".img-circle").attr('src', '/img/' + response);
+                },
+                error: function (er) {
+                    //alert(er);
+                }
+
+            });
+        });
+
+        debugger;
+        $.ajax({
+            url: "/Dashboard/GetUserImg",
+            type: "GET",
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                if (response != null || response != "") {
+                    $(".img-circle").attr('src', '/img/' + response);
+                }
+            },
+            error: function (er) {
+                //alert(er);
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div class="user-panel" style="border: 2px solid gray">
+            <div class="clearfix"></div>
+
+            @if (Session["userId"] != null)
+            {
+                <div class="dropdown">
+                    <!-- three dots -->
+                    <ul class="dropbtn icons" data-id="@Session["userId"].ToString()">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+            }
+
+            <div class="text-center top-img">
+                <img src="~/UserImages/default.jpg" height="120" width="120" class="img-circle" alt="User Image">
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="text-center student-name">
+
+            </div>
+        </div>
+
+        <br /><br />
+
+        <ul class='sidebar-menu' data-widget='tree'>
+            <li class='active treeview'>
+                <ul class='treeview-menu'>
+
+                    @if (Session["userType"] != null && Session["userType"].ToString() == "1")
+                    {
+                        <li>
+                            <a id="dashboardAdmin" class="mainAnchor">
+                                <span id="dashboardAdmin" class="we">Dashboard</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a id="studySection" class="mainAnchor">
+                                <span class="we">Study</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a id="studentDetails" class="mainAnchor">
+                                <span class="we">Student Details</span>
+                            </a>
+                        </li>
+                        <hr />
+                        <li>
+                            <a id="questionBank" class="mainAnchor">
+                                <span class="we">Question Bank</span>
+                            </a>
+                        </li>
+                    }
+
+                    @if (Session["userType"] != null && Session["userType"].ToString() == "2")
+                    {
+                        <li>
+                            <a id="dashboard" class="mainAnchor">
+                                <span id="dashboard" class="we">Dashboard</span>
+                            </a>
+                        </li>
+                        <hr />
+
+                        <li>
+                            <a id="study" class="mainAnchor">
+                                Study
+                            </a>
+                        </li>
+                        <hr />
+
+                        <li class="treeview" style="height: auto;">
+                            <a>
+                                Practice
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu" style="">
+                                <li><a id="ranking" class="mainAnchor"> Ranking</a></li>
+                                <li><a id="simulate" class="mainAnchor"> Best of 3</a></li>
+                            </ul>
+                        </li>
+                        <hr />
+
+                        <li class="treeview" style="height: auto;">
+                            <a>
+                                Simulate
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu" style="">
+                                <li><a href="/Exam/MockExam/9" target="_blank" class="mainAnchor we"> Start Exam</a></li>
+                            </ul>
+                        </li>
+                        <hr />
+                    }
+                </ul>
+            </li>
+        </ul>
+        <br />
+        <div class="clearfix visible-md-block visible-lg-block"></div>
+        <div class="myCalendar"></div>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+<div class="content-wrapper">
+
+    @if (Session["userType"] != null && Session["userType"].ToString() == "1")
+    {
+        @*Content loads here - Starts*@
+        <section class="content">
+            <div class="partialViewWrapper">
+                <div id="result"></div>
+            </div>
+        </section>
+        @*Content loads here - Ends*@
+    }
+    else
+    {
+        <div class="hideStudentDash">
+            <section class="content-header">
+                <h1>Member's Area</h1>
+            </section>
+        </div>
+
+        @*Content loads here - Starts*@
+        <div class="partialViewWrapper">
+            <div id="result"></div>
+        </div>
+        @*Content loads here - Ends*@
+    }
+</div>
+
+<script src="~/Calendar/script/jquery-nao-calendar.js"></script>
+<script src="~/Calendar/script/jquery-pseudo-ripple.js"></script>
+<script>
+    $('.myCalendar').calendar({
+        date: new Date(),
+        autoSelect: false, // false by default
+        select: function (date) {
+            console.log('SELECT', date)
+        },
+        toggle: function (y, m) {
+            console.log('TOGGLE', y, m)
+        }
+    })
+</script>

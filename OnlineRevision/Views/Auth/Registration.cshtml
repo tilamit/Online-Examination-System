@@ -1,0 +1,265 @@
+﻿@model OnlineRevision.DbContext.UserDetails
+@{
+    Layout = null;
+}
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="~/Content/styles.css">
+
+    <!-- Bootstrap DatePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+    <!-- Bootstrap DatePicker -->
+    <script type="text/javascript">
+        $(function () {
+            $('#dateOfBirth').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                format: "yyyy/mm/dd",
+                language: "tr"
+            });
+        });
+    </script>
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        .inputLabel {
+            color: white;
+        }
+
+        .formTop {
+            margin-top: -0.4%;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="formTop">
+            <div class="d-flex justify-content-center h-100">
+                <div class="cardRegistration">
+                    <div class="card-header">
+                        <a href="~/"><h3 class="logo">PASSDEN+</h3></a>
+                        <div class="d-flex justify-content-end social_icon">
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="inputLabel">
+                            Name
+                        </div>
+                        <div class="input-group form-group">
+                            <input type="text" id="studentName" class="form-control" placeholder="Name">
+                            @*@Html.ValidationMessageFor(model => model.UserName)*@
+                        </div>
+
+                        <div class="inputLabel">
+                            Email
+                        </div>
+                        <div class="input-group form-group">
+                            <input type="text" id="studentEmail" class="form-control" placeholder="Email">
+                        </div>
+
+                        <div class="inputLabel">
+                            Password
+                        </div>
+                        <div class="input-group form-group">
+                            <input type="password" id="studentPass" class="form-control" placeholder="Password">
+                        </div>
+
+                        <div class="inputLabel">
+                            Confirm Password
+                        </div>
+                        <div class="input-group form-group">
+                            <input type="password" id="studentPassCon" class="form-control" placeholder="Confirm Password">
+                        </div>
+
+                        <div class="inputLabel">
+                            School/University
+                        </div>
+                        <div class="input-group form-group">
+                            <select name="universities" class="form-control">
+                                <option value="0">--Select School/University--</option>
+                                <option value="King's College London">King's College London </option>
+                                <option value="Newcastle University">Newcastle University</option>
+                                <option value="Queen Mary University of London">Queen Mary University of London</option>
+                                <option value="Queen’s University Belfast">Queen’s University Belfast</option>
+                                <option value="University of Cardiff">University of Cardiff</option>
+                                <option value="University of Aberdeen">University of Aberdeen</option>
+                                <option value="University of Birmingham ">University of Birmingham </option>
+                                <option value="University of Bristol">University of Bristol</option>
+                                <option value="University of Central Lancashire">University of Central Lancashire</option>
+                                <option value="University of Dundee">University of Dundee</option>
+                                <option value="University of Glasgow">University of Glasgow</option>
+                                <option value="University of Leeds">University of Leeds</option>
+                                <option value="University of Liverpool">University of Liverpool</option>
+                                <option value="University of Manchester">University of Manchester</option>
+                                <option value="University of Plymouth">University of Plymouth</option>
+                                <option value="University of Sheffield">University of Sheffield</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div id="hideUniversity">
+                            <div class="inputLabel">
+                                University Name Here
+                            </div>
+                            <div class="input-group form-group">
+                                <input type="text" id="universityName" class="form-control" placeholder="University Name">
+                            </div>
+                        </div>
+
+                        @*Gender
+                            <div class="inputLabel">
+                                Gender
+                            </div>
+
+                            <div class="input-group form-group">
+                                <select name="gender" class="form-control">
+                                    <option value="0">--Select Option--</option>
+                                    <option value="1">Female</option>
+                                    <option value="2">Male</option>
+                                </select>
+                            </div>*@
+
+                        @*Date of Birth
+                            <div class="inputLabel">
+                                Date of Birth
+                            </div>
+                            <div class="input-group form-group">
+                                <input type="text" class="form-control" id="dateOfBirth" placeholder="Date of Birth">
+                            </div>*@
+
+                        @*Year Continuing
+                            <div class="inputLabel">
+                                Year Continuing
+                            </div>
+                            <div class="input-group form-group">
+                                <input type="text" id="yearContinuing" class="form-control" placeholder="Year Continuing">
+                            </div>*@
+
+                        <div class="form-group">
+                            <div class="d-flex justify-content-center links">
+                                Already have an account?<a href="~/Auth/Login">Login</a>
+                            </div><br />
+                            <input type="button" id="btnAdd" value="Register" class="btn float-right login_btn">
+                        </div>
+                    </div>
+                    <div>
+                        <div id="hide" class="alert alert-success alert-dismissible fade show"></div>
+                    </div>
+                    @*<div class="card-footer">
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Initially hide a text box
+            $('#hideUniversity').hide();
+            var university = "";
+
+            var result = "";
+
+            //Enable a text box on value selection
+            $('[name="universities"]').change(function () {
+                if ($(this).val() === "Other") {
+                    $('#hideUniversity').show();
+                } else {
+                    $('#hideUniversity').hide();
+                }
+            }).change();
+
+            var url = '@Url.Action("AddStudents", "Dashboard")';
+            $('#hide').hide();
+
+            $('#btnAdd').click(function () {
+                debugger;
+                var name = $("#studentName").val();
+                var email = $("#studentEmail").val();
+                var pass = $("#studentPass").val();
+                var passCon = $("#studentPassCon").val();
+
+                var universities = "";
+
+                if ($('select[name="universities"]').val() == "Other") {
+                    universities = $('#universityName').val();
+                } else {
+                    universities = $('select[name="universities"]').val();
+                }
+
+                if (name == "" || pass == "" || email == "") {
+                    alert("Please! Fill up all the fields.");
+                }
+                else if ($('select[name="universities"]').val() == "0") {
+                    alert("Please! Select a university.");
+                }
+                else if (pass != passCon) {
+                    alert("Passwords don't match! Make sure both are same.");
+                } else if(!validateEmail(email)) {
+                    alert("Please! Use valid email address.");
+                }
+                else {
+                    $.ajax({
+                        url: "/Dashboard/CheckEmail",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify({ email: email }),
+                        success: function (response) {
+                            if (response != "") {
+                                alert(response);
+                            } else {
+                                $.post(url, { name: name, email: email, pass: pass, universities: universities }, function (response) {
+                                    if (response) {
+                                        $('#hide').show();
+
+                                        $('#hide').hide().delay(1500).fadeIn('slow');
+
+                                        $('#hide').html(response.value);
+
+                                        $("#studentName").val('');
+                                        $("#studentPass").val('');
+                                        $("#studentEmail").val('');
+
+                                        $("#dateOfBirth").val('');
+                                        $("#yearContinuing").val('');
+
+                                        window.location.href = '/Payment/Packages';
+                                    } else {
+                                    }
+                                }).fail(function () {
+                                    alert("Oops! Didn't add.");
+                                });
+                            }
+                        },
+                        error: function (er) {
+                            //alert(er);
+                        }
+                    });
+                }
+            });
+
+            function validateEmail($email) {
+                var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+                return emailReg.test($email);
+            }
+        });
+    </script>
+</body>
+</html>

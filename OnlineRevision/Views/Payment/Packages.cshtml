@@ -1,0 +1,305 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Packages</title>
+
+    <!-- Bootstrap -->
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <!-- Latest jQuery form server -->
+    <script src="@Url.Content("~/Scripts/jquery-1.8.3.min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>*@
+
+    <!-- Bootstrap JS form CDN -->
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+
+    <link href="~/Content/homepage.css" rel="stylesheet" />
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
+    @*<link href="//db.onlinewebfonts.com/c/c017c9efb81f32559dee68fa54edbde4?family=ReklameScriptW00-Medium" rel="stylesheet" type="text/css" />*@
+    <link href="~/dist/css/card.css" rel="stylesheet" />
+    <link href="~/dist/css/custom-css.css" rel="stylesheet" />
+    
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="~/js/custom-details.js"></script>
+    <script src="~/js/jquery.creditCardValidator.js"></script>
+    <script src="~/js/creditcard.js"></script>
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="product-area-title text-center">
+                <p class="text-uppercase"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="product-area-title text-center">
+                <p class="text-uppercase"></p>
+
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="product-area-title text-center">
+                <p class="text-uppercase"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="product-area-title text-center">
+                <p class="text-uppercase"></p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Start Pricing Area -->
+    <section id="pricing" class="section-full">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+
+                </div>
+            </div>
+            <p class="headingPlan">PLANS & PRICING</p>
+            <div class="plans">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="single-pricing-table">
+                            <div class="top">
+                                <div class="head text-center">
+                                    <span class="lnr lnr-shirt"></span><br>
+
+                                    <div class="well"></div>
+                                    <h2 class="pckAccess">1 week access</h2>
+
+                                    <div class="well"></div>
+                                    <p class="pckHeading"><span class="dollar"></span>20</p>
+
+                                    <div class="well"></div>
+                                    <p class="text-white text-uppercase">Valid for one week</p><br />
+
+                                    <a class="primary-btn" id="20" data-val="1 week access">SELECT</a>
+                                    <div class="well"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-pricing-table">
+                            <div class="top">
+                                <div class="top">
+                                    <div class="head text-center">
+                                        <span class="lnr lnr-shirt"></span><br>
+
+                                        <div class="well"></div>
+                                        <h2 class="pckAccess">2 weeks access</h2>
+
+                                        <div class="well"></div>
+                                        <p class="pckHeading"><span class="dollar"></span>25</p>
+
+                                        <div class="well"></div>
+                                        <p class="text-white text-uppercase">Valid for two weeks</p><br />
+
+                                        <a class="primary-btn" id="25" data-val="2 weeks access">SELECT</a>
+                                        <div class="well"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="single-pricing-table">
+                            <div class="top">
+                                <div class="head text-center">
+                                    <span class="lnr lnr-shirt"></span><br>
+
+                                    <div class="well"></div>
+                                    <h2 class="pckAccess">1 month access</h2>
+
+                                    <div class="well"></div>
+                                    <p class="pckHeading"><span class="dollar"></span>30</p>
+
+                                    <div class="well"></div>
+                                    <p class="text-white text-uppercase">Valid for one month</p><br />
+
+                                    <a class="primary-btn" id="30" data-val="1 month access">SELECT</a>
+                                    <div class="well"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<input type="hidden" value="@Session["userName"].ToString()" id="hdnSession" />*@
+    </section>
+    <!-- End Pricing Area -->
+
+    @using (Html.BeginForm("Index", "PayWithStripe", FormMethod.Post, new { id = "form1" }))
+    {
+        <div class="modal fade" id="LoginModalUp" tabindex="-1" role="dialog" aria-labelledby="ModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-ku">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-custom">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="ModalTitle">PASSDEN+</h4>
+                        <span class="package" name="package"></span>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="txtEmail" Class="form-control input-lg inp-icon" placeholder="     Email Used During Registration" required />
+                        <br />
+
+                        <div class="payment-type-segment">
+                            <div class="radio-box paypal radio-box-highlighted" style="border-top: none;">
+                                <div class="radio-label">
+                                    <div class="payment-type-top">
+                                        <input type="radio" name="radio" id="radio1" class="payment-type-radio" value="paypal">
+                                        <span class="payment-type-name">PayPal</span>
+                                        <div class="payment-type-image"></div>
+                                    </div>
+                                    <div class="payment-type-description">
+                                        Purchase quickly and securely with your PayPal account
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="radio-box card">
+                                <div class="radio-label">
+                                    <div class="payment-type-top">
+                                        <input type="radio" name="radio" id="radio2" class="payment-type-radio" value="stripe">
+                                        <span class="payment-type-name">Buy with Card</span>
+                                        <div class="payment-type-image"></div>
+                                    </div>
+                                    <div class="payment-type-description">
+                                        Securely pay with Visa, Mastercard or American Express
+                                    </div>
+
+                                    <div id="showPara">
+
+                                        <div class="card-segment" style="display: block;">
+                                            <div class="row" style="margin-bottom: 10px;">
+                                                <div class="col-md-12">
+                                                    <p class="input-label">
+                                                        Card number
+                                                    </p>
+                                                    <div class="input-wrapped full" id="validateCard">
+                                                        <input type="text" size="20" name="ccNumber" maxlength="16" id="cardnumber" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" placeholder="1234 5678 9012 3456" data-creditcard="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="input-label">Expiry Date</p>
+                                                    <div class="box">
+                                                        <input type="text" id="ExpDate" class="form-control" placeholder="MM / YY" />
+                                                        <span class="help-info"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="input-label">CVC / CVV</p>
+                                                    <div class="box">
+                                                        <input type="text" id="cvc" maxlength="4" oninput="this.value=this.value.replace(/[^0-9]/g,'');" class="form-control" />
+                                                        <span class="help-info"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" class="card-expiry-month-hidden" />
+                                            <input type="hidden" class="card-expiry-year-hidden" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="hfStripeToken" id="hfStripeToken" />
+                                <input type="hidden" name="total-price-pointer" id="total-price-pointer" />
+                                <input type="hidden" name="package" id="package" />
+                                <input type="hidden" name="email" id="email" />
+                            </div>*@
+
+                        </div>
+                        <div class="price-large-wrapper">
+                            <span class="currency">£</span>
+                            <span class="price total-price-pointer" name="total-price-pointer"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="wrapper">
+                            <a id="btnPaypal" class="button btn btn-primary">Continue To PayPal</a>
+                            <a id="btnCard" class="button btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>
+
+<script>
+    const items = document.querySelectorAll(".accordion a");
+
+    function toggleAccordion() {
+        this.classList.toggle('active');
+        this.nextElementSibling.classList.toggle('active');
+    }
+
+    items.forEach(item => item.addEventListener('click', toggleAccordion));
+
+    var price = "";
+    var pckName = "";
+    $(document).on("click", ".primary-btn", function () {
+        var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
+        var val = $(this).attr('data-val');
+        $(".package").text(val);
+        $("span#package").css("text-align", "center");
+        $(".total-price-pointer").text(event.target.id);
+        //alert(event.target.id + " " + val);
+
+        pckName =  $(".package").text(val);
+        price = $(".total-price-pointer").text(event.target.id)
+    });
+
+    $(document).on("click", "#btnPaypal", function () {
+
+        if ($("#txtEmail").val() == "" || $("#txtEmail").val() == null) {
+            alert("Please! Use the email while registration.");
+        } else if (!validateEmail($("#txtEmail").val())) {
+            alert("Please! Use valid email address.");
+        }
+        else {
+            alert($(".package").text() + ' ' + $(".price").text());
+            $.ajax({
+                url: "/PayWithPaypal/GetPaymentWithPaypal",
+                type: "POST",
+                data: JSON.stringify({ packageName: $(".package").text(), price: $(".price").text(), email: $("#txtEmail").val() }),
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    //window.location.href = '/PayWithPaypal';
+                    window.open('/PayWithPaypal', '_blank');
+                },
+                error: function (er) {
+                    alert(er);
+                }
+            });
+        }
+    });
+
+    function validateEmail($email) {
+        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailReg.test($email);
+    }
+</script>

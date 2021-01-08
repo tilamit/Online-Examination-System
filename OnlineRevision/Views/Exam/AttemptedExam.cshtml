@@ -1,0 +1,730 @@
+﻿@*@model List<OnlineRevision.DbContext.QuestionSetViewModel>*@
+
+@{
+    Layout = null;
+}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+       body, html {
+        margin: 0;
+        padding: 0;
+    }
+
+    .main-header {
+        color: white;
+        background-color: #236EAB;
+        width: 100vw;
+        height: 8vh;
+        font-size: 140%;
+        font: normal normal 700 24px/1.4em proxima-n-w01-reg,sans-serif;
+    }
+
+    #siteHeading {
+        color: white;
+        margin-left: 2%;
+        margin-top: 10%;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .midLayer {
+        background-color: #81AFE1;
+        height: 6%;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        height: 10vh;
+        color: white;
+        background-color: #236EAB;
+        width: 100%;
+    }
+
+    #viewQuestions, #viewAnswers {
+        position: absolute;
+        float: left;
+        color: white;
+        background-color: #236EAB;
+        font-size: 16px;
+        display: inline-block;
+        margin: 4px 2px;
+        border: 2px solid white;
+        font-size: 120%;
+        font: normal normal verdana,geneva,sans-serif;
+        padding: 14px 40px;
+    }
+
+    #finish {
+        position: absolute;
+        float: left;
+        color: white;
+        background-color: #236EAB;
+        font-size: 16px;
+        display: inline-block;
+        margin: 4px 188px;
+        border: 2px solid white;
+        font-size: 120%;
+        font: normal normal verdana,geneva,sans-serif;
+        padding: 14px 40px;
+    }
+
+    .linkAside {
+        float: right;
+    }
+
+    .alignTimer {
+        float: right;
+        margin-top: 0.4%;
+        color: white;
+        /*color: white;
+        font-size: 60px;
+        margin-top: 0.4%;*/
+        font: normal normal 700 20px/1.4em proxima-n-w01-reg,sans-serif;
+    }
+
+    .questionName {
+        font-size: 80%;
+        text-align:justify;
+        margin-top:-3%;
+        font: normal normal 700 14px/1.4em proxima-n-w01-reg,sans-serif;
+    }
+
+    .flagHeading {
+        color: white;
+        margin-top: 0.4%;
+        position: absolute;
+        margin-left:88%;
+        font: normal normal 700 20px/1.4em proxima-n-w01-reg,sans-serif;
+    }
+
+    .button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: 2px solid white;
+        font-size: 120%;
+        font: normal normal verdana,geneva,sans-serif;
+        float: right;
+    }
+
+    .button3 {
+        padding: 14px 40px;
+    }
+
+    .divs {
+        text-align: center,justify;
+        font-size: 120%;
+        padding: 60px;
+        font-weight: bold;
+        font-family: proxima-n-w01-reg,sans-serif;
+    }
+
+    .timer {
+        font-weight: bold;
+    }
+
+    .heading2 {
+        padding: 1%;
+        margin-left: 20%;
+    }
+
+    .class_checkbox {
+        width: 20px;
+        height: 18px;
+        position: absolute;
+        margin-top: -4%;
+        margin-left: 82%;
+        background: url(https://i.ibb.co/1GnSqmp/example.png);
+    }
+
+        .class_checkbox.checked {
+            width: 20px;
+            height: 18px;
+            background: url(https://i.ibb.co/jWxbHF5/example-02.png);
+        }
+
+    .column {
+        border: 1px solid black;
+        float: left;
+        width: 30%;
+        padding: 10px;
+        height: 60px; /* Should be removed. Only for demonstration */
+    }
+
+    .getVal {
+        float: right;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .status {
+        color: orange;
+    }
+
+    #quesNo {
+        float: right;
+    }
+
+    #quesNoTop {
+        margin-top: -8.6%;
+        float: right;
+        margin-left: 82%;
+        position: absolute;
+    }
+
+    .showAnswersLeft {
+        float: left;
+        text-align: left;
+        margin-left: -10%;
+        width: 60%;
+    }
+
+    .orderHeading {
+        text-align: left;
+        margin-left: -10%;
+        color: green;
+    }
+
+    .showAnswersRight {
+        float: right;
+        text-align: left;
+    }
+
+    .showAnswersLeft:after {
+        content: "";
+        background-color: #236EAB;
+        position: absolute;
+        width: 5px;
+        height: 560px;
+        top: 16%;
+        left: 50%;
+        display: block;
+    }
+
+    .sortable1 {
+        border: 1px solid black;
+        /*width: 142px;*/
+        min-height: 60px;
+        margin-bottom: 10px;
+        list-style-type: none;
+        margin: 0;
+        padding: 14px 0 0 0;
+        float: left;
+        /*margin-right: 10px;*/
+        width: 500px;
+    }
+
+    .sortable2 {
+        border: 1px solid black;
+        /*width: 142px;*/
+        min-height: 60px;
+        margin-bottom: 10px;
+        list-style-type: none;
+        margin: 0;
+        padding: 14px 0 0 0;
+        float: left;
+        /*margin-right: 10px;*/
+        width: 500px;
+    }
+
+        .sortable1 li, .sortable2 li {
+            margin: 0 15px 15px 15px;
+            padding: 0px;
+            font-size: 60%;
+            width: 470px;
+        }
+
+    .sortable1 ul li {
+        display: block;
+        text-align: center;
+        float: left;
+        width: 300px;
+    }
+
+    .sortable2 ul li {
+        display: block;
+        text-align: center;
+        float: left;
+        width: 300px;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script>
+    $(document).ready(function () {
+        //Hide A Div Section
+        $(".hideSection2").hide();
+        $("#finish").hide();
+
+        var index = 0;
+
+        //Show Attempted Exam Here
+        GetAttemptedExam();
+        SaveExamDetails()
+
+        var setId = '@TempData["quesSetId"]';
+        var quesType = "";
+
+        //declare
+        var indexes = 0;
+        var indexVal = 0;
+        $(".button").click(function () {
+            debugger;
+            //get div length
+            var lengths = divs.length;
+            //checking if btn clicked is next
+            if ($(this).is('#next')) {
+                indexVal = 1;
+                //checking if value if less then length
+                if ((indexes < (lengths - 1))) {
+                    //increment
+                    //remove
+                    $(this).prop('disabled', false);
+                    console.log("in  - " + indexes + " val - " + indexVal)
+                    //show div
+                    index = (index + 1) % divs.length;
+                    divs.eq(index).show().siblings().hide();
+                    //to show result
+                    show_data1(indexes);
+                    indexes++;
+                } else {
+                    show_data1(indexes);
+                    indexVal = 0;
+
+                    if (indexVal == 0) {
+                        $('.divs2').empty();
+                        //Hide A Div Section
+                        $(".hideSection2").show();
+
+                        $("#next").hide();
+                        $("#prev").hide();
+                        $(".flagHeading").hide();
+                        $("#finish").show();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Exam/AddAnswers",
+                            data: JSON.stringify({ quesSetId: 0, quesId: 0, quesType: 0, quesAnswers: null, flag: 0 }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+
+                            //Show Attempted Question Details
+                            success: function (values) {
+                                $.each(values, function (i, value) {
+                                    if (value.Flag == 1 && value.QuestionAnswers == "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/flagged.png" />Question ' + value.QuestionId + ' <span class="status">Incomplete</span><a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    } else if (value.Flag == 1 && value.QuestionAnswers != "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/flagged.png" />Question ' + value.QuestionId + '<a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    } else if (value.Flag == 0 && value.QuestionAnswers == "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/unflagged.png" />Question ' + value.QuestionId + ' <span class="status">Incomplete</span><a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    } else if (value.Flag == 0 && value.QuestionAnswers != "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/unflagged.png" />Question ' + value.QuestionId + '<a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    }
+                                });
+                            },
+                            error: function (ex) {
+                                alert('Failed to retrieve states.' + ex);
+                            }
+                        });
+
+                        $(".hideSection1").hide();
+                    }
+
+                    console.log("i am in last question reached " + indexVal)
+                    $(this).prop('disabled', true);//disable
+                    $(this).css("background-color", "#00FFFF");//chnagecolor
+
+                    $("#prev").css("background-color", "#236EAB");
+                }
+            } else if ($(this).is('#prev')) {
+                //chcking id value is not 0
+                if (indexes != 0) {
+                    //remove
+                    $(this).prop('disabled', false);
+                    indexes--;
+                    //show
+                    index = (index - 1) % divs.length;
+                    divs.eq(index).show().siblings().hide();
+                    console.log("back  - " + indexes)
+                    show_data1(indexes);//show result
+                } else {
+                    console.log("no back question");
+                    //show_data1(indexes);
+                    //disabled
+                    $(this).prop('disabled', true);
+                    //add color chnage
+                    $(this).css("background-color", "#00FFFF");
+                    $("#next").css("background-color", "#236EAB");
+                }
+            }
+        });
+
+
+        var questionId = "";
+        function show_data1(indexes1) {
+            debugger;
+            //pass indexes value to get required div
+            var $container = $('.divs').children().eq(indexes1);
+
+            var id = $container.find(".h2Val").text().trim();
+            var type = $container.find(".h2Val2").text().trim();
+            var $checked = $container.find('.cbCheck:checked');
+            var $checkedFlag = $container.find('.cbFlag:checked');
+
+            var val = parseInt(indexes1) + 1;
+            var $container2 = $('.divs').children().eq(val);
+            var answers = $container2.find(".questionAnswers").text().trim();
+            var length = answers.split(",").length;
+            for (var i = 0; i < length; i++) {
+                var val = ('"' + answers.split(",")[i] + '"');
+                var delimiter = val.substr(0, val.indexOf('.'));
+                var delimiter2 = delimiter.replace('"', '');
+
+                var newVal = val.substr(val.indexOf(".") + 1);
+
+                //alert(answers);
+                if (quesType == 1) {
+                    $('input[type=checkbox][value=' + '"' + newVal.substring(1, newVal.length - 1) + '"' + ']').attr('checked', true);
+                }
+                else {
+                    $("ul.sortable2").append('<li class="allVal">' + newVal.substring(1, newVal.length - 1) + '</li>');
+                    alert(newVal.substring(1, newVal.length - 1));
+                }
+            }
+
+            var values = $checked.map(function () {
+                return this.value
+            }).get();
+
+            var values2 = $checkedFlag.map(function () {
+                return this.value
+            }).get();
+
+            var checked = 0;
+
+            if (values2.length == 0) {
+                checked = 0;
+            } else {
+                checked = 1;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Exam/AddAnswers",
+                data: JSON.stringify({ quesSetId: setId, quesId: id, quesType: type, quesAnswers: values.join(), flag: checked }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        //Bind best of three answers
+        function show_data2(indexes1) {
+            debugger;
+
+            //pass indexes value to get required div
+            var val = parseInt(indexes1) + 1;
+            var $container2 = $('.divs').children().eq(indexes1);
+            var answers = $container2.find(".questionAnswers").text().trim();
+            var length = answers.split(",").length;
+            for (var i = 0; i < length; i++) {
+                var val = ('"' + answers.split(",")[i] + '"');
+                var delimiter = val.substr(0, val.indexOf('.'));
+                var delimiter2 = delimiter.replace('"', '');
+
+                var newVal = val.substr(val.indexOf(".") + 1);
+                $('input[type=checkbox][value=' + '"' + newVal.substring(1, newVal.length - 1) + '"' + ']').attr('checked', true);
+            }
+        }
+
+        //Bind ranking style answers
+        function show_data4(indexes1) {
+            debugger;
+
+            //pass indexes value to get required div
+            var val = parseInt(indexes1) + 1;
+            var $container2 = $('.divs').children().eq(indexes1);
+            var answers = $container2.find(".questionAnswers").text().trim();
+            var length = answers.split(",").length;
+            for (var i = 0; i < length; i++) {
+                var val = ('"' + answers.split(",")[i] + '"');
+                var delimiter = val.substr(0, val.indexOf('.'));
+                var delimiter2 = delimiter.replace('"', '');
+
+                var newVal = val.substr(val.indexOf(".") + 1);
+
+                var str = newVal;
+                str = str.substring(str.indexOf("."));
+
+                var pieces = str.split("/");
+                var before = pieces[0];
+                var after = pieces[1];
+                
+                if (before.substring(1, newVal.length - 1) == "a") {
+                    $("#a").append('<li class="allVal">' + newVal.substring(1, newVal.length - 1) + '</li>');
+                }
+                alert(before.substring(1, newVal.length - 1));
+                alert(newVal.substring(1, newVal.length - 1));
+            }
+        }
+
+        $(".divs2").on("click", "a.getVal", function () {
+            debugger;
+            //get id
+            $("#next").show();
+            $("#prev").show();
+            $(".flagHeading").show();
+
+            var id2 = $(this).attr("data-id");
+
+            $(".hideSection1").show();
+            $(".hideSection2").hide();
+            //showing the div
+            divs.eq(id2 - 1).show().siblings().hide();
+            index = id2 - 1; //settting value of index again for click of next button
+            indexes = id2 - 1; //setting value for index
+            show_data1(indexes) //show answer as well when user click of question no.
+        });
+
+        //Redirect To Result Page
+        $("#finish").click(function () {
+            debugger;
+            var url = '@Url.Action("Index", "Result")';
+            window.location.href = '/Result/Index/' + '@TempData["bestOfThree"]';
+        });
+
+        //onclick code
+        $('.expand').toggleClass('collapse');
+
+        var message = "";
+        var getTotal = "";
+        function GetAttemptedExam() {
+            var html = "";
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/Exam/GetAttemptedExam",
+                data: JSON.stringify({ questionSetId: '@TempData["quesSetId"]', userId: '@Session["userId"]' }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    $.each(values, function (i, value) {
+                        if (value.QuestionType == 2) {
+                            num2 = values.length;
+
+                            quesType = 2;
+
+                            var num = parseInt(i) + 1;
+                            html += '<div class="heading"><span id="quesNoTop" style="font-size:140%;color:white;">' + num + '/' + '</span><div class="h2Val" style="display:none;">' + value.QuestionId + '</div>  <input type="checkbox" class="cbFlag" /> <div class="questionName">' + value.QuestionName + '</div> <div class="questionAnswers">' + value.QuestionAnswers + '</div><br/><br/>';
+
+                            //Second ul
+                            html += '<div class="hide2">';
+                            html += '<div class="col-md-6">';
+                            //$.each(value.AllOptions, function (key, val) {
+                                html += '<div class="col-md-12">';
+                                html += '<ul id="a" class="sortable2 connectedSortable">';
+                                html += '';
+                                html += '</ul>';
+                                html += '</div><br/><br/><br/><br/>';
+
+                                html += '<div class="col-md-12">';
+                                html += '<ul class="sortable2 b connectedSortable">';
+                                html += '';
+                                html += '</ul>';
+                                html += '</div><br/><br/><br/><br/>';
+
+                                html += '<div class="col-md-12">';
+                                html += '<ul class="sortable2 c connectedSortable">';
+                                html += '';
+                                html += '</ul>';
+                                html += '</div><br/><br/><br/><br/>';
+
+                                html += '<div class="col-md-12">';
+                                html += '<ul class="sortable2 d connectedSortable">';
+                                html += '';
+                                html += '</ul>';
+                                html += '</div><br/><br/><br/><br/>';
+
+                                html += '<div class="col-md-12">';
+                                html += '<ul class="sortable2 e connectedSortable">';
+                                html += '';
+                                html += '</ul>';
+                                html += '</div><br/><br/><br/><br/>';
+                            //})
+                            html += '</div>';
+                            html += '</div>';
+
+                            //First ul
+                            html += '<div class="hide2">';
+                            html += '<div class="col-md-6">';
+                            $.each(value.AllOptions, function (key, val) {
+                                html += '<div class="col-md-12">';
+                                html += '<ul class="sortable1 connectedSortable">';
+                                html += '<li data-id="' + val + '" class="ui-state-default allVal"> ' + (key + 10).toString(36).toUpperCase() + '. ' + val + '</li>';
+                                html += '</ul>';
+                                html += '</div><br/><br/><br/><br/>';
+                            })
+                            html += '</div>';
+                            html += '</div>';
+
+                            html += '</div>';
+                        }
+                        else {
+                            num2 = values.length;
+
+                            quesType = 1;
+
+                            var num = parseInt(i) + 1;
+                            html += '<div class="heading"><span id="quesNoTop" style="font-size:140%;color:white;">' + num + '/' + '</span><div class="h2Val" style="display:none;">' + value.QuestionId + '</div><div class="h2Val2" style="display:none;">' + value.QuestionType + '</div> <input type="checkbox" class="cbFlag" /> <div class="questionName">' + value.QuestionName + '</div> <div class="questionAnswers">' + value.QuestionAnswers + '</div><br/><br/>';
+
+                            $.each(value.AllOptions, function (key, val) {
+                                html += '<div class="heading2">';
+                                //html += '<input type="checkbox" class="cbCheck" value="' + val + '" />' + val;
+                                html += '<input type="checkbox" class="cbCheck" value="' + val + '" /> ' + (key + 10).toString(36).toUpperCase() + '. ' + val;
+                                html += '</div>';
+                            })
+
+                            html += '</div>';
+                        }
+
+                        //html += '<div class="heading"><div class="h2Val">' + value.QuestionId + '</div>  <input type="checkbox" class="cbFlag" /> <div class="questionName">' + value.QuestionName + '</div> <div class="questionAnswers">' + value.QuestionAnswers + '</div>';
+
+                        //$.each(value.AllOptions, function (key, val) {
+                        //    html += '<div class="heading2">';
+                        //    html += '<input type="checkbox" class="cbCheck" value="' + val + '" />' + val;
+                        //    html += '</div>';
+                        //})
+
+                        //html += '</div>';
+                    });
+
+                    $(".divs").append(html);
+                    $("#quesNo").text(num2);
+
+                    //Show One Question At A Time
+                    divs = $(".divs").children();
+                    divs.each(function (e) {
+                        if (e != 0)
+                            $(this).hide();
+                    });
+
+                    $(".questionAnswers").hide();
+                    //ChangeVal(indexes);
+
+                    if (quesType == 1) {
+                        show_data2(0);
+                    }
+                    else {
+                        show_data4(0);
+                    }
+
+
+                    $(function () {
+                        $(".sortable1, .sortable2").sortable({
+                            connectWith: ".connectedSortable",
+                            stop: function (event, ui) {
+                                if ($(ui.item).closest('ul').find('li').length > 1) { //Checks if a li tag exists
+                                    $(this).sortable("cancel");
+                                }
+                            }
+                        }).disableSelection();
+                    });
+
+                    //CheckBox As Flag - Review As Flag Feature
+                    $('.cbFlag').each(function () {
+                        $(this).hide().after('<div class="class_checkbox"></div>');
+
+                    });
+
+                    $('.class_checkbox').on('click', function () {
+                        $(this).toggleClass('checked').prev().prop('checked', $(this).is('.checked'))
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        }
+
+        //Save unfinished exam details here
+        function SaveExamDetails() {
+            window.onbeforeunload = function (evt) {
+                try {
+                    $.ajax({
+                        url: "/Exam/SaveExamDetails",
+                        data: JSON.stringify({ quesType: quesType, setId: '@TempData["quesSetId"]' }),
+                        contentType: "application/json; charset=utf-8",
+                        type: "POST",
+                        success: function (data) {
+                            alert(data);
+                        },
+                        error: function (x, y, z) {
+                            alert(x.responseText + "  " + x.status);
+                        }
+                    });
+                }
+                catch (e) {
+                }
+            }
+        }
+    });
+</script>
+
+<div>
+    <div class="wrapper">
+        <header class="main-header">
+            <a href="#" class="logo">
+                <span id="siteHeading" style="font-size:140%;color:white;">PASSDEN+</span>
+                <span id="quesNo" style="font-size:100%;color:white;"></span>
+            </a>
+        </header>
+
+        <div class="midLayer">
+            <p class="flagHeading">Flag as review</p>
+        </div>
+
+
+        <div class="hideSection1">
+            <div class="container">
+                <div class="row">
+                    <div class="divs">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hideSection2">
+            <div class="container">
+                <div class="row">
+                    <h2>Review of Situational Judgement Practice Test</h2>
+                    <div class="divs2">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <a class="button button3" id="finish">Finish Test</a>
+    <a class="button button3" id="next">Next</a>
+    <a class="button button3" id="prev">Previous</a>
+</div>

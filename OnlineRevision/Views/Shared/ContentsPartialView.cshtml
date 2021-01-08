@@ -1,0 +1,153 @@
+﻿@model IEnumerable<OnlineRevision.DbContext.StudySectionViewModel>
+@{
+    ViewBag.Title = "Student Details";
+}
+
+<style>
+    #userDetails, .details {
+        font-size: 100%;
+    }
+
+    table th {
+        text-align: center;
+    }
+
+    table.dataTable thead th, table.dataTable thead td {
+        padding: 10px 18px;
+        border-bottom: 0 !important;
+    }
+
+    .box.box-primary {
+        border-top-color: #3c8dbc !important;
+    }
+
+    .subsDetails {
+        font-weight: bold;
+    }
+
+    div.dom_wrapper {
+        position: sticky; /* Fix to the top */
+        top: 0;
+        padding: 5px;
+        background: rgba(255, 255, 255, 1); /* hide the scrolling table */
+    }
+
+    .tableHeader thead th {
+        position: sticky;
+        top: 0;
+    }
+
+    /* Just common table stuff. Really. */
+    .tableHeader table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .tableHeader th, td {
+        padding: 8px 16px;
+    }
+
+    .selected {
+        background-color: #666;
+        color: #fff;
+    }
+
+    .hideId {
+        display:none;
+    }
+</style>
+
+<link href="~/dist/css/jQuery-ui.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#studyContent").sortable({
+            items: 'tr:not(tr:first-child)',
+            cursor: 'pointer',
+            axis: 'y',
+            dropOnEmpty: false,
+            start: function (e, ui) {
+                ui.item.addClass("selected");
+            },
+            stop: function (e, ui) {
+                ui.item.removeClass("selected");
+            },
+            receive: function (e, ui) {
+                $(this).find("tbody").append(ui.item);
+            }
+        });
+    });
+</script>
+
+<a class="btn btn-primary" id="updateContent">Update Preference</a><br /><br />
+
+<table id="studyContent">
+    <tr>
+        <th class="hideId">Id</th>
+        <th>Preference</th>
+        <th>Heading</th>
+        <th>Content</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model.OrderBy(c => c.Preference))
+    {
+        <tr>
+            <td class="details hideId" data-id="@item.Id">
+                @item.Id
+            </td>
+            <td class="details">
+                @item.Preference
+            </td>
+            <td class="details">
+                @item.Heading
+            </td>
+            <td class="details">
+                @Html.Raw(item.StudyContent)
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm mainAnchorContents" id="editContents" data-contentid="@item.Id"><i class="fa fa-pen fa-lg"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        $('.mainAnchorContents').click(function () {
+            var id = $(this).attr("id");
+            var contentId = $(this).attr("data-contentid");
+            console.log(contentId);
+            $("#result").html("Loading ......");
+            $("#result").load('@Url.Action("LoadStudentPartialView", "Dashboard")', { passVal: id, id: contentId });
+        });
+
+        $('#updateContent').on('click', function () {
+            var dataList = $(".details").map(function () {
+                return $(this).data("id");
+            }).get();
+
+            $.ajax({
+                url: "/Dashboard/UpdatePreference",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ contentId: dataList }),
+                success: function (response) {
+                    if (response.value != "") {
+                        alert(response.value);
+                    } else {
+                        alert("Failed!");
+                    }
+                },
+                error: function (er) {
+                    //alert(er);
+                }
+            });
+        });
+    });
+</script>
+
+<script src="~/dist/js/jquery-ui-1.12.1.js"></script>
+
+

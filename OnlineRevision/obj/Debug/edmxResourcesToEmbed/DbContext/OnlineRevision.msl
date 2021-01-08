@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OnlineRevisionModelStoreContainer" CdmEntityContainer="OnlineRevisionEntities">
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Answers)">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttemptedExam">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.AttemptedExam)">
+        <MappingFragment StoreEntitySet="AttemptedExam">
+          <ScalarProperty Name="AttemptedId" ColumnName="AttemptedId" />
+          <ScalarProperty Name="QuesType" ColumnName="QuesType" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Explanation">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Explanation)">
+        <MappingFragment StoreEntitySet="Explanation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaymentDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.PaymentDetails)">
+        <MappingFragment StoreEntitySet="PaymentDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Questions)">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.QuestionSet)">
+        <MappingFragment StoreEntitySet="QuestionSet">
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionSetName" ColumnName="QuestionSetName" />
+          <ScalarProperty Name="Timer" ColumnName="Timer" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Results">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Results)">
+        <MappingFragment StoreEntitySet="Results">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Correct" ColumnName="Correct" />
+          <ScalarProperty Name="Incorrect" ColumnName="Incorrect" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Incomplete" ColumnName="Incomplete" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SampleTable">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.SampleTable)">
+        <MappingFragment StoreEntitySet="SampleTable">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentResults">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.StudentResults)">
+        <MappingFragment StoreEntitySet="StudentResults">
+          <ScalarProperty Name="ResultId" ColumnName="ResultId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+          <ScalarProperty Name="ExamTaken" ColumnName="ExamTaken" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudySection">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.StudySection)">
+        <MappingFragment StoreEntitySet="StudySection">
+          <ScalarProperty Name="Preference" ColumnName="Preference" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sectionId" ColumnName="sectionId" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="StudyContent" ColumnName="StudyContent" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.sysdiagrams)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrackUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.TrackUsers)">
+        <MappingFragment StoreEntitySet="TrackUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.UserDetails)">
+        <MappingFragment StoreEntitySet="UserDetails">
+          <ScalarProperty Name="TabType" ColumnName="TabType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Institution" ColumnName="Institution" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="YearContinuing" ColumnName="YearContinuing" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.UserStatus)">
+        <MappingFragment StoreEntitySet="UserStatus">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserType">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.UserType)">
+        <MappingFragment StoreEntitySet="UserType">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Folders">
+      <EntityTypeMapping TypeName="OnlineRevisionModel.Folders">
+        <MappingFragment StoreEntitySet="Folders">
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="TabName" ColumnName="TabName" />
+          <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

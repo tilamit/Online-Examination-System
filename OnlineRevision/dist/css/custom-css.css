@@ -1,0 +1,1450 @@
+﻿.modal-title {
+    text-align: center;
+}
+
+.modal-ku {
+    width: 400px;
+    margin: auto;
+    top: 8%;
+}
+
+.modal-header-custom {
+    position: relative;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #f9f9f9;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+h4 {
+    font-family: proxima-nova, Arial, Helvetica, sans-serif;
+    font-size: 23px;
+    font-weight: 500;
+    line-height: 25.3px;
+}
+
+.inp-icon {
+    background: url(https://findicons.com/files/icons/1786/oxygen_refit/128/mail.png)no-repeat scroll 9px 14px;
+    background-size: 24px;
+}
+
+div.payment-type-segment {
+    border: 1px solid #e0e7eb;
+    border-radius: 3px;
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+::-webkit-input-placeholder {
+    color: #aaa !important;
+}
+
+:-moz-placeholder {
+    color: #aaa !important;
+}
+
+::-moz-placeholder {
+    color: #aaa !important;
+}
+
+:-ms-input-placeholder {
+    color: #aaa !important;
+}
+
+body {
+    background-color: rgba(220,220,220,.85);
+    margin: 0;
+    font-family: proxima-nova,Arial,Helvetica,sans-serif;
+    color: #444;
+}
+
+input[type=text], input[type=password] {
+    color: #666;
+    padding: 0 16px;
+    font-size: 16px;
+    box-shadow: none;
+    border: 1px solid #e0e5e9;
+    background-color: #fff;
+    height: 50px;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 0 3px rgba(0,0,0,.05);
+}
+
+    input[type=text]:hover, input[type=password]:hover {
+        border: 1px solid #b4c0cb;
+        box-shadow: 0 0 0 3px rgba(0,0,0,.1);
+    }
+
+    input[type=text]:focus, input[type=text]:active, input[type=password]:focus, input[type=password]:active {
+        border-color: #1fb6ff;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    }
+
+.input-error {
+    border-color: red !important;
+}
+
+.has-input-icon {
+    padding-left: 50px !important;
+}
+
+.input-transition {
+    transition-timing-function: ease-in-out;
+    transition-duration: 80ms;
+    transition-property: all;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+    .input-wrapper .input-icon-left {
+        position: absolute;
+        top: 16px;
+        left: 15px;
+        width: 25px;
+        height: 25px;
+    }
+
+.email-icon {
+    background-image: url(/images/payout/email.svg);
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    background-position: 0 1px;
+}
+
+.input-wrapper.active .email-icon {
+    background-position: 0 -40px;
+}
+
+.card-icon {
+    background-image: url(https://payhip.com/images/payout/card.svg);
+    background-repeat: no-repeat;
+    background-size: 25px auto;
+    background-position: 0 1px;
+}
+
+.input-wrapper.active .card-icon {
+    background-position: 0 -41px;
+}
+
+.expiry-icon {
+    background-image: url(https://payhip.com/images/payout/expiry.svg);
+    background-repeat: no-repeat;
+    background-size: 25px auto;
+    background-position: 0 1px;
+    top: 12px !important;
+}
+
+.input-wrapper.active .expiry-icon {
+    background-position: 0 -35px;
+}
+
+.cvc-icon {
+    background-image: url(https://payhip.com/images/payout/cvc.svg);
+    background-repeat: no-repeat;
+    background-size: 25px auto;
+    background-position: 0 1px;
+    top: 14px !important;
+}
+
+.input-wrapper.active .cvc-icon {
+    background-position: 0 -38px;
+}
+
+.coupon-icon {
+    background-image: url(/images/payout/coupon.svg);
+    background-repeat: no-repeat;
+    background-size: 25px auto;
+    background-position: 0 1px;
+}
+
+.input-wrapper.active .coupon-icon {
+    background-position: 0 -40px;
+}
+
+.input-wrapper-zipcode .additional-security-question-zipcode-icon {
+    background-image: url(/images/payout/zipcode.svg);
+    background-repeat: no-repeat;
+    background-size: 30px auto;
+    background-position: 0 -1px;
+    left: 5px;
+}
+
+.input-wrapper.active .additional-security-question-zipcode-icon {
+    background-position: 0 -50px;
+}
+
+.checkout {
+    max-width: 400px;
+    background-color: #fff;
+    margin: 0 auto;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0,0,0,.180392) 0 2px 8px;
+    border-radius: 4px;
+    position: relative;
+    transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+    -webkit-transform: matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1);
+}
+
+body.is-mobile .checkout {
+    -webkit-animation: fadein 1s !important;
+    -moz-animation: fadein 1s !important;
+    animation: fadein 1s !important;
+}
+
+body.subscription-checkout .checkout {
+    max-width: 650px;
+}
+
+.header {
+    position: relative;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #f9f9f9;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    background-image: -webkit-linear-gradient(top,#ffffff 0%,#f9f9f9 100%);
+    background-image: linear-gradient(to bottom,#ffffff 0%,#f9f9f9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff',endColorstr='#f9f9f9',GradientType=0 );
+}
+
+.main {
+    border-top: 1px solid #eaecf1;
+    position: relative;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.section {
+    padding: 30px;
+    position: relative;
+}
+
+.spinner-section {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+a.btn-primary, button.btn-primary {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+    background-color: #64cfe5;
+    background-image: linear-gradient(#64CFE5,#2D95C6);
+    background-image: -webkit-gradient(linear,0% 0%,0% 100%,from(#64CFE5),to(#2D95C6));
+    background-image: -ms-linear-gradient(top,#64CFE5,#2D95C6);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5',endColorstr='#2D95C6');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5', endColorstr='#2D95C6')";
+    border-color: #3784a4;
+    background-repeat: repeat-x;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font-size-adjust: .49;
+    font-style: normal;
+    font-weight: 700;
+    padding: 10px 20px;
+}
+
+    a.btn-primary:hover, a.btn-primary:focus, a.btn-primary:active, button.btn-primary:hover, button.btn-primary:focus, button.btn-primary:active {
+        background-position: 0;
+        transition: none;
+        background-image: linear-gradient(#64CFE5,#3CA3D3);
+        background-image: -webkit-gradient(linear,0% 0%,0% 100%,from(#64CFE5),to(#3CA3D3));
+        background-image: -ms-linear-gradient(top,#64CFE5,#3CA3D3);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5',endColorstr='#3CA3D3');
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5', endColorstr='#3CA3D3')";
+        text-decoration: none;
+        border-color: #3784a4;
+    }
+
+a.btn-default, button.btn-default {
+    background-color: #eee;
+    background-image: -moz-linear-gradient(#fcfcfc,#eee);
+    background-image: -webkit-linear-gradient(#fcfcfc,#eee);
+    background-image: linear-gradient(#fcfcfc,#eee);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fcfcfc',endColorstr='#eee');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#fcfcfc', endColorstr='#eee')";
+    background-repeat: repeat-x;
+    border-radius: 5px 5px 5px 5px;
+    border: 1px solid #d5d5d5;
+    padding: 10px 20px;
+    font-weight: 700;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,.9);
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
+}
+
+    a.btn-default:hover, button.btn-default:hover {
+        background-color: #e9e9e9;
+        background-image: none;
+        text-decoration: none;
+    }
+
+.btn-section {
+}
+
+    .btn-section .btn {
+        padding-top: 13px;
+        padding-bottom: 13px;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: .3px;
+    }
+
+.custom-seller-text {
+    font-size: 16px;
+    color: #999;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-shadow: 1px 1px 0 #fff;
+}
+
+.header .header-image-wrapper {
+    margin: -85px auto 10px;
+    text-align: center;
+}
+
+    .header .header-image-wrapper img {
+        width: 95px;
+        border-radius: 3px;
+    }
+
+.header .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+}
+
+.input-label {
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+}
+
+.price-large-wrapper {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+    .price-large-wrapper .currency {
+        color: #777;
+        font-size: 18px;
+        position: relative;
+        top: -5px;
+    }
+
+    .price-large-wrapper .price {
+        color: #222;
+        font-size: 25px;
+        left: 2px;
+        position: relative;
+    }
+
+    .price-large-wrapper .vat {
+        color: #777;
+        font-size: 14px;
+        position: relative;
+        top: -5px;
+        margin-left: 5px;
+    }
+
+    .price-large-wrapper .vat-country {
+        text-decoration: underline;
+    }
+
+.payment-type-section .pay-with-card-img {
+    width: 30px;
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+}
+
+.payment-type-section .pay-with-paypal-img {
+    width: 24px;
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+}
+
+.card-details-section .security-message {
+    text-transform: none;
+    position: absolute;
+    color: #ccc;
+    cursor: pointer;
+    top: 17px;
+    right: 15px;
+}
+
+    .card-details-section .security-message:hover {
+        color: #999;
+    }
+
+.change-submitted-email-wrapper {
+    position: absolute;
+    bottom: -30px;
+    text-align: center;
+    width: 100%;
+    color: #444;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+    .change-submitted-email-wrapper .change-submitted-email {
+        color: #999;
+        font-weight: 400;
+        text-decoration: underline;
+    }
+
+.payment-type-section .pay-with-card-btn {
+}
+
+.payment-type-section .pay-with-paypal-btn {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.add-coupon-message {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #999;
+}
+
+    .add-coupon-message a {
+        border-bottom: 1px dashed #aaa;
+    }
+
+        .add-coupon-message a:hover {
+            color: #1cb5e3;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+.coupon-section {
+}
+
+    .coupon-section .cancel-coupon-btn {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .coupon-section .coupon-code-invalid-message {
+        text-align: center;
+    }
+
+    .coupon-section .coupon-applied-wrapper {
+        text-align: center;
+    }
+
+        .coupon-section .coupon-applied-wrapper .old-price {
+            text-decoration: line-through;
+            font-size: 18px;
+            color: #999;
+        }
+
+        .coupon-section .coupon-applied-wrapper .alert {
+            text-align: center;
+        }
+
+.cart-reminder-wrapper {
+    text-align: center;
+    color: #999;
+    background-color: #f7f7f7;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eaecf1;
+}
+
+    .cart-reminder-wrapper .glyphicon {
+        color: #ccc;
+        margin-left: 10px;
+        position: relative;
+        top: 2px;
+    }
+
+.cart-section .cart-item-row {
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #666;
+    border-bottom: 1px dashed #ccc;
+}
+
+    .cart-section .cart-item-row:last-child {
+        border-bottom: none;
+    }
+
+.cart-section .remove-cart-item {
+    font-size: 12px;
+}
+
+.cart-section .cart-item-title {
+    font-size: 16px;
+    color: #666;
+}
+
+.cart-section .cart-item-price {
+    text-align: right;
+    color: #999;
+    font-size: 15px;
+    margin-top: 2px;
+}
+
+.cart-section .cart-item-remove-link-loading-wrapper {
+    font-size: 12px;
+    color: #999;
+    font-style: italic;
+}
+
+    .cart-section .cart-item-remove-link-loading-wrapper img {
+        width: 15px;
+    }
+
+.cart-section .cart-item-rows-wrapper {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.collect-email-section select.country-list {
+    width: 100%;
+}
+
+.collect-email-section .email-suggestion-message {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.collect-email-section .error-message {
+    text-align: center;
+    display: none;
+}
+
+.collect-email-section .add-your-email-label {
+    color: #999;
+    margin-bottom: 20px;
+}
+
+    .collect-email-section .add-your-email-label b {
+        color: #444;
+    }
+
+.coupon-added-reminder {
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #999;
+}
+
+.card-details-section .card-purchase-error-message {
+    text-align: center;
+}
+
+.card-details-section .complete-payment-btn {
+    position: relative;
+}
+
+    .card-details-section .complete-payment-btn .spin-element {
+    }
+
+    .card-details-section .complete-payment-btn.standard-state {
+    }
+
+    .card-details-section .complete-payment-btn.loading-state {
+    }
+
+.spin-element {
+    -webkit-animation: spin 1s linear infinite;
+    -moz-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+}
+
+.pwyw-section .choose-a-price-message {
+    text-align: center;
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+    .pwyw-section .choose-a-price-message span {
+        color: #999;
+    }
+
+.pwyw-section .input-group {
+    margin-bottom: 20px;
+}
+
+.pwyw-section input[type=text] {
+    box-shadow: none;
+    border-color: #ccc;
+}
+
+    .pwyw-section input[type=text]:focus {
+        border-color: #aaa;
+    }
+
+.free-download-section .items-ready-for-download-message {
+    text-align: center;
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.download-section .download-product-row .product-title, .subscription-account-section .download-product-row .product-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.download-section .download-product-row .product-license-key, .subscription-account-section .download-product-row .product-license-key {
+    color: #999;
+}
+
+    .download-section .download-product-row .product-license-key b, .subscription-account-section .download-product-row .product-license-key b {
+        color: #444;
+    }
+
+.download-section .download-product-row .product-files, .subscription-account-section .download-product-row .product-files {
+    margin-top: 20px;
+}
+
+.download-section .download-product-row .download-file-row, .subscription-account-section .download-product-row .download-file-row {
+    margin-bottom: 20px;
+}
+
+    .download-section .download-product-row .download-file-row:last-child, .subscription-account-section .download-product-row .download-file-row:last-child {
+        margin-bottom: 0;
+    }
+
+.download-section .download-product-row .file-size, .subscription-account-section .download-product-row .file-size {
+    color: #999;
+}
+
+.download-section .download-product-row, .subscription-account-section .download-product-row {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ddd;
+}
+
+    .download-section .download-product-row:last-child, .subscription-account-section .download-product-row:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+.purchase-success-message-wrapper {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    padding: 15px 60px;
+    text-align: center;
+    background-image: url(/images/payout/purchase-tick.svg);
+    background-repeat: no-repeat;
+    background-size: 32px 32px;
+    background-position: 30px 50%;
+}
+
+.download-in-progress-warning, .download-failed-message {
+    text-align: center;
+}
+
+.paypal-section .paypal-spinner-wrapper {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.paypal-section .paypal-fallback-text-wrapper {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #999;
+    font-style: italic;
+    display: none;
+}
+
+.home-section {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+    .home-section select.country-list {
+        width: 100%;
+    }
+
+    .home-section .add-your-email-label {
+        color: #999;
+        margin-bottom: 20px;
+    }
+
+        .home-section .add-your-email-label b {
+            color: #444;
+        }
+
+    .home-section .input-label {
+        font-size: 12px;
+    }
+
+    .home-section .btn-section {
+    }
+
+    .home-section .security-message-card-only-wrapper {
+        padding: 16px 0;
+        position: relative;
+        border-top: 1px solid #e0e7eb;
+        border-bottom: 1px solid #e0e7eb;
+        -webkit-font-smoothing: antialiased;
+        font-size: 12px;
+        color: #777;
+    }
+
+        .home-section .security-message-card-only-wrapper .lock-icon {
+            position: relative;
+            top: -2px;
+            margin-right: 5px;
+            margin-left: 3px;
+        }
+
+        .home-section .security-message-card-only-wrapper .card-icons {
+            position: absolute;
+            top: 18px;
+            right: -2px;
+            background-image: url(/images/payout/payment-type-label-card.svg);
+            width: 85px;
+            height: 25px;
+            background-repeat: no-repeat;
+            background-size: 80px;
+        }
+
+    .home-section .security-message-paypal-only-wrapper {
+        text-align: center;
+        margin-top: 20px;
+        background-color: #f7f9fa;
+        padding: 10px;
+        margin-left: -30px;
+        margin-right: -30px;
+        margin-bottom: -20px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top: 1px solid #e0e7eb;
+    }
+
+        .home-section .security-message-paypal-only-wrapper .card-paypal-icons img {
+            width: 50px;
+        }
+
+        .home-section .security-message-paypal-only-wrapper .security-message-text {
+            display: block;
+            font-size: 13px;
+            -webkit-font-smoothing: antialiased;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            color: #888;
+        }
+
+            .home-section .security-message-paypal-only-wrapper .security-message-text .lock-icon {
+                position: relative;
+                top: -2px;
+            }
+
+    .home-section .total-before-discounts {
+        text-decoration: line-through;
+        font-size: 18px;
+        color: #999;
+        text-align: center;
+        display: none;
+    }
+
+.subscription-section {
+}
+
+    .subscription-section .input-label {
+        font-size: 12px;
+    }
+
+    .subscription-section .subscription-plan-select-wrapper .cs-wrapper button {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        overflow-x: hidden;
+    }
+
+    .subscription-section .subscriber-details-wrapper .input-label, .subscription-section .subscriber-collect-shipping-address .input-label {
+        text-transform: none;
+        font-size: 14px;
+    }
+
+    .subscription-section .subscriber-details-wrapper .row, .subscription-section .subscriber-collect-shipping-address .row {
+        margin-bottom: 20px;
+    }
+
+    .subscription-section .subscriber-collect-shipping-address .subscriber-shipping-address-country-wrapper button.dropdown-toggle {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .subscription-section .subscriber-collect-shipping-address .shipping-address-label {
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .3px;
+        margin-bottom: 0;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+
+    .subscription-section .subscriber-card-details-wrapper {
+        background-color: #f7f9fa;
+        padding: 20px;
+        padding-top: 0;
+        padding-bottom: 10px;
+        border: 1px solid #e0e7eb;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+
+    .subscription-section .top-signup-login-wrapper {
+        margin-left: -30px;
+        margin-right: -30px;
+        margin-bottom: 30px;
+        margin-top: -10px;
+    }
+
+        .subscription-section .top-signup-login-wrapper .active a .glyphicon {
+            color: #888;
+        }
+
+    .subscription-section .single-plan-subscription-wrapper {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 5px 20px;
+    }
+
+    .subscription-section .single-plan-subscription-info {
+        color: #3fb8af;
+        font-size: 14px;
+    }
+
+    .subscription-section .trial-period-wrapper {
+        padding: 20px 30px;
+        border-top: 1px dashed #ddd;
+        border-bottom: 1px dashed #ddd;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 30px;
+        color: #888;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-style: normal;
+    }
+
+.subscription-success-section {
+}
+
+    .subscription-success-section .subscription-success-message-wrapper {
+        padding: 50px;
+        background-image: url(/images/payout/subscription-success-tick.svg);
+        background-position: 40px 45px;
+        background-repeat: no-repeat;
+        background-size: 50px;
+        color: #666;
+        font-size: 16px;
+        padding-left: 120px;
+    }
+
+.subscription-account-section {
+}
+
+    .subscription-account-section ul.nav-tabs {
+        margin-left: -30px;
+        margin-bottom: 30px;
+        margin-top: -10px;
+        margin-right: -30px;
+    }
+
+    .subscription-account-section .input-label {
+        font-size: 14px;
+        text-transform: none;
+    }
+
+    .subscription-account-section .save-changes-button {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: .3px;
+    }
+
+    .subscription-account-section .delete-account-col {
+        padding-top: 22px;
+    }
+
+    .subscription-account-section .delete-account {
+        font-size: 12px;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: .1px;
+    }
+
+        .subscription-account-section .delete-account:hover {
+            color: #e94e77;
+            text-decoration: none;
+        }
+
+        .subscription-account-section .delete-account span {
+            margin-right: 5px;
+        }
+
+    .subscription-account-section .no-billing-history-wrapper {
+        padding: 30px;
+        color: #999;
+    }
+
+        .subscription-account-section .no-billing-history-wrapper .glyphicon {
+            color: #444;
+        }
+
+    .subscription-account-section .billing-history-wrapper .table > tbody > tr > td {
+        padding: 15px;
+        border-top: 1px dashed #ddd;
+    }
+
+    .subscription-account-section .billing-history-wrapper .table tr:first-child td {
+        border-top: none !important;
+    }
+
+    .subscription-account-section .nav-tabs-wrapper {
+        position: relative;
+    }
+
+        .subscription-account-section .nav-tabs-wrapper .logout-link {
+            position: absolute;
+            right: 0;
+            top: 13px;
+            color: #aaa;
+            font-size: 14px;
+            letter-spacing: .4px;
+        }
+
+            .subscription-account-section .nav-tabs-wrapper .logout-link:hover {
+                color: #1798be;
+                text-decoration: none;
+            }
+
+            .subscription-account-section .nav-tabs-wrapper .logout-link .glyphicon {
+                color: #999;
+                font-size: 14px;
+            }
+
+            .subscription-account-section .nav-tabs-wrapper .logout-link:hover .glyphicon {
+                color: #1798be;
+            }
+
+    .subscription-account-section .subscription-account-new-card-wrapper {
+        background-color: #f7f9fa;
+        padding: 20px;
+        padding-top: 0;
+        padding-bottom: 10px;
+        border: 1px solid #e0e7eb;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 20px;
+    }
+
+        .subscription-account-section .subscription-account-new-card-wrapper .input-label {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+    .subscription-account-section .subscription-account-card-last4 {
+        color: #79bd9a;
+    }
+
+    .subscription-account-section .last4-message {
+        font-size: 15px;
+        color: #666;
+        background-image: url(/images/payout/card-line.svg);
+        background-repeat: no-repeat;
+        padding-left: 40px;
+        margin-bottom: 0;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        background-size: 30px;
+        background-position: 0 9px;
+    }
+
+    .subscription-account-section .change-card-message {
+        font-size: 15px;
+        color: #999;
+        font-style: italic;
+    }
+
+    .subscription-account-section .nav-tabs {
+        padding-left: 30px;
+        padding-right: 120px;
+    }
+
+.email-address-segment .email-suggestion-message {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.error-message-segment .error-message {
+    text-align: center;
+    display: none;
+}
+
+.payment-type-segment {
+    border: 1px solid #e0e7eb;
+    border-radius: 3px;
+    background-color: #fff;
+    margin-bottom: 15px;
+}
+
+    .payment-type-segment .radio-box {
+        display: block;
+        position: relative;
+        text-align: left;
+        min-height: 60px;
+        font-size: 14px;
+        border-top: 1px solid #e0e7eb;
+        background-color: #f7f9fa;
+        outline: none;
+    }
+
+        .payment-type-segment .radio-box:first-child {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+
+        .payment-type-segment .radio-box:last-child {
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+    .payment-type-segment .radio-box-highlighted {
+        background-color: #fff;
+    }
+
+    .payment-type-segment .radio-label {
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        outline: none;
+        padding: 16px 10px;
+        position: relative;
+    }
+
+    .payment-type-segment .radio-box .radio-label .payment-type-radio {
+        width: 13px;
+    }
+
+    .payment-type-segment .radio-box .radio-label .payment-type-name {
+        margin-left: 3px;
+        font-weight: 700;
+    }
+
+    .payment-type-segment .radio-box .radio-label .payment-type-description {
+        display: block;
+        padding-left: 20px;
+        font-size: 12px;
+        padding-top: 3px;
+        color: #777;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .payment-type-segment .radio-box.paypal .radio-label .payment-type-image {
+        position: absolute;
+        top: 18px;
+        right: 15px;
+        background-image: url(https://payhip.com/images/payout/payment-type-label-paypal.svg);
+        width: 70px;
+        height: 20px;
+        background-repeat: no-repeat;
+        background-size: 70px;
+    }
+
+    .payment-type-segment .radio-box.card .radio-label .payment-type-image {
+        position: absolute;
+        top: 18px;
+        right: 8px;
+        background-image: url(https://payhip.com/images/payout/payment-type-label-card.svg);
+        width: 85px;
+        height: 25px;
+        background-repeat: no-repeat;
+        background-size: 80px;
+    }
+
+.card-segment .security-message {
+    text-transform: none;
+    position: absolute;
+    color: #ccc;
+    cursor: pointer;
+    top: 17px;
+    right: 15px;
+}
+
+    .card-segment .security-message:hover {
+        color: #999;
+    }
+
+.card-segment {
+    margin-top: 20px;
+}
+
+.payment-type-segment .card-segment {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 0;
+    display: none;
+    border-top: 1px solid #e0e7eb;
+    padding-top: 15px;
+}
+
+.StripeElement {
+    background-color: #fff;
+    border: 1px solid #e0e5e9;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 0 0 3px rgba(0,0,0,.05);
+    color: #777;
+    margin-right: 20px;
+    padding: 12px;
+    padding-left: 50px;
+    font-size: 16px;
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    width: 100%;
+}
+
+#zipcode-stripe-element.StripeElement {
+    padding-left: 33px;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+.StripeElement:hover {
+    border: 1px solid #b4c0cb;
+    box-shadow: 0 0 0 3px rgba(0,0,0,.1);
+}
+
+.input-wrapper.active .StripeElement {
+    border-color: #1fb6ff;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+}
+
+.additional-security-questions-segment {
+    margin-top: 10px;
+}
+
+    .additional-security-questions-segment .cs-wrapper button {
+        padding-top: 12px !important;
+        padding-bottom: 12px !important;
+        background-color: #f7f9fa;
+        background-image: -moz-linear-gradient(top,#FEFEFE,#F7F9FA);
+        background-image: -webkit-gradient(linear,0 0,0 100%,from(#FEFEFE),to(#F7F9FA));
+        background-image: -webkit-linear-gradient(top,#FEFEFE,#F7F9FA);
+        background-image: -o-linear-gradient(top,#FEFEFE,#F7F9FA);
+        background-image: linear-gradient(to bottom,#FEFEFE,#F7F9FA);
+    }
+
+    .additional-security-questions-segment .additional-security-question-zipcode-input {
+        padding-right: 0;
+        padding-left: 40px !important;
+    }
+
+.subscription-login-segment .input-label {
+    font-size: 14px;
+    text-transform: none;
+}
+
+.subscription-login-segment .forgot-password-info-icon {
+    color: #bbb;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}
+
+.subscription-login-segment .login-button {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: .3px;
+}
+
+.subscription-login-segment .forgot-password-col {
+    padding-top: 15px;
+}
+
+.subscription-forgot-password-segment .input-label {
+    font-size: 14px;
+    text-transform: none;
+}
+
+.subscription-forgot-password-segment .forgot-password-button {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: .3px;
+}
+
+.email-consent-checkbox-segment {
+    color: #999;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.subscription-section .email-consent-checkbox-segment {
+    text-align: left;
+}
+
+.paypal-checkoutjs-button-custom {
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,.25);
+    background-color: #64cfe5;
+    background-image: linear-gradient(#64CFE5,#2D95C6);
+    background-image: -webkit-gradient(linear,0% 0%,0% 100%,from(#64CFE5),to(#2D95C6));
+    background-image: -ms-linear-gradient(top,#64CFE5,#2D95C6);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5',endColorstr='#2D95C6');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5', endColorstr='#2D95C6')";
+    border-color: #3784a4;
+    background-repeat: repeat-x;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    font-size-adjust: .49;
+    font-style: normal;
+    font-weight: 700;
+    height: 44px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .paypal-checkoutjs-button-custom:hover {
+        background-position: 0;
+        transition: none;
+        background-image: linear-gradient(#64CFE5,#3CA3D3);
+        background-image: -webkit-gradient(linear,0% 0%,0% 100%,from(#64CFE5),to(#3CA3D3));
+        background-image: -ms-linear-gradient(top,#64CFE5,#3CA3D3);
+        filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5',endColorstr='#3CA3D3');
+        -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#64CFE5', endColorstr='#3CA3D3')";
+        text-decoration: none;
+        border-color: #3784a4;
+    }
+
+    .paypal-checkoutjs-button-custom .paypal-checkoutjs-button-custom-inner {
+        text-align: center;
+        margin-top: 12px;
+        letter-spacing: .3px;
+        font-size: 13px;
+    }
+
+        .paypal-checkoutjs-button-custom .paypal-checkoutjs-button-custom-inner .text {
+            text-transform: uppercase;
+        }
+
+    .paypal-checkoutjs-button-custom .paypal-checkoutjs-button-real-wrapper {
+        opacity: 0 !important;
+        -ms-filter: "alpha(opacity=0)" !important;
+        filter: alpha(opacity=0) !important;
+        -moz-opacity: 0 !important;
+        -khtml-opacity: 0 !important;
+        -webkit-opacity: .01 !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 200%;
+    }
+
+.checkout-footer {
+    clear: both;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+}
+
+body.subscription-checkout .checkout-footer {
+    max-width: 650px;
+}
+
+.checkout-footer .checkout-footer-left {
+    float: left;
+    width: 50%;
+}
+
+.checkout-footer .checkout-footer-right {
+    float: right;
+    width: 50%;
+    text-align: right;
+    padding-right: 5px;
+}
+
+    .checkout-footer .checkout-footer-right a {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .checkout-footer .checkout-footer-right .separator {
+        color: #bbb;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+.checkout-footer .powered-by-badge {
+    color: #999;
+    font-size: 12px;
+    background-color: #f4f4f4;
+    padding: 5px 15px;
+    position: relative;
+    top: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+    .checkout-footer .powered-by-badge .glyphicon {
+        color: #777;
+    }
+
+    .checkout-footer .powered-by-badge a {
+        font-weight: 700;
+        color: #777;
+    }
+
+        .checkout-footer .powered-by-badge a:hover {
+            color: #666;
+        }
+
+@media only screen and (max-width:1000px) {
+    .subscription-section .agree-to-terms-col {
+        padding-bottom: 20px;
+    }
+
+    .subscription-login-segment .forgot-password-col {
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
+
+    .subscription-account-section .delete-account-col {
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
+
+    .subscription-account-section .nav-tabs {
+        padding-bottom: 5px;
+    }
+
+        .subscription-account-section .nav-tabs > li > a {
+            border-radius: 4px;
+        }
+
+        .subscription-account-section .nav-tabs > li.active > a {
+            border-color: transparent;
+            font-weight: 700;
+        }
+
+    .subscription-account-section .active .nav-tabs > li > a:hover {
+        border-color: transparent;
+    }
+
+    .checkout-footer {
+        width: 100%;
+    }
+
+        .checkout-footer .checkout-footer-left {
+            width: 100%;
+            float: none;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .checkout-footer .checkout-footer-right {
+            width: 100%;
+            float: none;
+            text-align: center;
+            padding-right: 0;
+        }
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

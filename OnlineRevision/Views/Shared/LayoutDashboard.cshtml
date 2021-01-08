@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dashboard</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+
+    @Styles.Render("~/Content/Layout")
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    
+    <style>
+        .navbar .navbar-static-top .skin-blue {
+            background-color: #424242 !important;
+        }
+
+        .req {
+            color: red;
+        }
+
+        .skin-blue .main-header .navbar .nav > li > a {
+            color: white !important;
+        }
+
+        .hideStudentDash {
+            background-color: white;
+        }
+
+        footer {
+            background-color: white;
+        }
+
+        .btn-upload {
+            color:white;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
+            //$("#datepicker").attr("disabled", "disabled");
+        });
+    </script>
+
+    <script type="text/javascript">
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+    </script>
+</head>
+<body class="skin-blue" onload="noBack();"
+      onpageshow="if (event.persisted) noBack();" onunload="">
+    <form id="form1">
+        <div>
+            <div class="wrapper">
+                <header class="main-header">
+                    <a href="#" class="logo">
+                        <span style="font-size:140%;" class="logo-lg">PASSDEN+</span>
+                    </a>
+
+                    <nav class="navbar navbar-static-top skin-black">
+                        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                            <span class="sr-only">Toggle navigation</span>
+                        </a>
+
+                        <div class="navbar-custom-menu">
+                            <ul class="nav navbar-nav">
+                                <!-- Messages: style can be found in dropdown.less-->
+                                <li class="dropdown messages-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    </a>
+
+                                </li>
+                                <!-- Notifications: style can be found in dropdown.less -->
+                                <!-- Tasks: style can be found in dropdown.less -->
+                                <!-- User Account: style can be found in dropdown.less -->
+                                <li class="dropdown user user-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <img src="/UserImages/default.jpg" class="user-image img-circle" />
+                                        <span class="hidden-xs" style='font-size:16px'>@Session["userName"]</span> <i style='font-size:12px' class='fas fa-chevron-down'></i>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+                                        <!-- User image -->
+                                        <li class="user-header">
+                                            <img src="~/UserImages/default.jpg" class="img-circle" alt="User Image">
+
+                                            <div>
+                                                <span class="btn-upload">Upload <input type="file" id="uploadImg" /></span>
+                                            </div>
+
+                                            <p>@Session["userName"] <small>Member since year 2020</small></p>
+                                        </li>
+
+                                        <!-- Menu Footer-->
+                                        <li class="user-footer">
+                                            <div class="pull-left">
+                                                <a data-id="@Session["userId"].ToString()" class="btn btn-default btn-flat anchorDetail">Profile</a>
+                                            </div>
+                                            <div class="pull-right">
+                                                @*<a href="#" class="btn btn-default btn-flat">Sign out</a>*@
+                                                <a href="~/Auth/Logout" class="btn btn-default btn-flat">Sign out</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- Control Sidebar Toggle Button -->
+
+                            </ul>
+                        </div>
+
+                        <div class="navbar-custom-menu">
+                        </div>
+                    </nav>
+                </header>
+
+                <div id='myModal' class='modal'>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div id='myModalContent'></div>
+                        </div>
+                    </div>
+                </div>
+
+                @RenderBody()
+
+                @*<footer>
+                    <p>Copyright &copy; @DateTime.Now.Year - Online Revision Platform</p>
+                </footer>*@
+            </div>
+        </div>
+    </form>
+
+    @Scripts.Render("~/Script/Layout")
+    <script>
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        var urlPat = '@Url.Action("GetAllDetails")';
+        $(".anchorDetail").click(function () {
+            debugger;
+            var $buttonClicked = $(this);
+            var id = $buttonClicked.attr('data-id');
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: urlPat,
+                contentType: "application/json; charset=utf-8",
+                data: { "id": id },
+                datatype: "json",
+                success: function (data) {
+                    debugger;
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal(options);
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic content load failed.");
+                }
+            });
+        });
+
+        $("#closbtn").click(function () {
+            $('#myModal').modal('hide');
+        });
+    });
+</script>
+

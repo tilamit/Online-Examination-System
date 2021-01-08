@@ -1,0 +1,132 @@
+﻿
+@{
+    Layout = null;
+}
+
+<style>
+    .table {
+        border-collapse: collapse;
+    }
+
+        .table tr td:first-child,
+        .table tr th:first-child {
+            border: 2px solid #E5E4E2;
+        }
+
+        .table tr td:last-child,
+        .table tr th:last-child {
+            border: 2px solid #E5E4E2;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        GetAttemptedExamList();
+
+        //Setup Ranking Style Questions
+        var examStatus = "2";
+        var html = "";
+
+        debugger;
+        $.ajax({
+            type: "POST",
+            url: "/Exam/GetRankingType",
+            //data: JSON.stringify({ id: 2, questionId: questionId }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (values) {
+                $.each(values, function (i, value) {
+                    if (examStatus == "2") {
+                        html += '<tr><td><a target="_blank" href="/Exam/IndexDragAndDrop/' + value.QuestionSetId + '" data-id="' + value.QuestionSetId + '" class="btn btn-primary">' + value.QuestionSetName + '</a></td><td></td></tr><br /><br />';
+                    }
+                    else {
+                        html += '<tr><td><a id="examStatus" class="btn btn-primary">' + value.QuestionSetName + '</a></td><td></td></tr><br /><br />';
+                    }
+                });
+
+                $("#quesDetails").append('' + html + '');
+                $('#examStatus').click(function () {
+                    alert("You have an ongoing exam!");
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve states.' + ex);
+            }
+        });
+
+        //Get attempted exam details
+        function GetAttemptedExamList() {
+            var html = "";
+            var progressBars = "";
+
+            $.ajax({
+                type: "POST",
+                url: "/Exam/GetAttemptedExamList",
+                data: JSON.stringify({ userId: '@Session["userId"]', quesType: 2 }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    $.each(values, function (i, value) {
+                        progressBars += '<div><b>' + value.QuestionSetName + '</b> - Attempted ' + value.TotalAttempted + ' / ' + value.TotalQuestions + '</div>';
+                        progressBars += '<div id="bar" ' + i + ' class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="' + value.TotalQuestions + '" style="width:' + (value.TotalAttempted / value.TotalQuestions) * 100 + '%">' + (value.TotalAttempted / value.TotalQuestions) * 100 + '%</div><br/><br/>';
+
+                        progressBars += '<div><a target="_blank" href="/Exam/AttemptedExam/' + value.QuestionSetId + '" class="btn btn-primary continue">Continue</a></div>';
+                    });
+
+                    document.getElementById("progress").innerHTML = progressBars;
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        }
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+
+        @*<div class="box-header with-border">
+                <h3 class="box-title"><b>Test Options</b></h3>
+            </div>*@
+
+        <!-- Table row -->
+        <div class="col-md-5">
+        </div>
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <div class="box box-primary container">
+                    <h2>Ranking Style Practice Questions</h2>
+                    <table class="table table-responsive" id="quesDetails">
+                        <thead>
+                            <tr>
+                                @*<th></th>
+                                    <th></th>*@
+                                @*<th class="border-top-0 border-right border-bottom-0">Exam Name</th>
+                                    <th class="border-top-0 border-right border-bottom-0">Attempted Exam</th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                                <td>
+                                    <div class="quesContent">
+
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+
+

@@ -1,0 +1,86 @@
+﻿#userDetails, .details {
+    font-size: 100%;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    border-bottom: 0 !important;
+}
+
+.box.box-primary {
+    border-top-color: #3c8dbc !important;
+}
+
+.subsDetails {
+    font-weight: bold;
+}
+
+div.dom_wrapper {
+    position: sticky;
+    top: 0;
+    padding: 5px;
+    background: rgba(255, 255, 255, 1);
+}
+
+.tableHeader thead th {
+    position: sticky;
+    top: 0;
+}
+
+.tableHeader table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tableHeader th, td {
+    padding: 8px 16px;
+}
+
+.tableFixHead th {
+}
+
+
+.ui-tabs-nav {
+    background-color: #424242 !important;
+    height: 30px;
+}
+
+.ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: 0.2em 0.2em 0;
+    border: none;
+    background: none;
+    border-radius: 2px 2px 0 0;
+}
+
+    .ui-tabs .ui-tabs-nav li {
+        position: relative;
+        top: -10px !important;
+        border: none;
+        margin: 0 0 -5px 0;
+        background: none;
+    }
+
+.ui-tabs-anchor {
+    color: white !important;
+    text-decoration: underline !important;
+}
+
+#studentTabs ul.ui-widget-header, #studentTabs ul.ui-widget-content, #studentTabs ul.ui-state-default, #studentTabs ul.ui-state-hover {
+    background: none;
+    border: none;
+}
+
+#studentTabs .ui-tabs-active a {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: white;
+    z-index: 5;
+    color: #424242 !important;
+    text-decoration: none !important;
+}
+
+.ui-widget-content a {
+    color: white !important;
+}

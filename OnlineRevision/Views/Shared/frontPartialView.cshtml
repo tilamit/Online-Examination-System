@@ -1,0 +1,75 @@
+﻿<section id="studentArea" class="content">
+    <div class="container aside">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-5 div1">
+                    <div class="small-box bg-aqua bd">
+                        <div id="innerElements" class="inner">
+                            <img src="~/img/graduation-cap-solid.png" height="60" width="60" />
+
+                            <p class="paraStudy">Study</p>
+                            <br />
+                        </div>
+                        <a href="#" id="study2" class="mainAnchor small-box-footer mainAnchor study border">Revise the SJT theory</a>
+                    </div>
+                </div>
+
+                <div class="col-md-5 div1">
+                    <div class="small-box bg-red bd">
+                        <div id="innerElements" class="inner">
+                            <img src="~/img/sort-amount-up-solid.png" height="60" width="60" />
+
+                            <p class="paraStudy">Ranking</p>
+                            <br />
+                            @*<p class="paraStudy">Familiarise yourself with the exam and learn from expert advice</p>*@
+                        </div>
+
+                        <a href="#" id="ranking2" class="mainAnchor small-box-footer border">  Practice ranking style questions </a>
+                    </div>
+                </div>
+
+                <div class="col-md-5 div1">
+                    <div class="small-box bg-red bd">
+                        <div id="innerElements" class="inner">
+                            <img src="~/img/check-square-regular.png" height="60" width="60" />
+
+                            <p class="paraStudy">Best of Three</p>
+                            <br />
+                            @*<p class="paraStudy">Familiarise yourself with the exam and learn from expert advice</p>*@
+                        </div>
+
+                        <a href="#" id="bestOfThree" class="mainAnchor small-box-footer border">  Practice best of three style questions </a>
+                    </div>
+                </div>
+
+                <div class="col-md-5 div1">
+                    <div class="small-box bg-red bd">
+                        <div id="innerElements" class="inner">
+                            <img src="~/img/desktop-solid.png" height="60" width="60" />
+
+
+                            <p class="paraStudy">Simulate</p>
+                            <br />
+                            @*<p class="paraStudy">Familiarise yourself with the exam and learn from expert advice</p>*@
+                        </div>
+
+                        <a href="/Exam/MockExam/9" target="_blank" class="small-box-footer border">  SJT Full Timed Mock </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    $(document).ready(function () {
+        $('.mainAnchor').click(function () {
+            var id = $(this).attr("id");
+            //$("#result").html("Loading ......");
+            //$("#result").html("Loading ......");
+            $("#result").load('@Url.Action("LoadPartialViewAgain", "Dashboard")', { passVal: id });
+
+            $("#chartContainer").hide();
+        });
+    });
+</script>

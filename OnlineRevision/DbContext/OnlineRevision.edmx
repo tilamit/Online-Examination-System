@@ -1,0 +1,668 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnlineRevisionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionSetId" Type="int" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="QuestionAnswers" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="AttemptedExam">
+          <Key>
+            <PropertyRef Name="AttemptedId" />
+          </Key>
+          <Property Name="AttemptedId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuesType" Type="int" />
+          <Property Name="QuestionSetId" Type="int" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="QuestionAnswers" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Details" Type="varchar(max)" />
+          <Property Name="AddedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Explanation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionSetId" Type="int" Nullable="false" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Folders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FolderName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TabName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="PaymentDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentId" Type="nvarchar(max)" />
+          <Property Name="ValidTill" Type="datetime" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+          <Property Name="AddedOn" Type="datetime" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionType" Type="int" />
+          <Property Name="QuestionSetId" Type="int" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="QuestionName" Type="nvarchar(max)" />
+          <Property Name="Options" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="QuestionSet">
+          <Key>
+            <PropertyRef Name="QuestionSetId" />
+          </Key>
+          <Property Name="QuestionSetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionSetName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Timer" Type="int" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionSetId" Type="int" />
+          <Property Name="StudentId" Type="int" />
+          <Property Name="Percentage" Type="float" />
+          <Property Name="Correct" Type="int" />
+          <Property Name="Incorrect" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Incomplete" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SampleTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionName" Type="nvarchar" MaxLength="10" />
+          <Property Name="Options" Type="nvarchar" MaxLength="10" />
+          <Property Name="QuestionAnswers" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="StudentResults">
+          <Key>
+            <PropertyRef Name="ResultId" />
+          </Key>
+          <Property Name="ResultId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" />
+          <Property Name="StudentId" Type="int" />
+          <Property Name="QuestionSetId" Type="int" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="QuestionAnswers" Type="nvarchar(max)" />
+          <Property Name="ExamTaken" Type="datetime" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="StudySection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sectionId" Type="nvarchar" MaxLength="20" />
+          <Property Name="Heading" Type="nvarchar" MaxLength="100" />
+          <Property Name="StudyContent" Type="nvarchar(max)" />
+          <Property Name="AddedBy" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="Preference" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TrackUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="40" />
+          <Property Name="Activity" Type="nvarchar" MaxLength="10" />
+          <Property Name="LoginTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentId" Type="nvarchar(max)" />
+          <Property Name="ValidTill" Type="datetime" />
+          <Property Name="TabType" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="Institution" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="UserType" Type="int" />
+          <Property Name="Sex" Type="int" />
+          <Property Name="ImgPath" Type="nvarchar" MaxLength="60" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="YearContinuing" Type="float" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Details" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="OnlineRevisionModelStoreContainer">
+          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttemptedExam" EntityType="Self.AttemptedExam" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Explanation" EntityType="Self.Explanation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Folders" EntityType="Self.Folders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentDetails" EntityType="Self.PaymentDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionSet" EntityType="Self.QuestionSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SampleTable" EntityType="Self.SampleTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentResults" EntityType="Self.StudentResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudySection" EntityType="Self.StudySection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TrackUsers" EntityType="Self.TrackUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnlineRevisionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Answers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionSetId" Type="Int32" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="QuestionAnswers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AttemptedExam">
+          <Key>
+            <PropertyRef Name="AttemptedId" />
+          </Key>
+          <Property Name="AttemptedId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuesType" Type="Int32" />
+          <Property Name="QuestionSetId" Type="Int32" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="QuestionAnswers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Explanation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionSetId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="PaymentDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValidTill" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AddedOn" Type="DateTime" Precision="3" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Questions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionType" Type="Int32" />
+          <Property Name="QuestionSetId" Type="Int32" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="QuestionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Options" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="QuestionSet">
+          <Key>
+            <PropertyRef Name="QuestionSetId" />
+          </Key>
+          <Property Name="QuestionSetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionSetName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Timer" Type="Int32" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionSetId" Type="Int32" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="Percentage" Type="Double" />
+          <Property Name="Correct" Type="Int32" />
+          <Property Name="Incorrect" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Incomplete" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SampleTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Options" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="QuestionAnswers" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="StudentResults">
+          <Key>
+            <PropertyRef Name="ResultId" />
+          </Key>
+          <Property Name="ResultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" />
+          <Property Name="StudentId" Type="Int32" />
+          <Property Name="QuestionSetId" Type="Int32" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="QuestionAnswers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExamTaken" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="StudySection">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sectionId" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Heading" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StudyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AddedBy" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Preference" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TrackUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Activity" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="LoginTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValidTill" Type="DateTime" Precision="3" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Institution" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" />
+          <Property Name="Sex" Type="Int32" />
+          <Property Name="ImgPath" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="YearContinuing" Type="Double" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="TabType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="OnlineRevisionEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answers" EntityType="Self.Answers" />
+          <EntitySet Name="AttemptedExam" EntityType="Self.AttemptedExam" />
+          <EntitySet Name="Explanation" EntityType="Self.Explanation" />
+          <EntitySet Name="PaymentDetails" EntityType="Self.PaymentDetails" />
+          <EntitySet Name="Questions" EntityType="Self.Questions" />
+          <EntitySet Name="QuestionSet" EntityType="Self.QuestionSet" />
+          <EntitySet Name="Results" EntityType="Self.Results" />
+          <EntitySet Name="SampleTable" EntityType="Self.SampleTable" />
+          <EntitySet Name="StudentResults" EntityType="Self.StudentResults" />
+          <EntitySet Name="StudySection" EntityType="Self.StudySection" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TrackUsers" EntityType="Self.TrackUsers" />
+          <EntitySet Name="UserDetails" EntityType="Self.UserDetails" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatus" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" />
+          <EntitySet Name="Folders" EntityType="OnlineRevisionModel.Folders" />
+        </EntityContainer>
+        <EntityType Name="Folders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TabName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OnlineRevisionModelStoreContainer" CdmEntityContainer="OnlineRevisionEntities">
+    <EntitySetMapping Name="Answers">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Answers)">
+        <MappingFragment StoreEntitySet="Answers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttemptedExam">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.AttemptedExam)">
+        <MappingFragment StoreEntitySet="AttemptedExam">
+          <ScalarProperty Name="AttemptedId" ColumnName="AttemptedId" />
+          <ScalarProperty Name="QuesType" ColumnName="QuesType" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Explanation">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Explanation)">
+        <MappingFragment StoreEntitySet="Explanation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaymentDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.PaymentDetails)">
+        <MappingFragment StoreEntitySet="PaymentDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Questions">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Questions)">
+        <MappingFragment StoreEntitySet="Questions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionType" ColumnName="QuestionType" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QuestionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.QuestionSet)">
+        <MappingFragment StoreEntitySet="QuestionSet">
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionSetName" ColumnName="QuestionSetName" />
+          <ScalarProperty Name="Timer" ColumnName="Timer" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Results">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.Results)">
+        <MappingFragment StoreEntitySet="Results">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Percentage" ColumnName="Percentage" />
+          <ScalarProperty Name="Correct" ColumnName="Correct" />
+          <ScalarProperty Name="Incorrect" ColumnName="Incorrect" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Incomplete" ColumnName="Incomplete" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SampleTable">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.SampleTable)">
+        <MappingFragment StoreEntitySet="SampleTable">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="QuestionName" ColumnName="QuestionName" />
+          <ScalarProperty Name="Options" ColumnName="Options" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentResults">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.StudentResults)">
+        <MappingFragment StoreEntitySet="StudentResults">
+          <ScalarProperty Name="ResultId" ColumnName="ResultId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+          <ScalarProperty Name="QuestionAnswers" ColumnName="QuestionAnswers" />
+          <ScalarProperty Name="ExamTaken" ColumnName="ExamTaken" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudySection">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.StudySection)">
+        <MappingFragment StoreEntitySet="StudySection">
+          <ScalarProperty Name="Preference" ColumnName="Preference" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="sectionId" ColumnName="sectionId" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="StudyContent" ColumnName="StudyContent" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.sysdiagrams)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrackUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.TrackUsers)">
+        <MappingFragment StoreEntitySet="TrackUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.UserDetails)">
+        <MappingFragment StoreEntitySet="UserDetails">
+          <ScalarProperty Name="TabType" ColumnName="TabType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+          <ScalarProperty Name="ValidTill" ColumnName="ValidTill" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Institution" ColumnName="Institution" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="ImgPath" ColumnName="ImgPath" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="YearContinuing" ColumnName="YearContinuing" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserStatus">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.UserStatus)">
+        <MappingFragment StoreEntitySet="UserStatus">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserType">
+      <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.UserType)">
+        <MappingFragment StoreEntitySet="UserType">
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+          <EntitySetMapping Name="Folders">
+            <EntityTypeMapping TypeName="OnlineRevisionModel.Folders">
+              <MappingFragment StoreEntitySet="Folders">
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+                <ScalarProperty Name="TabName" ColumnName="TabName" />
+                <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

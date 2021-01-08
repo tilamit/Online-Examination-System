@@ -1,0 +1,48 @@
+﻿@model IEnumerable<OnlineRevision.DbContext.StudySection>
+@{
+    ViewBag.Title = "Study Section";
+}
+
+<script>
+    $(document).ready(function () {
+        $('.mainAnchorStudy').click(function () {
+            var id = $(this).attr("id");
+            $("#result").load('@Url.Action("LoadPartialView", "Dashboard")', { passVal: id });
+        });
+    });
+</script>
+
+<div class="showLinks">
+    <div class="guide">
+        <div class="row">
+
+            @if (Session["userType"] != null && Session["userType"].ToString() == "1")
+            {
+                <div class="col-md-12">
+                    <div class="box box-primary container">
+                        <a class="btn btn-primary mainAnchorStudy" id="addContent">Add Content</a>
+                        <a class="btn btn-danger mainAnchorStudy" id="updateContent">Update Content</a>
+                    </div>
+                </div>
+            }
+
+            <div class="col-md-12">
+                <div class="box box-primary container">
+                    @foreach (var item in Model.OrderBy(c => c.Preference))
+                    {
+                        <a class="linksTop linksTop1" href="#@item.sectionId">@item.Heading</a> <div class="line"></div>
+                    }
+
+                    @foreach (var item in Model.OrderBy(c => c.Preference))
+                    {
+                        <section id="@item.sectionId">
+                            <h1 class="headingTop">@item.Heading</h1>
+                            <hr class="newHr">
+                            @Html.Raw(item.StudyContent)
+                        </section>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

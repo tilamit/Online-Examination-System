@@ -1,0 +1,154 @@
+body {
+    font-family: 'Work Sans', sans-serif;
+    background: #ffffff;
+    background: radial-gradient(ellipse at center, #ffffff 0%, #d3d3d3 98%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#d3d3d3',GradientType=1 );
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+h1 {
+    text-align: center;
+    padding: 50px;
+    width: 100%;
+    font-size: 22px;
+    line-height: 30px;
+    padding-top: 70px;
+    color: #b3b3b3;
+}
+
+h1 a {
+    color: #00cc99;
+    text-decoration: none;
+}
+
+.login-form {
+    margin: auto;
+    border-radius: 5px;
+    width: 45%;
+    min-width: 300px;
+    position: relative;
+}
+
+.login-form:before, .login-form:after {
+     z-index: -1;
+     position: absolute;
+     content: "";
+     bottom: 15px;
+     left: 10px;
+     width: 50%;
+     top: 80%;
+     max-width: 300px;
+     background: #777;
+     box-shadow: 0 15px 10px #777;
+     -webkit-transform: rotate(-3deg);
+     transform: rotate(-3deg);
+}
+
+.login-form:after {
+     -webkit-transform: rotate(3deg);
+     transform: rotate(3deg);
+     right: 10px;
+     left: auto;
+}
+
+.login-form .header {
+   display: block;
+   width: 100%;
+   padding: 20px;
+   color: white;
+   background: #3c8dbc;
+   box-shadow: inset 0px 0px 61px -20px rgba(0, 0, 0, 0.48);
+}
+
+.login-form form {
+   padding: 30px;
+   background: #f2f2f2;
+}
+
+.login-form .input-wrap {
+   position: relative;
+}
+
+.login-form .input-wrap svg {
+   width: 10%;
+   position: absolute;
+   right: 5px;
+   top: 5px;
+   z-index: +1;
+   fill: #b3b3b3;
+}
+
+.login-form input[type=text], .login-form input[type=password] {
+   margin-bottom: 15px;
+   font-size: 14px;
+   padding: 15px;
+   padding-right: 50px;
+   width: 100%;
+   border-radius: 5px;
+   background: none;
+   box-shadow: none;
+   border: none;
+   box-shadow: inset 0px 0px 61px -20px rgba(0, 0, 0, 0.18);
+   display: block;
+}
+
+.login-form input[type=submit] {
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background: #3c8dbc;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   box-shadow: none;
+   padding: 10px;
+   padding-left: 20px;
+   padding-right: 20px;
+   font-size: 15px;
+   box-shadow: inset 0px 0px 61px -20px rgba(0, 0, 0, 0.18);
+   cursor: pointer;
+}
+
+.login-form input[type=submit]:hover {
+   background: black;
+}
+
+.login-form a {
+   float: right;
+   padding: 6px;
+   text-decoration: none;
+   color: #b3b3b3;
+   font-size: 14px;
+}
+
+.login-form a:hover {
+    color: black;
+}
+
+.error-msg {
+    color: crimson;
+    font-size: 12px;
+    display: block;
+    padding: 20px;
+    padding-left: 20px;
+    padding-right: 0;
+    position: relative;
+    opacity: .7;
+}
+
+.error-msg:before {
+    position: absolute;
+    content: '+';
+    left: 0;
+    top: 12px;
+    font-size: 25px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

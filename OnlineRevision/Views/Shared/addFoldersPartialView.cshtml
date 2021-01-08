@@ -1,0 +1,69 @@
+﻿<div class="container">
+    <div class="col-md-6">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
+
+        <h4 class="modal-title" id="myModalLabel">Folder Details</h4><br />
+
+        <div class="form-group" id="hideId">
+            <label class="comm" for="id">Id</label>
+            <input type="text" name="id" id="userId" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="comm" for="userName">User Name</label><span class="req">*</span>
+            <input type="text" name="userName" id="userName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="comm" for="userNewPass">New Password</label><span class="req">*</span>
+            <input type="text" name="userNewPass" id="userNewPass" class="form-control" />
+        </div>
+
+        <div id="hideCurrPass">
+            <div class="form-group">
+                <label class="comm" for="userCurrPass">Current Password</label><span class="req">*</span>
+                <input type="text" name="userCurrPass" id="userCurrPass" class="form-control" />
+            </div>
+        </div>
+
+        <div id="hidePass">
+            <div class="form-group">
+                <p style="color:red; font-style:italic;font:bold;">Please! Put your current password or password willn't be updated.</p>
+                <label class="comm" for="userCurrPass2">Current Password</label><span class="req">*</span>
+                <input type="text" name="userCurrPass2" id="userCurrPass2" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="comm" for="email">Email</label>
+            <input type="text" name="email" id="email" class="form-control" disabled />
+        </div>
+
+        <div class="form-group">
+            <label class="comm" for="dateOfBirth">Date of Birth <b>(mm/dd/yyyy)</b></label><span class="req">*</span>
+            <input type="text" name="dateOfBirth" id="datepicker" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="comm" for="university">University</label><span class="req">*</span>
+            <input type="text" name="university" id="university" class="form-control" disabled />
+        </div>
+
+        <div class="form-group">
+            <input type="button" id="btnUpdate" class="btn btn-primary" value="Update" />
+            <div id="showMsg"></div>
+        </div>
+    </div>
+</div>
+
+<a id="addNewFolder" class="btn btn-primary">Add</a>
+<script>
+    $(document).ready(function () {
+        var div = $('#studentTabs').html();
+        $("#addNewFolder").click(function () {
+            $('#studentTabs ul li').append("Hello World!");
+        });
+    });
+</script>

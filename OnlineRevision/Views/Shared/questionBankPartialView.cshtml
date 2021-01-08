@@ -1,0 +1,254 @@
+﻿@model IEnumerable<OnlineRevision.DbContext.QuestionSetViewModel>
+@{
+    ViewBag.Title = "Student Details";
+}
+
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>*@
+
+<style>
+    .asideQues {
+        float: right;
+    }
+
+    .acc {
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    .acc__card {
+        margin: 2em;
+        position: relative;
+    }
+
+    .acc__title {
+        font-weight: bold;
+        cursor: pointer;
+        display: block;
+        padding: 1em 1.5em;
+        position: relative;
+        text-align: left;
+        &::after;
+
+    {
+        width: 8px;
+        height: 8px;
+        border-right: 1px solid #4a6e78;
+        border-bottom: 1px solid #4a6e78;
+        position: absolute;
+        right: 10px;
+        content: " ";
+        top: 17px;
+        transform: rotate(-45deg);
+        transition: all 0.2s ease-in-out;
+    }
+
+    .active::after {
+        transform: rotate(45deg);
+        transition: all 0.2s ease-in-out;
+    }
+
+    }
+
+    .acc__panel {
+        display: none;
+        margin: 0;
+        padding: 1.6%;
+        text-align: left;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><b>Question Bank</b></h3>
+            </div>
+
+            <div class="asideQues"><a href="#" class="btn btn-github">Show Questions</a></div>
+
+            <div class="hideAddQuestion">
+                <!-- Table row -->
+                <div class="row">
+                    <div class="col-md-5">
+                        Questions Set
+                        <input type="text" id="quesSetName" class="form-control" />
+                    </div>
+
+                    <div class="col-xs-12 table-responsive">
+                        <table class="table table-striped table-condensed" id="questionDetails">
+                            <thead>
+                                <tr>
+                                    <th>Question Name</th>
+                                    <th>Options</th>
+                                    <th>Answers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                <tr>
+                                    <td class="col-xs-3">
+                                        <input type="text" class="txtQuestionName form-control" name="txtQuestionName" value="" /> &nbsp;
+                                    </td>
+                                    <td class="col-xs-3">
+                                        <input type="text" class="txtOptions form-control" name="txtOptions" value="" /> <span class="addOptions">(+)</span> &nbsp;
+                                    </td>
+                                    <td class="col-xs-3">
+                                        <input type="text" class="txtAnswers form-control" value="" /> <span class="addAnswers">(+)</span> &nbsp;
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0);" id="btnAdd" class="btn btn-primary">Add</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <input type="button" id="btnSave" value="Save All" class="btn btn-primary" />
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+
+            <div class="hideQuestionDetails">
+                <div class="acc">
+                </div>
+            </div>
+
+            <!-- /.row -->
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".hideQuestionDetails").hide();
+        $(".chartArea").hide();
+
+        //Add Questions - Starts Here
+        //Add row to the table
+        $('#btnAdd').on('click', function () {
+            var $clone = $('#tblQuesAns tbody tr:last').clone();
+            $clone.find('input').val('')
+            $('#tblQuesAns tbody').append('<tr><td><input type="text" class="txtQuestionName form-control" placeholder="Input Name" /> &nbsp;</td> <td><input type="text" class="txtOptions form-control" placeholder="Input Value" /><span class="addOptions">(+)</span></td> <td><input type="text" class="txtAnswers form-control" class="form-control" placeholder="Input Value" /> <a href="javascript:void(0);" class="btn btn-danger remCF">Remove</a></td> &nbsp;</tr>');
+
+        });
+
+        //Add more rows for option
+        $('body').on('click', '.addOptions', function () {
+            $(this).parent().append('<div><input class="txtOptions form-control" name="" type="text" /></div><br />');
+        });
+
+        //Add more rows for answer
+        $('body').on('click', '.addAnswers', function () {
+            $(this).parent().append('<div><input class="txtAnswers form-control" type="text" /></div><br />');
+        });
+
+        $("#btnAdd").click(function () {
+            $("#questionDetails").append('<tr><td><input type="text" class="txtQuestionName form-control" class="form-control" /></td> <td><input type="text" class="txtOptions form-control" /><span class="addOptions">(+)</span></td> <td><input type="text" class="txtAnswers form-control" /> <span class="addAnswers">(+)</span></td> <td><a href="javascript:void(0);" class="btn btn-danger remCF">Remove</a></td> &nbsp;</tr>');
+        });
+
+        $("#questionDetails").on('click', '.remCF', function () {
+            $(this).parent().parent().remove();
+        });
+
+        $('#btnSave').click(function () {
+            debugger;
+            var QuestionSetViewModel = new Array();
+
+            var quesSetName = $("#quesSetName").val();
+
+            const allData = $('#questionDetails tbody tr').map(function () {
+                var question = {};
+
+                const $row = $(this),
+                  questionName = $row.find('.txtQuestionName').val();
+                question.QuestionName = questionName;
+
+                options = $row.find('.txtOptions').map(function () {
+                    return this.value;
+                }).get().join("_");
+
+                question.Options = options;
+
+                answers = $row.find('.txtAnswers').map(function () {
+                    return this.value;
+                }).get().join("_");
+
+                alert(options + ' ' + answers);
+
+                question.QuestionAnswers = answers;
+
+                QuestionSetViewModel.push(question);
+            }).get();
+
+            //Add questions here
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/AddQuestions",
+                data: JSON.stringify({ quesSetName: quesSetName, QuestionSetViewModel: QuestionSetViewModel }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r) {
+                    alert("Questions added successfully!");
+                    $("#tBody").empty();
+                }
+            });
+        });
+        //Add Questions - Ends Here
+
+        //Get Question Details - Starts
+        $('.asideQues').click(function () {
+            $('.hideAddQuestion').hide();
+            $('.asideQues').hide();
+            $('.hideQuestionDetails').show();
+
+
+            var html = "";
+            $.ajax({
+                type: "POST",
+                url: "/Dashboard/GetQuestionDetails",
+                //data: JSON.stringify({ id: 1 }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    $.each(values, function (i, value) {
+                        html += '<div class="acc__card"> <div class="acc__title">' + value.QuestionName + '</div>';
+                        $.each(value.AllOptions, function (key, val) {
+                            var num = parseInt(key) + 1;
+                            html += '<div class="acc__panel"><b>' + num + '</b> ';
+                            html += val;
+                            html += ' </div>';
+                        })
+
+                        html += '</div>';
+                    });
+
+                    $(".hideQuestionDetails").append(html);
+
+                    $('.acc__title').click(function (j) {
+
+                        var dropDown = $(this).closest('.acc__card').find('.acc__panel');
+                        $(this).closest('.acc').find('.acc__panel').not(dropDown).slideUp();
+
+                        if ($(this).hasClass('active')) {
+                            $(this).removeClass('active');
+                        } else {
+                            $(this).closest('.acc').find('.acc__title.active').removeClass('active');
+                            $(this).addClass('active');
+                        }
+
+                        dropDown.stop(false, true).slideToggle();
+                        j.preventDefault();
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        });
+        //Get Question Details - Ends
+
+        $(function () {
+
+        });
+    });
+</script>

@@ -1,0 +1,141 @@
+﻿@{
+    Layout = null;
+}
+
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+@*<script src="~/dist/js/jquery.circle-progress.js"></script>*@
+<script src="~/js/circle-progress.js"></script>
+
+<style>
+    .circle-progress-value {
+        stroke-width: 50px;
+        stroke: hsl(160, 63%, 55%);
+    }
+
+    .circle-progress-circle {
+        stroke-width: 50px;
+        stroke: #999;
+    }
+
+    .circle-progress-text {
+        fill: white;
+    }
+
+    .progress {
+        height: 200px;
+        text-align: center;
+        width: 100%;
+        display: block;
+    }
+
+    svg {
+        height: 200px !important;
+        width: 200px !important;
+    }
+
+    /*.totalResults {
+        text-align: center;
+    }*/
+
+    .result {
+        display: flex;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-evenly;
+        text-align: center;
+        flex: 0 0 33.333333%;
+        flex-wrap: wrap;
+        padding-left: 0;
+    }
+
+    .totalResults {
+        font:60px;
+        /*display: flex;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-evenly;
+        text-align: center;
+        flex: 0 0 33.333333%;
+        flex-wrap: wrap;
+        padding-left: 0;*/
+    }
+</style>
+
+<script>
+    GetResults();
+
+    function GetResults() {
+        debugger;
+        var html = "";
+        var html2 = "";
+
+        var mainDiv = document.querySelector('.result')
+
+        $.ajax({
+            type: "POST",
+            url: "/Result/GetResult",
+            data: JSON.stringify({ userId: '@Session["userId"]' }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (values) {
+
+                $.each(values, function (i, value) {
+                    //var date = new Date(value.CreatedOn);
+                    var date = new Date(parseInt(value.CreatedOn.substr(6)));
+                    var dateFormatted = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + (date.getUTCDate());
+
+                    html += "<div class='col-md-2'>";
+                    html += '<a target="_blank" class="result" href="/Result/ShowResult?Id=' + value.Id + '&setId=' + value.QuestionSetId + '">' + value.Id + '</a>';
+
+
+                    //html2 += '<div class="progress val' + value.Id + '"></div>';
+
+                    var chartDiv = document.createElement("DIV")
+                    chartDiv.classList = "progress" + i
+                    mainDiv.appendChild(chartDiv)
+
+                    new CircleProgress('.progress' + i, {
+                        max: parseInt(value.Correct) + parseInt(value.Incorrect) + parseInt(value.Incomplete),
+                        value: parseInt(value.Correct),
+                        textFormat: 'vertical',
+                    });
+                    $(".totalResults").append('<a target="_blank" class="result" href="/Result/ShowResult?Id=' + value.Id + '&setId=' + value.QuestionSetId + '">Exam given on - ' + date + '</a>');
+                    html += "</div>";
+                });
+
+                //$(".allCircles").append(html2);
+                //$(".totalResults").append(html);
+            },
+            error: function (ex) {
+                alert('Failed to retrieve states.' + ex);
+            }
+        });
+    }
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="box-header with-border">
+            <h3 class="box-title"><b>Test Result</b></h3>
+        </div>
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="box box-primary container">
+                <div class="totalResults">
+                </div><br/><br />
+                <div class='col-md-12'>
+                    <div class="result">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,239 @@
+﻿@{
+    Layout = null;
+}
+
+
+<style>
+    .input-mysize {
+        width: 200px;
+    }
+
+    .progress {
+        /*height:40px;*/
+    }
+
+    #bar {
+        font-size: 100%;
+        padding: 0px;
+    }
+
+    .heading {
+        font-size: 160%;
+    }
+
+    .table {
+        border-collapse: collapse;
+    }
+
+        .table tr td:first-child,
+        .table tr th:first-child {
+            border: 2px solid #E5E4E2;
+        }
+
+        .table tr td:last-child,
+        .table tr th:last-child {
+            border: 2px solid #E5E4E2;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        GetAttemptedExamList();
+
+        $('.continue').hide();
+        var html = "";
+        $.ajax({
+            type: "POST",
+            url: "/Exam/GetBestOfThreeType",
+            //data: JSON.stringify({ id: 2, questionId: questionId }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (values) {
+                $.each(values, function (i, value) {
+                    html += '<tr><td><a target="_blank" href="/Exam/Index/' + value.QuestionSetId + '" data-id="' + value.QuestionSetId + '" class="btn btn-primary">' + value.QuestionSetName + '</a></td><td></td></tr><br /><br />';
+                });
+
+                $("#quesDetails").append('' + html + '');
+                //$(".quesContentBestOfThree").append(html);
+            },
+            error: function (ex) {
+                alert('Failed to retrieve states.' + ex);
+            }
+        });
+
+        //Get attempted exam details
+        function GetAttemptedExamList() {
+            var html = "";
+            var progressBars = "";
+
+            $.ajax({
+                type: "POST",
+                url: "/Exam/GetAttemptedExamList",
+                data: JSON.stringify({ userId: '@Session["userId"]', quesType: 1 }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    $.each(values, function (i, value) {
+                        progressBars += '<div><b>' + value.QuestionSetName + '</b> - Attempted ' + value.TotalAttempted + ' out of ' + value.TotalQuestions + '</div>';
+                        progressBars += '<div id="bar" ' + i + ' class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="' + value.TotalQuestions + '" style="width:' + (value.TotalAttempted / value.TotalQuestions) * 100 + '%">' + (value.TotalAttempted / value.TotalQuestions) * 100 + '%</div><br/><br/>';
+
+                        progressBars += '<div><a target="_blank" href="/Exam/AttemptedExam/' + value.QuestionSetId + '" class="btn btn-primary continue">Continue</a></div>';
+                    });
+
+                    document.getElementById("progress").innerHTML = progressBars;
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        }
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <!-- Table row -->
+        <div class="col-md-5">
+        </div>
+
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <div class="box box-primary container">
+                    <h2>Best of Three Practice Questions</h2>
+                    <table class="table table-responsive" id="quesDetails">
+                        <thead>
+                            <tr></tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                                <td>
+                                    <div class="quesContentBestOfThree">
+
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>*@
+                            @*<tr>
+                                <td>
+                                    <div>
+                                        <input type="button" class="btn btn-primary" value="Practice Test 2" />
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <!-- /.row -->
+            @*<div class="examLinksBestOfThree">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-primary container">
+                                <h2>Best of Three Practice Questions</h2>
+                                <div class="quesContentBestOfThree">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary container">
+                            <h2>Attempted Exam</h2>
+
+                            <div class="attempted"></div>
+                            <div id="progress">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+
+                    </div>
+                </div>*@
+
+        </div>
+        <!-- /.col -->
+    </div>
+</div>
+
+
+@*<style>
+        .input-mysize {
+            width: 200px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#go").click(function () {
+                debugger;
+
+                var id = $('#quesVal').val();
+                var url = '/Exam/Index/' + id;
+                window.open(url, '_blank');
+            });
+        });
+    </script>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><b>Test Options</b></h3>
+                </div>
+
+                <!-- Table row -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-md-5">
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="inputLabel">
+                                    Question Set
+                                </div>
+                                <div class="input-group form-group">
+                                    <select name="queSet" id="quesVal" class="form-control input-mysize">
+                                        <option value="0">--Select Ques Set--</option>
+                                        <option value="1">Question Set 1</option>
+                                        <option value="2">Question Set 2</option>
+                                    </select>
+                                </div>
+
+                                <div class="inputLabel">
+                                    Discipline
+                                </div>
+                                <div class="input-group form-group">
+                                    <select name="discipline" class="form-control input-mysize">
+                                        <option value="0">--Select Discipline--</option>
+                                        <option value="All">All</option>
+                                    </select>
+                                </div>
+
+                                <input type="button" class="btn btn-primary" id="go" value="Let's Go" />
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+    </div>*@

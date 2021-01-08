@@ -1,0 +1,391 @@
+﻿@model List<OnlineRevision.DbContext.QuestionSetViewModel>
+@{
+    Layout = null;
+}
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<title>Result</title>
+
+<style>
+    .container-fluid {
+        background-color: #236EAB;
+    }
+
+    .container-fluidNew {
+        background-color: #81AFE1 !important;
+        padding: 0.6%;
+    }
+
+    .headerSection1 {
+        background-color: #236EAB;
+        color: #ffffff;
+        padding: 0px;
+        margin-left: -1%;
+    }
+
+    .flagHeading {
+        float: right;
+        color: white;
+        margin-right: 1%;
+    }
+
+    .questionName {
+        width: 100%;
+        font-size: 15px;
+        text-align: justify;
+        margin-top: 3%;
+        margin-left: 0;
+        font-family: 'Proxima Nova';
+    }
+
+    .heading2 {
+        padding: 0.4%;
+        margin-left: 3%;
+    }
+
+    .class_checkbox {
+        width: 20px;
+        height: 18px;
+        display: block;
+        position: absolute;
+        /* float: right; */
+        top: 66px;
+        right: 108px;
+        background: url(https://i.ibb.co/1GnSqmp/example.png);
+        /* margin-top: -58px; */
+    }
+
+        .class_checkbox.checked {
+            width: 20px;
+            height: 18px;
+            background: url(https://i.ibb.co/jWxbHF5/example-02.png);
+        }
+
+    .continaer-fluid-override {
+        background-color: #81AFE1;
+        /*margin-top: 0.2%;*/
+        padding: 0.2%;
+    }
+
+    .continaer-fluid-top-override {
+        background-color: transparent !important;
+        color: black;
+        float: right;
+        margin-top: 0;
+        margin-right: -0.4%;
+    }
+
+    .footer {
+        background-color: #236EAB;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        text-align: center;
+    }
+
+    .button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: 2px solid white;
+        font-size: 120%;
+        font-family: 'Proxima Nova';
+        float: right;
+    }
+
+    .button3 {
+        padding: 14px 40px;
+    }
+
+    #viewQuestions, #viewAnswers {
+        float: left;
+        color: white;
+        background-color: #236EAB;
+        font-size: 16px;
+        display: inline-block;
+        margin: 4px 2px;
+        border: 2px solid white;
+        font-size: 120%;
+        font-family: 'Proxima Nova';
+        padding: 14px 40px;
+    }
+
+    #finish {
+        position: absolute;
+        float: left;
+        color: white;
+        background-color: #236EAB;
+        font-size: 16px;
+        display: inline-block;
+        margin: 4px 188px;
+        border: 2px solid white;
+        font-size: 120%;
+        font-family: 'Proxima Nova';
+        padding: 14px 40px;
+    }
+
+    .vl {
+        border-right: 6px solid #236EAB;
+        height: 100vmax;
+        margin-top: -20px;
+    }
+
+    .card-body {
+        display: flex;
+    }
+
+    .col {
+        padding: 10px;
+    }
+
+    .border-line {
+        border-right: 6px solid #236EAB;
+        display: flex;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+
+    .column {
+        border: 1px solid black;
+        float: left;
+        width: 30%;
+        padding: 10px;
+        height: 60px; /* Should be removed. Only for demonstration */
+    }
+
+    .footer {
+        bottom: 0;
+        height: 10vh;
+        color: white;
+        background-color: #236EAB;
+        width: 100%;
+    }
+
+    .h4Heading {
+        margin-top: -2%;
+    }
+
+    .top {
+        font-size: 170%;
+        font-family: 'Proxima Nova';
+        margin-top: 2%;
+    }
+
+    a.getVal {
+        float: right;
+    }
+
+    .status {
+        color: orange;
+    }
+</style>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".hideSection1").hide();
+        $(".hideSection2").show();
+
+        $("#review").hide();
+
+        divs = $(".divs").children();
+        divs.each(function (e) {
+            if (e != 0)
+                $(this).hide();
+        });
+
+        var questionId = 0;
+
+        //Redirect To Individual Question
+        $(".divs2").on("click", "a.getVal", function () {
+            debugger;
+
+            $(".hideSection1").show();
+            $("#review").show();
+            $(".hideSection2").hide();
+            //get id
+            var id2 = $(this).attr("data-id");
+            questionId = id2;
+
+            var html = "";
+            var message = "";
+
+            //Get Answers
+            $.ajax({
+                type: "POST",
+                url: "/Result/GetAnswers",
+                data: JSON.stringify({ id: '@TempData["quesSet"]', questionId: id2 }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    message = values;
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+
+            //Show Question Details
+            debugger;
+            $.ajax({
+                type: "POST",
+                url: "/Result/GetQuestions",
+                data: JSON.stringify({ id: '@TempData["quesSet"]', questionId: questionId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    $.each(values, function (i, value) {
+                        html += '<div class="heading"><div class="h2Val" style="display:none;">' + value.QuestionId + '</div> <div class="questionName">' + value.QuestionName + '</div><br />';
+
+                        $.each(value.AllOptions, function (key, val) {
+                            html += '<div class="heading2">';
+                            html += val;
+                            html += '</div>';
+                        })
+
+                        html += '</div>';
+
+                        $(".divs").append(html);
+
+                        //Highlight Matching Answers Here
+                        let str = message;
+                        $(".heading2").filter(function () {
+                            return str.split(/, |,/).some(s => $(this).is(':contains(' + s + ')'));
+                        })
+                        .css("color", "green");
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        });
+
+        var percentage = "";
+        //Show Attempted Question Review
+        $.ajax({
+            type: "POST",
+            url: "/Result/GetAttemptedQuestions",
+            data: JSON.stringify({ resultId: '@TempData["result"]', quesSetId: '@TempData["quesSet"]' }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+
+            success: function (values) {
+                $.each(values, function (i, value) {
+                    if (value.QuestionAnswers == "") {
+                        $(".divs2").append('<div class="column">Question ' + value.QuestionId + ' <span class="status">Incomplete</span><a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                    } else if (value.QuestionAnswers == "Correct") {
+                        $(".divs2").append('<div class="column"><img src="/img/tick.jpg" height="20" width="20" /> Question ' + value.QuestionId + '<a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                    } else if (value.QuestionAnswers == "Wrong") {
+                        $(".divs2").append('<div class="column"><img src="/img/cross.png" height="20" width="20" /> Question ' + value.QuestionId + '<a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                    }
+
+                    percentage = value.Percentage;
+                });
+            },
+            error: function (ex) {
+                alert('Failed to retrieve states.' + ex);
+            }
+        });
+
+        //Redirect To Result Page
+        $("#review").click(function () {
+            debugger;
+
+            $(".hideSection1").hide();
+            $(".hideSection2").show();
+
+            $(".divs").empty();
+        });
+    });
+</script>
+
+<!--Newly added for exam section - Heading-->
+<div class="container-fluid">
+    <div class="headerSection1">
+        <h2 class="top">&nbsp;&nbsp;PASSDEN+</h2>
+        <h4 class="h4Heading text-right">
+            <a class="quesNoR" style="font-size:100%;color:white;font-size:14px;"></a> <br />
+            <a class="quesNo" style="font-size:100%;color:white;font-size:14px;"></a>
+        </h4>
+    </div>
+</div>
+
+<div class="continaer-fluid continaer-fluid-override"><br />
+    <span class="flagHeading"><span class="flag"></span></span>
+</div>
+
+<div class="heading">
+    <div class="container-fluid continaer-fluid-override">
+
+    </div>
+</div>
+
+
+<div class="hideSection1">
+    <div class="container">
+        <div class="continaer-fluid divs">
+
+        </div>
+    </div>
+</div>
+
+<div class="hideSection2">
+    <div class="container">
+        <div class="row">
+            <h2>Result of Situational Judgement Practice Test</h2><br />
+
+            <div class="col-md-4">
+                <div class="percent" style="width:280px;height:280px;">
+                    <p style="display:none;">@TempData["Percentage"]</p>
+                </div>
+            </div>
+
+            <div class="divs2">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+<script src="~/js/ProgressBar/jQuery.circleProgressBar.js"></script>
+<script>
+    $('.percent').percentageLoader({
+        valElement: 'p',
+        strokeWidth: 8,
+        bgColor: '#d9d9d9',
+        ringColor: '#d53f3f',
+        textColor: '#9a9a9a',
+        fontSize: '40px',
+        fontWeight: 'normal'
+    });
+
+    //Show explanation of answers
+    $('.majorpoints').click(function () {
+        $(this).find('.hiders').toggle();
+    });
+</script>
+
+<div class="footer">
+    <a class="button button3" id="review">Back To Review</a>
+</div>
+
+

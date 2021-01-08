@@ -1,0 +1,139 @@
+﻿<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+
+<script type="text/javascript">
+    $("#hideId").hide();
+
+    $(function () {
+        $("#datepicker").datepicker({ dateFormat: 'yyyy-mm-dd' });
+    });
+</script>
+
+<form method="post" id="docForm">
+    <div class="container">
+        <div class="col-md-6">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+
+            <h4 class="modal-title" id="myModalLabel">User Details</h4><br />
+
+            <div class="form-group" id="hideId">
+                <label class="comm" for="id">Id</label>
+                <input type="text" name="id" id="userId" value="@ViewBag.Id" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="comm" for="userName">User Name</label><span class="req">*</span>
+                <input type="text" name="userName" id="userName" value="@ViewBag.UserName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="comm" for="userNewPass">New Password</label><span class="req">*</span>
+                <input type="text" name="userNewPass" id="userNewPass" class="form-control" />
+            </div>
+
+            <div id="hideCurrPass">
+                <div class="form-group">
+                    <label class="comm" for="userCurrPass">Current Password</label><span class="req">*</span>
+                    <input type="text" name="userCurrPass" id="userCurrPass" value="@ViewBag.UserPass" class="form-control" />
+                </div>
+            </div>
+
+            <div id="hidePass">
+                <div class="form-group">
+                    <p style="color:red; font-style:italic;font:bold;">Please! Put your current password or password willn't be updated.</p>
+                    <label class="comm" for="userCurrPass2">Current Password</label><span class="req">*</span>
+                    <input type="text" name="userCurrPass2" id="userCurrPass2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="comm" for="email">Email</label>
+                <input type="text" name="email" id="email" value="@ViewBag.Email" class="form-control" disabled />
+            </div>
+
+            <div class="form-group">
+                <label class="comm" for="dateOfBirth">Date of Birth <b>(mm/dd/yyyy)</b></label><span class="req">*</span>
+                <input type="text" name="dateOfBirth" id="datepicker" value="@ViewBag.DateOfBirth" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="comm" for="university">University</label><span class="req">*</span>
+                <input type="text" name="university" id="university" value="@ViewBag.University" class="form-control" disabled />
+            </div>
+
+            <div class="form-group">
+                <input type="button" id="btnUpdate" class="btn btn-primary" value="Update" />
+                <div id="showMsg"></div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var urlUsers = '@Url.Action("UpdateUsers")';
+    $("#hideId").hide();
+    $("#hidePass").hide();
+
+    debugger;
+    $('body').on('change', '#userNewPass', function () {
+        if ($("#userNewPass").val().length > 0) {
+            $("#hidePass").show();
+            $("#hideCurrPass").hide();
+            alert(newPass);
+        } else {
+            $("#hidePass").hide();
+            $("#hideCurrPass").show();
+        }
+    });
+
+    $('#btnUpdate').click(function () {
+        var newPass = "";
+        var userPass = "";
+        var userPassPre = "";
+
+        debugger;
+        var id = $("#userId").val();
+        var userName = $("#userName").val();
+        var email = $("#email").val();
+        var dateOfBirth = $("#datepicker").val();
+
+        if ($("#userNewPass").val().length > 0) {
+            userPass = $("#userNewPass").val();
+            userPassPre = $("#userCurrPass2").val();
+            newPass = parseInt(1);
+        } else {
+            userPass = $("#userCurrPass").val();
+            userPassPre = "";
+            newPass = parseInt(0);
+        }
+
+        var UserDetails = {};
+
+        UserDetails.UserId = id;
+        UserDetails.UserName = userName;
+        UserDetails.Email = email;
+        UserDetails.DateOfBirth = dateOfBirth;
+        UserDetails.Password = userPass;
+        UserDetails.NewPass = newPass;
+        UserDetails.UserPassPre = userPassPre;
+
+        function isValidDate(dateString) {
+            var regEx = /^\d{4}-\d{2}-\d{2}$/;
+            return dateString.match(regEx) != null;
+        }
+
+        function isValidDate2(dateString) {
+            var regEx = /^\d{2}-\d{2}-\d{4}$/;
+            return dateString.match(regEx) != null;
+        }
+
+        $.post(urlUsers, UserDetails, function (response) {
+            if (response) {
+                alert("Updated!");
+            }
+        }).fail(function () {
+            alert("Oops! Didn't update.");
+        });
+    });
+</script>

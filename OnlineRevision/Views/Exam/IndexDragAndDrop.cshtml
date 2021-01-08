@@ -1,0 +1,777 @@
+﻿@*@model List<OnlineRevision.DbContext.QuestionSetViewModel>*@
+
+@{
+    Layout = null;
+}
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<title>Ranking Style</title>
+
+<style>
+    .container-fluid {
+        background-color: #236EAB;
+    }
+
+    .container-fluidNew {
+        background-color: #81AFE1 !important;
+        padding: 0.6%;
+    }
+
+    .headerSection1 {
+        background-color: #236EAB;
+        color: #ffffff;
+        padding: 0px;
+        margin-left: -1%;
+    }
+
+    .flagHeading {
+        float: right;
+        color: white;
+        margin-right: 1%;
+    }
+
+    .questionName {
+        width: 100%;
+        font-size: 14px;
+        text-align: justify;
+        margin-top: 3%;
+        margin-left: 0;
+        font-family: 'Proxima Nova';
+    }
+
+    .heading2 {
+        padding: 0.4%;
+        margin-left: 3%;
+    }
+
+    .class_checkbox {
+        width: 20px;
+        height: 18px;
+        display: block;
+        position: absolute;
+        /* float: right; */
+        top: 59px;
+        right: 108px;
+        background: url(https://i.ibb.co/1GnSqmp/example.png);
+        /* margin-top: -58px; */
+    }
+
+        .class_checkbox.checked {
+            width: 20px;
+            height: 18px;
+            background: url(https://i.ibb.co/jWxbHF5/example-02.png);
+        }
+
+    .h2Val {
+        position: absolute;
+        display: block;
+        top: 23px;
+        right: 50px;
+        color: white;
+        font-size: 14px;
+        bottom: 0;
+    }
+
+    @@media screen and (max-width: 600px) {
+        .h2Val {
+            position: absolute;
+            top: 32px;
+            right: 50px;
+            color: white;
+            font-size: 14px;
+            bottom: 0;
+        }
+
+        .class_checkbox {
+            width: 20px;
+            height: 18px;
+            display: block;
+            position: absolute;
+            top: 63px;
+            right: 108px;
+        }
+    }
+
+    @@media screen and (max-width: 1920px) and (min-width: 1900px) {
+        .class_checkbox {
+            width: 20px;
+            height: 18px;
+            display: block;
+            position: absolute;
+            /* float: right; */
+            top: 53px;
+            right: 106px;
+            background: url(https://i.ibb.co/1GnSqmp/example.png);
+            /* margin-top: -58px; */
+        }
+
+        .h2Val {
+            position: absolute;
+            display: block;
+            top: 17px;
+            right: 50px;
+            color: white;
+            font-size: 14px;
+            bottom: 0;
+        }
+    }
+
+    .continaer-fluid-override {
+        background-color: #81AFE1;
+        /*margin-top: 0.2%;*/
+        padding: 0.2%;
+    }
+
+    .continaer-fluid-top-override {
+        background-color: transparent !important;
+        color: black;
+        float: right;
+        margin-top: 0;
+        margin-right: -0.4%;
+    }
+
+    .footer {
+        background-color: #236EAB;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        text-align: center;
+    }
+
+    .button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border: 2px solid white;
+        font-size: 120%;
+        font-family: 'Proxima Nova';
+        float: right;
+    }
+
+    .button3 {
+        padding: 14px 40px;
+    }
+
+    #viewQuestions, #viewAnswers {
+        float: left;
+        color: white;
+        background-color: #236EAB;
+        font-size: 16px;
+        display: inline-block;
+        margin: 4px 2px;
+        border: 2px solid white;
+        font-size: 120%;
+        font-family: 'Proxima Nova';
+        padding: 14px 40px;
+    }
+
+    #finish {
+        position: absolute;
+        float: left;
+        color: white;
+        background-color: #236EAB;
+        font-size: 16px;
+        display: inline-block;
+        margin: 4px 188px;
+        border: 2px solid white;
+        font-size: 120%;
+        font-family: 'Proxima Nova';
+        padding: 14px 40px;
+        margin-left: 44%;
+    }
+
+    .aside {
+        /*margin-right: -5.6%;
+        margin-top: -3.8%;*/
+        float: right;
+    }
+
+    /*.showAnswersLeft:after {
+        content: "";
+        background-color: #236EAB;
+        position: absolute;
+        width: 5px;
+        height: 560px;
+        top: 16%;
+        left: 50%;
+        display: block;
+    }*/
+
+    .vl {
+        border-right: 6px solid #236EAB;
+        height: 100vmax;
+        margin-top: -20px;
+    }
+
+    @@media screen and (max-width: 600px) {
+        .vl {
+            visibility: hidden;
+            clear: both;
+            float: left;
+            margin: 10px auto 5px 20px;
+            width: 28%;
+            display: none;
+        }
+    }
+
+    .card-body {
+        display: flex;
+    }
+
+    .col {
+        padding: 10px;
+    }
+
+    .border-line {
+        border-right: 6px solid #236EAB;
+        display: flex;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+    }
+
+    .column {
+        border: 1px solid black;
+        float: left;
+        width: 30%;
+        padding: 10px;
+        height: 60px; /* Should be removed. Only for demonstration */
+    }
+
+    .footer {
+        bottom: 0;
+        height: 10vh;
+        color: white;
+        background-color: #236EAB;
+        width: 100%;
+    }
+
+    .sortable1 {
+        border: 1px solid black;
+        /*width: 142px;*/
+        min-height: 60px;
+        margin-bottom: 10px;
+        list-style-type: none;
+        margin: 0;
+        padding: 14px 0 0 0;
+        float: left;
+        /*margin-right: 10px;*/
+        width: 500px;
+    }
+
+    .sortable2 {
+        border: 1px solid black;
+        /*width: 142px;*/
+        min-height: 60px;
+        margin-bottom: 10px;
+        list-style-type: none;
+        margin: 0;
+        padding: 14px 0 0 0;
+        float: left;
+        /*margin-right: 10px;*/
+        width: 500px;
+    }
+
+        .sortable1 li, .sortable2 li {
+            margin: 0 15px 15px 15px;
+            padding: 0px;
+            font-size: 90%;
+            width: 470px;
+        }
+
+    .sortable1 ul li {
+        display: block;
+        text-align: center;
+        float: left;
+        width: 300px;
+    }
+
+    .sortable2 ul li {
+        display: block;
+        text-align: center;
+        float: left;
+        width: 300px;
+    }
+
+    .h4Heading {
+        margin-top: -2%;
+    }
+
+    .top {
+        font-size: 170%;
+        font-family: 'Proxima Nova';
+        margin-top: 1%;
+    }
+
+    a.getVal {
+        float: right;
+    }
+
+    .status {
+        color: orange;
+    }
+
+    .ui-state-default {
+        border: 1px !important;
+        background-color: transparent !important;
+    }
+
+    .showAnswersLeft {
+        margin-top: 10%;
+        margin-left: -32%;
+    }
+
+    .correct {
+        color: green;
+        text-align: center;
+        font-weight: bold;
+        font-size: 120%;
+        text-decoration: underline;
+    }
+
+    .answers {
+        font-weight: bold;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 120%;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script>
+    $(document).ready(function () {
+        //Hide A Div Section
+        $(".hideSection2").hide();
+        $("#finish").hide();
+
+        $(".orderHeading").hide();
+        $("#viewQuestions").hide();
+
+        var setId = '@TempData["quesSetId"]';
+
+        var index = 0;
+
+        //Show questions here
+        GetQuestions();
+        //SaveExamDetails();
+
+        //declare
+        var indexes = 0;
+        var indexVal = 0;
+        $(".button").click(function () {
+            debugger;
+            //get div length
+            var lengths = divs.length;
+            //checking if btn clicked is next
+            if ($(this).is('#next')) {
+                indexVal = 1;
+                //checking if value if less then length
+                if ((indexes < (lengths - 1))) {
+                    //increment
+                    //remove
+                    $(this).prop('disabled', false);
+                    console.log("in  - " + indexes + " val - " + indexVal)
+                    //show div
+                    index = (index + 1) % divs.length;
+                    divs.eq(index).show().siblings().hide();
+                    //to show result
+                    show_data1(indexes);
+                    indexes++;
+                } else {
+                    show_data1(indexes);
+                    indexVal = 0;
+
+                    if (indexVal == 0) {
+                        $('.divs2').empty();
+                        //Hide A Div Section
+                        $(".hideSection2").show();
+
+                        $("#next").hide();
+                        $("#prev").hide();
+                        $(".flagHeading").hide();
+                        $("#finish").show();
+                        $('#viewQuestions').hide();
+                        $('#viewAnswers').hide();
+                        $('.h4Heading').hide();
+
+                        $('.divs2').empty(); //Clear div before appending
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Exam/AddAnswers",
+                            data: JSON.stringify({ quesSetId: 0, quesId: 0, quesType: 0, quesAnswers: null, flag: 0 }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+
+                            //Show Attempted Question Details
+                            success: function (values) {
+                                $.each(values, function (i, value) {
+                                    var num = parseInt(i) + 1;
+
+                                    if (value.Flag == 1 && value.QuestionAnswers == "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/flagged.png" />Question ' + num + ' <span class="status">Incomplete</span><a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    } else if (value.Flag == 1 && value.QuestionAnswers != "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/flagged.png" />Question ' + num + '<a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    } else if (value.Flag == 0 && value.QuestionAnswers == "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/unflagged.png" />Question ' + num + ' <span class="status">Incomplete</span><a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    } else if (value.Flag == 0 && value.QuestionAnswers != "") {
+                                        $(".divs2").append('<div class="column"><img src="/img/unflagged.png" />Question ' + num + '<a class="getVal" data-id="' + value.QuestionId + '">Review</a></div>');
+                                    }
+
+                                    num++;
+                                });
+                            },
+                            error: function (ex) {
+                                alert('Failed to retrieve states.' + ex);
+                            }
+                        });
+
+                        $(".hideSection1").hide();
+                    }
+
+                    console.log("i am in last question reached " + indexVal)
+                    $(this).prop('disabled', true);//disable
+                    $(this).css("background-color", "#00FFFF");//chnagecolor
+
+                    $("#prev").css("background-color", "#236EAB");
+                }
+            } else if ($(this).is('#prev')) {
+                //chcking id value is not 0
+                if (indexes != 0) {
+                    //remove
+                    $(this).prop('disabled', false);
+                    indexes--;
+                    //show
+                    index = (index - 1) % divs.length;
+                    divs.eq(index).show().siblings().hide();
+                    console.log("back  - " + indexes)
+                    show_data1(indexes);//show result
+
+                    if (indexes == 0) {
+                        show_data2(1);
+                    }
+                } else {
+                    console.log("no back question");
+                    //show_data1(indexes);
+                    //disabled
+                    $(this).prop('disabled', true);
+                    //add color chnage
+                    $(this).css("background-color", "#00FFFF");
+                    $("#next").css("background-color", "#236EAB");
+                }
+            }
+        });
+
+        function show_data1(indexes1) {
+            debugger;
+            //pass indexes value to get required div
+            var $container = $('.divs').children().eq(indexes1);
+
+            var id = $container.find(".h2Val").text().trim();
+            //$('.quesNoR').text(parseInt(id));
+
+            var $checked = $container.find('.sortable2 .allVal');
+            var $checkedFlag = $container.find('.cbFlag:checked');
+
+            var values = $checked.map(function () {
+                return $(this).data("id");
+            }).get();
+
+            var values2 = $checkedFlag.map(function () {
+                return this.value
+            }).get();
+
+            var checked = 0;
+
+            if (values2.length == 0) {
+                checked = 0;
+            } else {
+                checked = 1;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Exam/AddAnswers",
+                data: JSON.stringify({ quesSetId: setId, quesId: id, quesType: 2, quesAnswers: values.join('_'), flag: checked }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+        }
+
+        function show_data2(indexes1) {
+            debugger;
+            //pass indexes value to get required div
+            var $container = $('.divs').children().eq(indexes1);
+
+            var id = $container.find(".h2Val").text().trim();
+            var checkedBox = $container.find('.cbFlag').append('Hello World!');
+
+            //$('.quesNoR').text(1);
+            //$('.flag').append(checkedBox);
+        }
+
+        $(".divs2").on("click", "a.getVal", function () {
+            debugger;
+            //get id
+            $('#viewAnswers').show();
+            $("#next").show();
+            $("#prev").show();
+            $(".flagHeading").show();
+
+            var id2 = $(this).attr("data-id");
+
+            $(".hideSection1").show();
+            $(".hideSection2").hide();
+
+            $('#viewAnswers').show();
+            $('.h4Heading').show();
+
+            //showing the div
+            divs.eq(id2 - 1).show().siblings().hide();
+            index = id2 - 1; //settting value of index again for click of next button
+            indexes = id2 - 1; //setting value for index
+            show_data1(indexes) //show answer as well when user click of question no.
+        });
+
+        //Redirect To Result Page
+        $("#finish").click(function () {
+            debugger;
+            var url = '@Url.Action("Index", "Result")';
+            window.location.href = '/Result/Index/' + '@TempData["bestOfThree"]';
+        });
+
+        //onclick code
+        $('.expand').toggleClass('collapse');
+
+        function GetQuestions() {
+            var html = "";
+            var total = 0;
+            var num2 = "";
+
+            $.ajax({
+                type: "POST",
+                url: "/Exam/GetDragAndDropQuestions",
+                data: JSON.stringify({ id: setId }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+
+                success: function (values) {
+                    $.each(values, function (i, value) {
+                        num2 = values.length;
+
+                        var num = parseInt(i) + 1;
+                        html += '<div class="heading"> <div style="clear: both;"></div> <input type="checkbox" class="cbFlag" /> <div class="h2Val">' + value.QuestionId + '</div> <div class="questionName">' + value.QuestionName + '</div><br />';
+
+                        //Second ul
+                        html += '<div class="hide2">';
+                        html += '<div class="col-md-6">';
+                        $.each(value.AllOptions, function (key, val) {
+                            html += '<div class="col-md-10">';
+                            html += '<ul class="sortable2 connectedSortable">';
+                            html += '';
+                            html += '</ul>';
+                            html += '</div><br/><br/><br/><br />';
+                        })
+                        html += '</div>';
+                        html += '</div>';
+
+                        //First ul
+                        html += '<div class="hide2">';
+                        html += '<div class="col-md-6">';
+                        $.each(value.AllOptions, function (key, val) {
+                            html += '<div class="col-md-10">';
+                            html += '<ul class="sortable1 connectedSortable">';
+                            html += '<li data-id="' + val + '" class="ui-state-default allVal"> ' + val + '</li>';
+                            html += '</ul>';
+                            html += '</div><br/><br/><br/><br/>';
+                        })
+                        html += '</div>';
+                        html += '</div>';
+
+                        var str = "";
+                        //Iterate all answers
+                        html += '<div class="container" style="display:flex;"><div class="col-md-4 col-xs-4">';
+                        $.each(value.AllAnswers, function (key, val) {
+                            str += val.split('.')[0];
+
+                            var num2 = parseInt(key) + 1;
+                            html += '<div class="showAnswersLeft" style="padding:2%;">' + val + '</div>';
+                        })
+                        html += '</div>';
+
+                        html += '<div class="answers">' + str + '</div>';
+
+                        html += '<div class="col-lg-2 col-md-2 col-xs-2">';
+                        html += '<div class="vl"></div>';
+                        html += '</div>';
+
+                        html += '<div class="col-md-5 col-xs-5">';
+                        html += '<div class="showAnswersRight">' + value.Explanation + '</div>';
+                        html += '</div></div>';
+
+                        html += '</div>';
+                    });
+
+                    $(".divs").append(html);
+                    $(".quesNo").text(num2);
+
+                    //show_data2(1);
+
+                    //Show One Question At A Time
+                    divs = $(".divs").children();
+                    divs.each(function (e) {
+                        if (e != 0)
+                            $(this).hide();
+                    });
+
+                    $(function () {
+                        $(".sortable1, .sortable2").sortable({
+                            connectWith: ".connectedSortable",
+                            stop: function (event, ui) {
+                                if ($(ui.item).closest('ul').find('li').length > 1) { //Checks if a li tag exists
+                                    $(this).sortable("cancel");
+                                }
+                            }
+                        }).disableSelection();
+                    });
+
+                    //By default, hide answers
+                    $(".showAnswersLeft").hide();
+                    $(".showAnswersRight").hide();
+                    $(".orderHeading").hide();
+                    $(".vl").hide();
+                    $('.correct').hide();
+                    $('.answers').hide();
+
+                    //Show answers
+                    $('#viewAnswers').on('click', function () {
+                        $('.showAnswersLeft').show();
+                        $('.showAnswersRight').show();
+                        $('#viewAnswers').hide();
+                        $('.questionName').hide();
+                        $('.hide2').hide();
+                        $('.hide1').hide();
+                        $('#viewQuestions').show();
+                        $(".orderHeading").show();
+                        $(".vl").show();
+                        $('.correct').show();
+                        $('.answers').show();
+                    });
+
+                    //Hide answers
+                    $('#viewQuestions').on('click', function () {
+                        $('.showAnswersLeft').hide();
+                        $('.showAnswersRight').hide();
+                        $('#viewAnswers').show();
+                        $('.questionName').show();
+                        $('.hide2').show();
+                        $('.hide1').show();
+                        $('#viewQuestions').hide();
+                        $(".orderHeading").hide();
+                        $(".vl").hide();
+                        $('.correct').hide();
+                        $('.answers').hide();
+                    });
+
+                    //CheckBox As Flag - Review As Flag Feature
+                    $('.cbFlag').each(function () {
+                        $(this).hide().after('<div class="class_checkbox"></div>');
+                    });
+
+                    $('.class_checkbox').on('click', function () {
+                        $(this).toggleClass('checked').prev().prop('checked', $(this).is('.checked'))
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        }
+
+        //Save unfinished exam details here
+        function SaveExamDetails() {
+            window.onbeforeunload = function (evt) {
+                try {
+                    $.ajax({
+                        url: "/Exam/SaveExamDetails",
+                        data: JSON.stringify({ quesType: 2, setId: '@TempData["bestOfThree"]' }),
+                        contentType: "application/json; charset=utf-8",
+                        type: "POST",
+                        success: function (data) {
+                            alert(data);
+                        },
+                        error: function (x, y, z) {
+                            alert(x.responseText + "  " + x.status);
+                        }
+                    });
+                }
+                catch (e) {
+                }
+            }
+        }
+    });
+</script>
+
+<!--Newly added for exam section - Heading-->
+<div class="container-fluid">
+    <div class="headerSection1">
+        <h2 class="top">&nbsp;&nbsp;PASSDEN+</h2>
+        <h4 class="h4Heading text-right">
+            <a class="quesNoR" style="font-size:100%;color:white;font-size:14px;"></a> /
+            <a class="quesNo" style="font-size:100%;color:white;font-size:14px;"></a>
+        </h4>
+    </div>
+</div>
+
+<div class="continaer-fluid continaer-fluid-override">
+    <span class="flagHeading"><span class="flag"></span> Flag for review</span>
+</div>
+
+<div class="heading">
+    <div class="container-fluid continaer-fluid-override">
+
+    </div>
+</div>
+
+
+<div class="hideSection1">
+    <div class="container">
+        <div class="continaer-fluid divs">
+
+        </div>
+    </div>
+</div>
+
+
+<div class="hideSection2">
+    <div class="container">
+        <div class="row">
+            <h2>Review of Situational Judgement Practice Test</h2><br />
+            <div class="divs2">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <a class="button button3" id="viewQuestions">Back To Question</a>
+    <a class="button button3" id="viewAnswers">View Answer</a>
+    <a class="button button3" id="next">Next</a>
+    <a class="button button3" id="prev">Previous</a>
+</div>

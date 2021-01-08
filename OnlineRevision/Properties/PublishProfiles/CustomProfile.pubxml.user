@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAADSjCzcHJYEGfNurSGeaJvQAAAAACAAAAAAAQZgAAAAEAACAAAAD0LvaoluSQywUa2UDJ3oGtMi78QkdfFbzqiS+PCEO/BAAAAAAOgAAAAAIAACAAAAAlfWJa6up7SvoRXdUqLTpIN2+gE7aH2pk4EhO6xnN5lSAAAAB8InoGbX26ptwqtDvrll0a9BPfKSiMhmFFCbSEGVql0EAAAAC2F1RoUEdevxfjVpo9YEKI/rNXab+3ZqJn57jMNtkV8PhBvXU6wu2kCLpKDRz8H51VKHL8Mf/SKFmuL+8x2R/F</EncryptedPassword>
+    <_PublishTargetUrl>ftp://passdent.somee.com/www.passdent.somee.com/</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>02/22/2013 08:43:40</publishTime>
+    </File>
+    <File Include="bin/Antlr3.Runtime.pdb">
+      <publishTime>02/22/2013 08:43:40</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>04/16/2020 20:38:42</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>04/16/2020 20:38:56</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>09/05/2018 16:10:50</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/25/2012 11:48:56</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/03/2014 20:33:56</publishTime>
+    </File>
+    <File Include="bin/OnlineRevision.dll">
+      <publishTime>08/16/2020 00:14:46</publishTime>
+    </File>
+    <File Include="bin/OnlineRevision.pdb">
+      <publishTime>08/16/2020 00:14:46</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>06/29/2020 21:11:55</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>06/29/2020 21:11:55</publishTime>
+    </File>
+    <File Include="LICENSE.txt">
+      <publishTime>07/03/2020 21:17:40</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/15/2020 21:14:01</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/16/2020 00:02:06</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

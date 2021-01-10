@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineRevision.DbContext.Users>
+﻿@model IEnumerable<OnlineRevision.Models.Users>
 @{
     ViewBag.Title = "Student Details";
 }
@@ -44,7 +44,17 @@
     }
 
     .dataTables_filter {
-        float:right;
+        float: right;
+    }
+
+    .dollar:before {
+        content: '£';
+        font-size: 12px;
+        color: black;
+        padding-top: 42px;
+        vertical-align: top;
+        flex: 1 0 auto;
+        text-align: right;
     }
 </style>
 
@@ -155,7 +165,8 @@
 
     function GetUserDetails() {
         var html = "";
-   
+        var price = "";
+
         $.ajax({
             url: "/Dashboard/GetFoldersWithStudent",
             type: "POST",
@@ -176,8 +187,8 @@
                         html += "<div class='row'><div class='col-xs-12 table-responsive'><div class='tableFixHead'>" +
                                 "<table class='table table-striped display nowrap userDetails'>" +
                                 "<thead><tr><th>Select</th><th>Action</th><th>Added On</th><th>Name</th><th class='hideEmail'>Email</th>" +
-                                "<th>University</th></tr></thead><tfoot><tr><th>Select</th><th>Action</th><th>Added On</th><th>Name</th><th class='hideEmail'>Email</th>" +
-                                "<th>University</th></tr></tfoot><tbody>";
+                                "<th>University</th><th>Paid</th></tr></thead><tfoot><tr><th>Select</th><th>Action</th><th>Added On</th><th>Name</th><th class='hideEmail'>Email</th>" +
+                                "<th>University</th><th>Paid</th></tr></tfoot><tbody>";
 
                         $.each(users.UsersList, function (i, users2) {
                             //html += "<p>" + users2.UserName + "</p>";
@@ -190,8 +201,20 @@
                                     "<td class='details'>" + users2.UserName + "</td>" +
                                     //"<td class='details'>" + users2.TotalSubscription + "</td>" +
                                     "<td class='details'>" + users2.Email + "</td>" +
-                                    "<td class='details hideEmail'>" + users2.Institution + "</td>" +
-                                    "</tr>";
+                                    "<td class='details hideEmail'>" + users2.University + "</td>";
+
+                            if (users2.TotalDays == 7) {
+                                price = 20;
+                            } else if (users2.TotalDays == 14) {
+                                price = 25;
+                            } else if (users2.TotalDays == 7) {
+                                price = 30;
+                            } else if (users2.TotalDays == null) {
+                                price = 0;
+                            }
+
+                            html += "<td class='details hideEmail'><span class='dollar'></span>" + price + "</td>" +
+                            "</tr>";
                         })
 
                         html += "</tbody></table></div></div></div>";
@@ -221,6 +244,122 @@
                     /* Disable initial sort */
                     "aaSorting": []
                 });
+
+                //Tab functions here
+                $(function () {
+                    var tabTitle = $("#tab_title"),
+                      tabContent = $("#tab_content"),
+                      tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
+                      tabCounter = 2;
+
+                    // Modal dialog init: custom buttons and a "close" callback resetting the form inside
+                    var dialog = $("#dialog").dialog({
+                        autoOpen: false,
+                        modal: true,
+                        buttons: {
+                            Add: function () {
+                                addTab();
+                                $(this).dialog("close");
+                            },
+                            Cancel: function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        close: function () {
+                            form[0].reset();
+                        }
+                    });
+
+                    // AddTab form: calls addTab function on submit and closes the dialog
+                    var form = dialog.find("form").on("submit", function (event) {
+                        addTab();
+                        dialog.dialog("close");
+                        event.preventDefault();
+                    });
+
+                    // Actual addTab function: adds new tab using the input from the form above
+                    function addTab() {
+                        var label = tabTitle.val() || "Tab " + tabCounter,
+                          id = "tabs-" + tabCounter,
+                          li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)),
+                          tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
+
+                        $.ajax({
+                            url: "/Dashboard/AddFolders",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify({ folderName: tabTitle.val(), details: tabContent.val() }),
+                            success: function (response) {
+                                if (response.value != "") {
+                                    alert(response.value);
+
+                                    tabs.find(".ui-tabs-nav").append(li);
+                                    //tabs.append("<div id='" + id + "'><p>" + tabContentHtml + "</p></div>");
+                                    tabs.tabs("refresh");
+                                    tabCounter++;
+
+                                    GetDropDownListValues();
+                                } else {
+                                    alert("Failed!");
+                                }
+                            },
+                            error: function (er) {
+                                //alert(er);
+                            }
+                        });
+                    }
+
+                    // AddTab button: just opens the dialog
+                    $("#add_tab")
+                      .button()
+                      .on("click", function () {
+                          dialog.dialog("open");
+                      });
+
+                    // Close icon: removing the tab on click
+                    tabs.on("click", "span.ui-icon-close", function () {
+                        var cnfrm = confirm('Are you sure to delete the tab? Your records will be lost permanently.');
+                        if (cnfrm == true) {
+                            var panelId = $(this).closest("li").remove().attr("aria-controls");
+                            alert(panelId);
+
+                            $("#" + panelId).remove();
+                            tabs.tabs("refresh");
+
+                            $.ajax({
+                                url: "/Dashboard/DeleteFolders",
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: JSON.stringify({ tabName: panelId }),
+                                success: function (response) {
+                                    if (response.value != "") {
+                                        alert(response.value);
+                                    } else {
+                                        alert("Failed!");
+                                    }
+                                },
+                                error: function (er) {
+                                    //alert(er);
+                                }
+                            });
+                        } else {
+                            return false;
+                        }
+                    });
+
+                    tabs.on("keyup", function (event) {
+                        if (event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE) {
+
+                            var panelId = tabs.find(".ui-tabs-active").remove().attr("aria-controls");
+                            $("#" + panelId).remove();
+                            tabs.tabs("refresh");
+
+                            alert(paneId);
+                        }
+                    });
+                });
             },
             error: function (er) {
                 //alert(er);
@@ -228,7 +367,7 @@
         });
     }
 
-    //Get drop down list values 
+    //Get drop down list values
     function GetDropDownListValues() {
         var selectType = "";
         $("#dropDownValues").empty();
@@ -278,93 +417,4 @@
             }
         });
     }
-
-    $(function () {
-        var tabTitle = $("#tab_title"),
-          tabContent = $("#tab_content"),
-          tabTemplate = "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>",
-          tabCounter = 2;
-
-        // Modal dialog init: custom buttons and a "close" callback resetting the form inside
-        var dialog = $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            buttons: {
-                Add: function () {
-                    addTab();
-                    $(this).dialog("close");
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            },
-            close: function () {
-                form[0].reset();
-            }
-        });
-
-        // AddTab form: calls addTab function on submit and closes the dialog
-        var form = dialog.find("form").on("submit", function (event) {
-            addTab();
-            dialog.dialog("close");
-            event.preventDefault();
-        });
-
-        // Actual addTab function: adds new tab using the input from the form above
-        function addTab() {
-            var label = tabTitle.val() || "Tab " + tabCounter,
-              id = "tabs-" + tabCounter,
-              li = $(tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)),
-              tabContentHtml = tabContent.val() || "Tab " + tabCounter + " content.";
-
-            $.ajax({
-                url: "/Dashboard/AddFolders",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify({ folderName: tabTitle.val(), details: tabContent.val() }),
-                success: function (response) {
-                    if (response.value != "") {
-                        alert(response.value);
-
-                        tabs.find(".ui-tabs-nav").append(li);
-                        //tabs.append("<div id='" + id + "'><p>" + tabContentHtml + "</p></div>");
-                        tabs.tabs("refresh");
-                        tabCounter++;
-
-                        GetDropDownListValues();
-                    } else {
-                        alert("Failed!");
-                    }
-                },
-                error: function (er) {
-                    //alert(er);
-                }
-            });
-        }
-
-        // AddTab button: just opens the dialog
-        $("#add_tab")
-          .button()
-          .on("click", function () {
-              dialog.dialog("open");
-          });
-
-        // Close icon: removing the tab on click
-        tabs.on("click", "span.ui-icon-close", function () {
-            var panelId = $(this).closest("li").remove().attr("aria-controls");
-            $("#" + panelId).remove();
-            tabs.tabs("refresh");
-
-            alert(panelId);
-        });
-
-        tabs.on("keyup", function (event) {
-            if (event.altKey && event.keyCode === $.ui.keyCode.BACKSPACE) {
-                var panelId = tabs.find(".ui-tabs-active").remove().attr("aria-controls");
-                $("#" + panelId).remove();
-                tabs.tabs("refresh");
-            }
-        });
-    });
 </script>

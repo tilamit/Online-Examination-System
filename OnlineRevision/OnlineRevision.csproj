@@ -160,7 +160,7 @@
     <Compile Include="DbContext\Folders.cs">
       <DependentUpon>OnlineRevision.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\FoldersViewModel.cs" />
+    <Compile Include="Models\FoldersViewModel.cs" />
     <Compile Include="DbContext\OnlineRevision.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -208,7 +208,7 @@
     <Compile Include="DbContext\UserDetails.cs">
       <DependentUpon>OnlineRevision.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\Users.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="DbContext\UserStatus.cs">
       <DependentUpon>OnlineRevision.tt</DependentUpon>
     </Compile>
@@ -10336,7 +10336,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\PayWithStripe\" />
   </ItemGroup>
   <ItemGroup>

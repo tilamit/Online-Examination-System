@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Web.Helpers;
 using System.Text.RegularExpressions;
+using System.Data.Entity.Core.Objects;
+using OnlineRevision.Models;
 
 namespace OnlineRevision.Controllers
 {
@@ -232,28 +234,6 @@ namespace OnlineRevision.Controllers
             }
 
             return Json(aLst, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public JsonResult GetStudents()
-        {
-            var result = (from c in db.UserDetails
-                          join d in db.PaymentDetails on c.Email equals d.email into ps
-                          from d in ps.DefaultIfEmpty()
-                          select new Users
-                          {
-                              CreatedOn = c.CreatedOn,
-                              UserId = c.UserId,
-                              UserName = c.UserName,
-                              Email = c.Email,
-                              DateOfBirth = c.DateOfBirth,
-                              University = c.Institution,
-                              Status = c.Status,
-                              //TotalSubscription = db.PaymentDetails.Where(f => f.email == c.Email),
-                              TotalArchived = db.UserDetails.Where(f => f.Status == 2).Count()
-                          }).ToList();
-
-            return Json(result.OrderByDescending(c => c.UserId), JsonRequestBehavior.AllowGet);
         }
 
         public List<SampleTable> GetQuestions()
@@ -800,18 +780,21 @@ namespace OnlineRevision.Controllers
         public JsonResult GetFoldersWithStudent()
         {
             List<FoldersViewModel> aLst = null;
+            List <Folders> aFolderLst = GetFolders();
+            List<Users> aUsersLst = GetStudentDetails();
+
             using (OnlineRevisionEntities db = new OnlineRevisionEntities())
             {
                 try
                 {
-                    aLst = (from c in db.Folders
+                    aLst = (from c in aFolderLst
                             where c.Status == 1
                             select new FoldersViewModel
                             {
                                 FolderName = c.FolderName,
                                 TabName = c.TabName,
-                                TotalUsers = db.UserDetails.Where(d => d.TabType == c.TabName && d.UserType == 2 && d.Status == 1).Count(),
-                                UsersList = db.UserDetails.Where(d => d.TabType == c.TabName && d.UserType == 2 && d.Status == 1).OrderByDescending(f => f.UserId).ToList()
+                                TotalUsers = aUsersLst.Where(d => d.TabType == c.TabName && d.UserType == 2 && d.Status == 1).Count(),
+                                UsersList = aUsersLst.Where(d => d.TabType == c.TabName && d.UserType == 2 && d.Status == 1).OrderByDescending(d => d.UserId).ToList()
                             }).ToList();
                 }
                 catch (Exception ex)
@@ -821,15 +804,6 @@ namespace OnlineRevision.Controllers
 
                 return Json(aLst, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public List<UserDetails> GetStudentDetails()
-        {
-            var result = (from c in db.UserDetails
-                          join d in db.PaymentDetails on c.Email equals d.email
-                          select c).ToList();
-
-            return result;
         }
 
         //Transfer students to different folders
@@ -847,6 +821,35 @@ namespace OnlineRevision.Controllers
                 result.TabType = tabName;
 
                 db.Entry(result).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new { value = "Transferred successfully!" }, JsonRequestBehavior.AllowGet);
+        }
+
+        //Transfer students to different folders
+        [HttpPost]
+        public JsonResult DeleteFolders(string tabName)
+        {
+            var resultUsers = (from c in db.UserDetails
+                               where c.TabType == tabName
+                               select c).ToList();
+
+            foreach (var item in resultUsers)
+            {
+                item.TabType = "";
+
+                db.SaveChanges();
+            }
+
+            var resultFolders = (from c in db.Folders
+                                 where c.TabName == tabName
+                                 select c).ToList();
+
+            foreach (var item in resultFolders)
+            {
+                item.Status = 2;
+
                 db.SaveChanges();
             }
 
@@ -874,25 +877,37 @@ namespace OnlineRevision.Controllers
             return Json(new { value = "User deleted successfully!" }, JsonRequestBehavior.AllowGet);
         }
 
-        //public async Task<List<Users>> GetStudentDetails()
-        //{
-        //    var result = (from c in db.UserDetails
-        //                  join d in db.PaymentDetails on c.Email equals d.email into ps
-        //                  from d in ps.DefaultIfEmpty()
-        //                  select new Users
-        //                  {
-        //                      CreatedOn = c.CreatedOn,
-        //                      UserId = c.UserId,
-        //                      UserName = c.UserName,
-        //                      Email = c.Email,
-        //                      DateOfBirth = c.DateOfBirth,
-        //                      University = c.Institution,
-        //                      Status = c.Status,
-        //                      //TotalSubscription = db.PaymentDetails.Where(f => f.email == c.Email),
-        //                      TotalArchived = db.UserDetails.Where(f => f.Status == 2).Count()
-        //                  }).ToList();
+        public List<Folders> GetFolders()
+        {
+            var result = (from c in db.Folders
+                          where c.Status == 1
+                          select c).ToList();
 
-        //    return await Task.Run(() => result);
-        //}
+            return result;
+        }
+
+        public List<Users> GetStudentDetails()
+        {
+            var result = (from c in db.UserDetails
+                          join d in db.PaymentDetails on c.Email equals d.email into ps
+                          from d in ps.DefaultIfEmpty()
+                          select new Users
+                          {
+                              TabType = c.TabType,
+                              CreatedOn = c.CreatedOn,
+                              UserId = c.UserId,
+                              UserName = c.UserName,
+                              Email = c.Email,
+                              DateOfBirth = c.DateOfBirth,
+                              University = c.Institution,
+                              Status = c.Status,
+                              UserType = c.UserType,
+                              TotalDays = DbFunctions.DiffDays(d.AddedOn, d.ValidTill)
+                              //TotalSubscription = db.PaymentDetails.Where(f => f.email == c.Email),
+                              //TotalArchived = db.UserDetails.Where(f => f.Status == 2).Count()
+                          }).ToList();
+
+            return result;
+        }
     }
 }

@@ -117,4 +117,4 @@ G:\RnD\C.V\Online-Examination-System\OnlineRevision\bin\System.Web.WebPages.xml
 G:\RnD\C.V\Online-Examination-System\OnlineRevision\bin\System.Web.WebPages.Deployment.xml
 G:\RnD\C.V\Online-Examination-System\OnlineRevision\bin\System.Web.WebPages.Razor.xml
 G:\RnD\C.V\Online-Examination-System\OnlineRevision\bin\Antlr3.Runtime.pdb
-C:\Users\AT\documents\visual studio 2015\Projects\OnlineRevision\OnlineRevision\obj\Debug\OnlineRevision.csprojResolveAssemblyReference.cache
+C:\Users\AT\documents\visual studio 2015\Projects\OnlineRevision\OnlineRevision\bin\LogicalCK.dll

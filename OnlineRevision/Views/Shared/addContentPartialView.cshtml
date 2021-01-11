@@ -41,51 +41,53 @@
     </div>
 </div>
 
-<script src="~/ckeditor_4.15.1_full/ckeditor/ckeditor.js"></script>
+<script src="~/ckeditor/ckeditor.js"></script>
 <script>
-    $(document).ready(function () {
-        //Initialize CKEditor by givin id of textarea
-        CKEDITOR.replace('editor1');
+    //Initialize CKEditor by givin id of textarea
+    CKEDITOR.replace('editor1');
 
-        $('#btnSave').on('click', function () {
+    CKEDITOR.replace('editor1', {
+        extraPlugins: 'imageuploader'
+    });
 
-            //Get each instance of ckeditor
-            for (instance in CKEDITOR.instances) {
-                //update element
-                CKEDITOR.instances[instance].updateElement();
-            }
+    $('#btnSave').on('click', function () {
 
-            //Set updated value in textarea
-            $('#editor1').val(CKEDITOR.instances["editor1"].getData());
-            //alert(CKEDITOR.instances.editor1.getData());
+        //Get each instance of ckeditor
+        for (instance in CKEDITOR.instances) {
+            //update element
+            CKEDITOR.instances[instance].updateElement();
+        }
 
-            var val = CKEDITOR.instances.editor1.getData();
-            var heading = $('.txtHeading').val();
+        //Set updated value in textarea
+        $('#editor1').val(CKEDITOR.instances["editor1"].getData());
+        //alert(CKEDITOR.instances.editor1.getData());
 
-            if (heading == null || heading == "") {
-                alert("Please! Provide heading.");
-            } else if (val == null || val == "") {
-                alert("Please! Provide content.");
-            } else {
-                $.ajax({
-                    url: "/Dashboard/AddContent",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify({ heading: heading, content: val }),
-                    success: function (response) {
-                        if (response.value != "") {
-                            alert(response.value);
-                        } else {
-                            alert("Failed!");
-                        }
-                    },
-                    error: function (er) {
-                        //alert(er);
+        var val = CKEDITOR.instances.editor1.getData();
+        var heading = $('.txtHeading').val();
+
+        if (heading == null || heading == "") {
+            alert("Please! Provide heading.");
+        } else if (val == null || val == "") {
+            alert("Please! Provide content.");
+        } else {
+            $.ajax({
+                url: "/Dashboard/AddContent",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ heading: heading, content: val }),
+                success: function (response) {
+                    if (response.value != "") {
+                        alert(response.value);
+                    } else {
+                        alert("Failed!");
                     }
-                });
-            }
-        });
+                },
+                error: function (er) {
+                    //alert(er);
+                }
+            });
+        }
     });
 </script>
 

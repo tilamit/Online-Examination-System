@@ -65,6 +65,10 @@
         //Initialize CKEditor by giving id of text area
         CKEDITOR.replace('editor1');
 
+        CKEDITOR.replace('editor1', {
+            extraPlugins: 'imageuploader'
+        });
+
         //Get each instance of CKEditor
         for (instance in CKEDITOR.instances) {
             //update element

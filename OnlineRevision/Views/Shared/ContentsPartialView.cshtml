@@ -92,8 +92,8 @@
 
     @foreach (var item in Model.OrderBy(c => c.Preference))
     {
-        <tr>
-            <td class="details hideId" data-id="@item.Id">
+        <tr id="@item.Id">
+            <td class="details hideId nr" data-id="@item.Id">
                 @item.Id
             </td>
             <td class="details">
@@ -107,6 +107,7 @@
             </td>
             <td>
                 <a class="btn btn-primary btn-sm mainAnchorContents" id="editContents" data-contentid="@item.Id"><i class="fa fa-pen fa-lg"></i></a>
+                <a class="btn btn-danger btn-sm mainDelete" id="editContents" data-contentid="@item.Id"><i class="fa fa-trash fa-lg"></i></a>
             </td>
         </tr>
     }
@@ -114,6 +115,40 @@
 
 <script>
     $(document).ready(function () {
+        $(".mainDelete").click(function () {
+            var cnfrm = confirm('Are you sure to delete?');
+            if (cnfrm == true) {
+                var item = $(this).closest("tr")   // Finds the closest row <tr> 
+                           .find(".nr")     // Gets a descendent with class="nr"
+                           .text();         // Retrieves the text within <td>
+
+                alert($.trim(item.replace(/[\t\n]+/g, ' '))); // Testing: append the contents of the td to a div
+                $(this).closest('tr').remove();
+
+                var val = $.trim(item.replace(/[\t\n]+/g, ' '));
+
+                $.ajax({
+                    url: "/Dashboard/DeleteContent",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ contentId: val }),
+                    success: function (response) {
+                        if (response.value != "") {
+                            alert(response.value);
+                        } else {
+                            alert("Failed!");
+                        }
+                    },
+                    error: function (er) {
+                        //alert(er);
+                    }
+                });
+            } else {
+                return false;
+            }
+        });
+
         $('.mainAnchorContents').click(function () {
             var id = $(this).attr("id");
             var contentId = $(this).attr("data-contentid");

@@ -653,7 +653,7 @@ namespace OnlineRevision.Controllers
                                                   {
                                                       Id = c.Id,
                                                       Heading = c.Heading,
-                                                      StudyContent = c.StudyContent.Substring(0, 100),
+                                                      StudyContent = c.StudyContent.Substring(0, 160),
                                                       AddedBy = c.AddedBy,
                                                       sectionId = c.sectionId,
                                                       CreatedOn = c.CreatedOn,
@@ -780,7 +780,7 @@ namespace OnlineRevision.Controllers
         public JsonResult GetFoldersWithStudent()
         {
             List<FoldersViewModel> aLst = null;
-            List <Folders> aFolderLst = GetFolders();
+            List<Folders> aFolderLst = GetFolders();
             List<Users> aUsersLst = GetStudentDetails();
 
             using (OnlineRevisionEntities db = new OnlineRevisionEntities())
@@ -854,6 +854,23 @@ namespace OnlineRevision.Controllers
             }
 
             return Json(new { value = "Transferred successfully!" }, JsonRequestBehavior.AllowGet);
+        }
+
+        //Delete contents
+        [HttpPost]
+        public JsonResult DeleteContent(string contentId)
+        {
+            StudySection aStudySection = new StudySection();
+            int id = Convert.ToInt32(contentId);
+
+            var result = db.StudySection.Find(id);
+
+            result.Status = 2;
+
+            db.Entry(result).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return Json(new { value = "Deleted successfully!" }, JsonRequestBehavior.AllowGet);
         }
 
         //Delete students

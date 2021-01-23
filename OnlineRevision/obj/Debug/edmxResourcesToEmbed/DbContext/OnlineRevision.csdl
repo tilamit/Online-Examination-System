@@ -73,6 +73,7 @@
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
     <Property Name="Status" Type="Int32" />
     <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="TabName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Results">
     <Key>

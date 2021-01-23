@@ -195,7 +195,7 @@
 
                             html += "<tr class='" + users2.UserName + "'>" +
                                     "<td class='details'><input type='checkbox' class='cbCheck' value='" + users2.UserId + "' id='" + users2.Email + "' /></td>" +
-                                    "<td><a class='btn btn-primary btn-sm mainAnchorStudents' id='editDetails' data-userid='" + users.Email + "'><i class='fa fa-pen fa-lg'></i></a></td>" +
+                                    "<td><a class='btn btn-primary btn-sm mainAnchorStudents' id='editDetails' data-userid='" + users2.Email + "'><i class='fa fa-pen fa-lg'></i></a></td>" +
                                     //"<a class='btn btn-danger btn-sm' id='archiveIds' data-userid='" + users2.UserId + "'><i class='fa fa-trash fa-lg'></i></a></td>" +
                                     "<td class='details'>" + getFormattedDate(users2.CreatedOn) + "</td>" +
                                     "<td class='details'>" + users2.UserName + "</td>" +
@@ -244,6 +244,16 @@
                     /* Disable initial sort */
                     "aaSorting": []
                 });
+
+                //Click event to retrieve student details
+                $('.mainAnchorStudents').click(function () {
+                    var id = $(this).attr("id");
+                    var studentId = $(this).attr("data-userid");
+                    console.log(studentId);
+                    $("#result").html("Loading ......");
+                    $("#result").load('@Url.Action("LoadStudentPartialView", "Dashboard")', { passVal: id, id: studentId });
+                });
+
 
                 //Tab functions here
                 $(function () {
@@ -310,40 +320,47 @@
                         });
                     }
 
-                    // AddTab button: just opens the dialog
+                    //AddTab button: just opens the dialog
                     $("#add_tab")
                       .button()
                       .on("click", function () {
                           dialog.dialog("open");
                       });
 
-                    // Close icon: removing the tab on click
+                    //Close icon: removing the tab on click
                     tabs.on("click", "span.ui-icon-close", function () {
                         var cnfrm = confirm('Are you sure to delete the tab? Your records will be lost permanently.');
                         if (cnfrm == true) {
-                            var panelId = $(this).closest("li").remove().attr("aria-controls");
-                            alert(panelId);
+                            var panelId = $(this).closest("li").attr("aria-controls");
+                            //alert(panelId);
+                            var elements = $("[aria-controls='tabs-1']");
 
-                            $("#" + panelId).remove();
-                            tabs.tabs("refresh");
+                            if (panelId == "tabs-1") {
+                                alert("Students folder can't be deleted!");
+                            } else {
+                                $(this).closest("li").remove().attr("aria-controls");
 
-                            $.ajax({
-                                url: "/Dashboard/DeleteFolders",
-                                type: "POST",
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                data: JSON.stringify({ tabName: panelId }),
-                                success: function (response) {
-                                    if (response.value != "") {
-                                        alert(response.value);
-                                    } else {
-                                        alert("Failed!");
+                                $("#" + panelId).remove();
+                                tabs.tabs("refresh");
+
+                                $.ajax({
+                                    url: "/Dashboard/DeleteFolders",
+                                    type: "POST",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    data: JSON.stringify({ tabName: panelId }),
+                                    success: function (response) {
+                                        if (response.value != "") {
+                                            alert(response.value);
+                                        } else {
+                                            alert("Failed!");
+                                        }
+                                    },
+                                    error: function (er) {
+                                        //alert(er);
                                     }
-                                },
-                                error: function (er) {
-                                    //alert(er);
-                                }
-                            });
+                                });
+                            }
                         } else {
                             return false;
                         }

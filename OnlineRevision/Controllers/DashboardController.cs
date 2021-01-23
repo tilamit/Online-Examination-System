@@ -69,8 +69,10 @@ namespace OnlineRevision.Controllers
                     return PartialView("studentPartialView");
 
                 case "questionBank":
-                    List<SampleTable> lstQuestionSetViewModel = GetQuestions();
                     return PartialView("questionBankPartialView");
+
+                case "addQuestions":
+                    return PartialView("AddQuestionsPartialView");
 
                 case "simulate":
                     return PartialView("simulatePartialView");
@@ -130,6 +132,10 @@ namespace OnlineRevision.Controllers
                     int studyId = Convert.ToInt32(id);
                     StudySection aStudySection = GetStudySection(studyId);
                     return PartialView("EditContents", aStudySection);
+
+                case "QuesDetails":
+                    List<QuestionSetViewModel> aQuestion = GetQuesDetails(id);
+                    return PartialView("Questions", aQuestion);
 
                 default:
                     return PartialView("");
@@ -328,6 +334,27 @@ namespace OnlineRevision.Controllers
             }
 
             return user;
+        }
+
+        public List<QuestionSetViewModel> GetQuesDetails(string id)
+        {
+            int quesSetId = Convert.ToInt32(id);
+            List<QuestionSetViewModel> question = new List<QuestionSetViewModel>();
+
+            if (id != "" || id != null)
+            {
+                question = (from c in db.Questions
+                            group c by new { c.QuestionSetId, c.QuestionId, c.QuestionName } into grp
+                            where grp.Key.QuestionSetId == quesSetId
+                            select new QuestionSetViewModel
+                            {
+                                QuestionSetId = grp.Key.QuestionSetId,
+                                QuestionId = grp.Key.QuestionId,
+                                QuestionName = grp.Key.QuestionName
+                            }).ToList();
+            }
+
+            return question;
         }
 
         public StudySection GetStudySection(int id)
@@ -741,6 +768,38 @@ namespace OnlineRevision.Controllers
             return Json(new { value = "Updated!" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult UpdateQuesPreference(int[] quesId, int quesSetId)
+        {
+            OnlineRevisionEntities entities = new OnlineRevisionEntities();
+            int preference = 1;
+
+            foreach (int id in quesId)
+            {
+                var obj = entities.Questions.Where(c => c.QuestionId == id && c.QuestionSetId == quesSetId).ToList();
+                foreach (var item in obj)
+                {
+                    item.Status = 0;
+                    entities.SaveChanges();
+                }
+            }
+
+            foreach (int id in quesId)
+            {
+                var obj = entities.Questions.Where(c => c.QuestionId == id && c.QuestionSetId == quesSetId && c.Status == 0).ToList();
+                foreach (var item in obj)
+                {
+                    item.QuestionId = preference;
+                    item.Status = 1;
+                    entities.SaveChanges();
+                }
+                              
+                preference += 1;
+            }
+
+            return Json(new { value = "Updated!" }, JsonRequestBehavior.AllowGet);
+        }
+
         //Add Folders
         public ActionResult AddFolders()
         {
@@ -853,7 +912,7 @@ namespace OnlineRevision.Controllers
                 db.SaveChanges();
             }
 
-            return Json(new { value = "Transferred successfully!" }, JsonRequestBehavior.AllowGet);
+            return Json(new { value = "Folder deleted successfully!" }, JsonRequestBehavior.AllowGet);
         }
 
         //Delete contents

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Ajax.Utilities;
 using OnlineRevision.DbContext;
+using OnlineRevision.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -114,6 +115,47 @@ namespace OnlineRevision.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetAllQuesSet()
+        {
+            List<FoldersViewModel> aLst = null;
+            List<QuestionSet> aQuestionLst = GetQuestionSets();
+
+            using (OnlineRevisionEntities db = new OnlineRevisionEntities())
+            {
+                try
+                {
+                    aLst = (from c in aQuestionLst
+                            group c by new { c.TabName, c.Details }into grp
+                            select new FoldersViewModel
+                            {
+                                TabName = grp.Key.TabName,
+                                FolderName = grp.Key.Details,
+                                QuestionSetList = GetQuestionSets().Where(d => d.TabName == grp.Key.TabName && d.Status == 1).OrderByDescending(d => d.QuestionSetId).ToList()
+                            }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+            }
+
+            return await Task.Run(() => Json(aLst, JsonRequestBehavior.AllowGet));
+        }
+
+        public List<QuestionSet> GetQuestionSets()
+        {
+            List<QuestionSet> aLst = null;
+            using (OnlineRevisionEntities db = new OnlineRevisionEntities())
+            {
+                aLst = (from c in db.QuestionSet
+                        where c.Status == 1
+                        select c).ToList();
+            }
+
+            return aLst;
         }
 
         //Get questions for best of three - Practice
@@ -309,7 +351,7 @@ namespace OnlineRevision.Controllers
 
 
             string userId = "";
-            if(Session["userId"].ToString() != null || Session["userId"].ToString() != "")
+            if (Session["userId"].ToString() != null || Session["userId"].ToString() != "")
             {
                 userId = Session["userId"].ToString();
             }

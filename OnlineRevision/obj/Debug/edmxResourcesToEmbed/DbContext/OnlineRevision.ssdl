@@ -79,6 +79,7 @@
       <PropertyRef Name="QuestionSetId" />
     </Key>
     <Property Name="QuestionSetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TabName" Type="nvarchar" MaxLength="10" />
     <Property Name="QuestionSetName" Type="nvarchar" MaxLength="200" />
     <Property Name="Timer" Type="int" />
     <Property Name="Details" Type="nvarchar(max)" />

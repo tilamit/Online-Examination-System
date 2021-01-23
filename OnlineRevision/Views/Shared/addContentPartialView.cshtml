@@ -19,10 +19,10 @@
                                 </thead>
                                 <tbody id="tbody">
                                     <tr>
-                                        <td class="col-xs-3">
-                                            <input type="text" class="txtHeading form-control" name="txtHeading" value="" /> &nbsp;
+                                        <td class="col-xs-6">
+                                            <input type="text" class="txtHeading form-control" id="editor2" name="editor2" value="" /> &nbsp;
                                         </td>
-                                        <td class="col-xs-8">
+                                        <td class="col-xs-6">
                                             <textarea class="ckeditor" name="editor1" id="editor1"></textarea>
                                         </td>
                                     </tr>
@@ -50,6 +50,8 @@
         extraPlugins: 'imageuploader'
     });
 
+    CKEDITOR.replace('editor2');
+
     $('#btnSave').on('click', function () {
 
         //Get each instance of ckeditor
@@ -60,10 +62,11 @@
 
         //Set updated value in textarea
         $('#editor1').val(CKEDITOR.instances["editor1"].getData());
+        $('#editor2').val(CKEDITOR.instances["editor2"].getData());
         //alert(CKEDITOR.instances.editor1.getData());
 
         var val = CKEDITOR.instances.editor1.getData();
-        var heading = $('.txtHeading').val();
+        var heading = CKEDITOR.instances.editor2.getData();;
 
         if (heading == null || heading == "") {
             alert("Please! Provide heading.");

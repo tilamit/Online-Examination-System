@@ -16,11 +16,11 @@
         <EntityTypeShape EntityType="OnlineRevisionModel.StudentResults" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineRevisionModel.StudySection" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineRevisionModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineRevisionModel.TrackUsers" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnlineRevisionModel.TrackUsers" Width="1.5" PointX="1" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineRevisionModel.UserDetails" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineRevisionModel.UserStatus" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="OnlineRevisionModel.UserType" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="OnlineRevisionModel.Folders" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="OnlineRevisionModel.Folders" Width="1.5" PointX="2.75" PointY="8" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

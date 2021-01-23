@@ -84,6 +84,7 @@
             <PropertyRef Name="QuestionSetId" />
           </Key>
           <Property Name="QuestionSetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TabName" Type="nvarchar" MaxLength="10" />
           <Property Name="QuestionSetName" Type="nvarchar" MaxLength="200" />
           <Property Name="Timer" Type="int" />
           <Property Name="Details" Type="nvarchar(max)" />
@@ -292,6 +293,7 @@
           <Property Name="CreatedOn" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="TabName" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Results">
           <Key>
@@ -505,7 +507,8 @@
     <EntitySetMapping Name="QuestionSet">
       <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.QuestionSet)">
         <MappingFragment StoreEntitySet="QuestionSet">
-          <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
+          <ScalarProperty Name="TabName" ColumnName="TabName" />
+                <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
           <ScalarProperty Name="QuestionSetName" ColumnName="QuestionSetName" />
           <ScalarProperty Name="Timer" ColumnName="Timer" />
           <ScalarProperty Name="Details" ColumnName="Details" />

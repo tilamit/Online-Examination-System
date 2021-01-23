@@ -1,0 +1,183 @@
+﻿@model IEnumerable<OnlineRevision.DbContext.QuestionSetViewModel>
+@{
+    ViewBag.Title = "Student Details";
+}
+
+<style>
+    #userDetails, .details {
+        font-size: 100%;
+    }
+
+    table th {
+        text-align: center;
+    }
+
+    table.dataTable thead th, table.dataTable thead td {
+        padding: 10px 18px;
+        border-bottom: 0 !important;
+    }
+
+    .box.box-primary {
+        border-top-color: #3c8dbc !important;
+    }
+
+    .subsDetails {
+        font-weight: bold;
+    }
+
+    div.dom_wrapper {
+        position: sticky; /* Fix to the top */
+        top: 0;
+        padding: 5px;
+        background: rgba(255, 255, 255, 1); /* hide the scrolling table */
+    }
+
+    .tableHeader thead th {
+        position: sticky;
+        top: 0;
+    }
+
+    /* Just common table stuff. Really. */
+    .tableHeader table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .tableHeader th, td {
+        padding: 8px 16px;
+    }
+
+    .selected {
+        background-color: #666;
+        color: #fff;
+    }
+</style>
+
+<link href="~/dist/css/jQuery-ui.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#questions").sortable({
+            items: 'tr:not(tr:first-child)',
+            cursor: 'pointer',
+            axis: 'y',
+            dropOnEmpty: false,
+            start: function (e, ui) {
+                ui.item.addClass("selected");
+            },
+            stop: function (e, ui) {
+                ui.item.removeClass("selected");
+            },
+            receive: function (e, ui) {
+                $(this).find("tbody").append(ui.item);
+            }
+        });
+    });
+</script>
+
+<a class="btn btn-primary" id="updateQuestions">Update Preference</a><br /><br />
+
+<table id="questions">
+    <tr>
+        <th>Set Id</th>
+        <th>Id</th>
+        <th>Question Name</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model.OrderBy(c => c.QuestionId))
+    {
+        <tr id="@item.QuestionId">
+            <td class="details dataVal hideSetId nr" data-value="@item.QuestionSetId">
+                @item.QuestionSetId
+            </td>
+            <td class="details hideId nr" data-id="@item.QuestionId">
+                @item.QuestionId
+            </td>
+            <td class="details">
+                @item.QuestionName
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm mainAnchorContents" id="editContents" data-contentid="@item.Id"><i class="fa fa-pen fa-lg"></i></a>
+                <a class="btn btn-danger btn-sm mainDelete" id="editContents" data-contentid="@item.Id"><i class="fa fa-trash fa-lg"></i></a>
+            </td>
+        </tr>
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        $(".mainDelete").click(function () {
+            var cnfrm = confirm('Are you sure to delete?');
+            if (cnfrm == true) {
+                var item = $(this).closest("tr").find(".nr").text();
+
+                //alert($.trim(item.replace(/[\t\n]+/g, ' ')));
+                $(this).closest('tr').remove();
+
+                var val = $.trim(item.replace(/[\t\n]+/g, ' '));
+
+                $.ajax({
+                    url: "/Dashboard/DeleteContent",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ contentId: val }),
+                    success: function (response) {
+                        if (response.value != "") {
+                            alert(response.value);
+                        } else {
+                            alert("Failed!");
+                        }
+                    },
+                    error: function (er) {
+                        //alert(er);
+                    }
+                });
+            } else {
+                return false;
+            }
+        });
+
+        $('.mainAnchorContents').click(function () {
+            var id = $(this).attr("id");
+            var contentId = $(this).attr("data-contentid");
+            console.log(contentId);
+            $("#result").html("Loading ......");
+            $("#result").load('@Url.Action("LoadStudentPartialView", "Dashboard")', { passVal: id, id: contentId });
+        });
+
+        $('#updateQuestions').on('click', function () {
+            var dataList = $(".details").map(function () {
+                return $(this).data("id");
+            }).get();
+
+            var setId = $(".dataVal").data("value");
+
+            alert(dataList + ' ' + setId);
+
+            $.ajax({
+                url: "/Dashboard/UpdateQuesPreference",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ quesId: dataList, quesSetId: setId }),
+                success: function (response) {
+                    if (response.value != "") {
+                        alert(response.value);
+                    } else {
+                        alert("Failed!");
+                    }
+                },
+                error: function (er) {
+                    //alert(er);
+                }
+            });
+        });
+    });
+</script>
+
+<script src="~/dist/js/jquery-ui-1.12.1.js"></script>
+
+
+

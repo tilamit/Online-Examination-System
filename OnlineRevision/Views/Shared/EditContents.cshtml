@@ -37,10 +37,10 @@
                                         <td class="col-xs-3 hideId">
                                             <input type="text" class="form-control" id="txtId" name="txtId" value="@Model.Id" /> &nbsp;
                                         </td>
-                                        <td class="col-xs-3">
-                                            <input type="text" class="txtHeading form-control" name="txtHeading" value="@Model.Heading" /> &nbsp;
+                                        <td class="col-xs-6">
+                                            <input type="text" class="txtHeading form-control" id="editor2" name="editor2" value="@Model.Heading" /> &nbsp;
                                         </td>
-                                        <td class="col-xs-8">
+                                        <td class="col-xs-6">
                                             <input type="text" class="editor1 form-control" name="editor1" id="editor1" value="@Model.StudyContent" /> &nbsp;
                                         </td>
                                     </tr>
@@ -64,6 +64,7 @@
 
         //Initialize CKEditor by giving id of text area
         CKEDITOR.replace('editor1');
+        CKEDITOR.replace('editor2');
 
         CKEDITOR.replace('editor1', {
             extraPlugins: 'imageuploader'
@@ -77,11 +78,12 @@
 
         //Set CKEditor value using jQuery
         CKEDITOR.instances['editor1'].setData($("#editor1").val());
+        CKEDITOR.instances['editor2'].setData($("#editor2").val());
 
         $('#btnUpdate').on('click', function () {
             var id = $('#txtId').val();
             var val = CKEDITOR.instances.editor1.getData();
-            var heading = $('.txtHeading').val();
+            var heading = CKEDITOR.instances.editor2.getData();
            
             if (heading == null || heading == "") {
                 alert("Please! Provide heading.");

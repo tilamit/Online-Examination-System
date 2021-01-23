@@ -21,5 +21,6 @@ namespace OnlineRevision.DbContext
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> CreatedBy { get; set; }
+        public string TabName { get; set; }
     }
 }

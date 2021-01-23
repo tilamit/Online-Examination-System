@@ -71,6 +71,7 @@
     <EntitySetMapping Name="QuestionSet">
       <EntityTypeMapping TypeName="IsTypeOf(OnlineRevisionModel.QuestionSet)">
         <MappingFragment StoreEntitySet="QuestionSet">
+          <ScalarProperty Name="TabName" ColumnName="TabName" />
           <ScalarProperty Name="QuestionSetId" ColumnName="QuestionSetId" />
           <ScalarProperty Name="QuestionSetName" ColumnName="QuestionSetName" />
           <ScalarProperty Name="Timer" ColumnName="Timer" />

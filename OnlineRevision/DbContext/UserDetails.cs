@@ -11,13 +11,13 @@ namespace OnlineRevision.DbContext
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class UserDetails
     {
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         public int NewPass { get; set; }
-        public string PaymentId { get; set; }
         public string UserPassPre { get; set; }
+        public string PaymentId { get; set; }
         public Nullable<System.DateTime> ValidTill { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }

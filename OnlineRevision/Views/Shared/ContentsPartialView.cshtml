@@ -118,11 +118,9 @@
         $(".mainDelete").click(function () {
             var cnfrm = confirm('Are you sure to delete?');
             if (cnfrm == true) {
-                var item = $(this).closest("tr")   // Finds the closest row <tr> 
-                           .find(".nr")     // Gets a descendent with class="nr"
-                           .text();         // Retrieves the text within <td>
+                var item = $(this).closest("tr").find(".nr").text();         
 
-                alert($.trim(item.replace(/[\t\n]+/g, ' '))); // Testing: append the contents of the td to a div
+                //alert($.trim(item.replace(/[\t\n]+/g, ' ')));
                 $(this).closest('tr').remove();
 
                 var val = $.trim(item.replace(/[\t\n]+/g, ' '));

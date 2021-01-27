@@ -142,6 +142,21 @@ namespace OnlineRevision.Controllers
             }
         }
 
+        public ActionResult LoadQuestions(string passVal, int questionSetId, int questionId)
+        {
+            Thread.Sleep(1000);
+
+            switch (passVal)
+            {
+                case "editQuestions":
+                    List<QuestionDetails> aQuestionDetails = EditQuestionDetails(questionSetId, questionId);
+                    return PartialView("EditQuestionDetails", aQuestionDetails);
+
+                default:
+                    return PartialView("");
+            }
+        }
+
         //Image upload
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UploadImg()
@@ -984,6 +999,111 @@ namespace OnlineRevision.Controllers
                           }).ToList();
 
             return result;
+        }
+
+        public List<QuestionDetails> EditQuestionDetails(int questionSetId, int questionId)
+        {
+            List<QuestionDetails> aLst = null;
+            using (OnlineRevisionEntities db = new OnlineRevisionEntities())
+            {
+                try
+                {
+                    aLst = (from c in db.Questions
+                            group c by new { c.QuestionSetId, c.QuestionId, c.QuestionName, c.Status } into grp
+                            where grp.Key.Status == 1 && grp.Key.QuestionSetId == questionSetId && grp.Key.QuestionId == questionId
+                            select new QuestionDetails
+                            {
+                                aQuestionSetId = grp.Key.QuestionSetId,
+                                aQuestionId = grp.Key.QuestionId,
+                                aQuestion = grp.Key.QuestionName,
+                                aOption = db.Questions.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).ToList(),
+                                aAnswer = db.Answers.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).ToList(),
+                                aExplanation = db.Explanation.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).Select(d => d.Details)
+                            }).ToList();
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+            }
+
+            return aLst;
+        }
+
+        public List<Explanation> GetExplanation()
+        {
+            List<Explanation> aExplanation = null;
+            using (OnlineRevisionEntities db = new OnlineRevisionEntities())
+            {
+                aExplanation = (from c in db.Explanation
+                                where c.Status == 1
+                                select c).ToList();
+            }
+
+            return aExplanation;
+        }
+
+        //Update questions
+        [HttpPost]
+        public JsonResult UpdateQuestionDetails(int questionSetId, int questionId, string answers, string options, string explanation)
+        {
+            UserDetails aUserDetails = new UserDetails();
+            string[] splitAnswers = null;
+            string[] splitOptions = null;
+
+            splitAnswers = answers.Split('_');
+            splitOptions = options.Split('_');
+
+            using (OnlineRevisionEntities db = new OnlineRevisionEntities())
+            {
+                foreach (var item in splitAnswers)
+                {
+                    string[] splitAnswer = item.Split('~');
+                    int autoId = Convert.ToInt32(splitAnswer[0]);
+
+                    var resultAnswers = (from c in db.Answers
+                                         where c.QuestionSetId == questionSetId && c.QuestionId == questionId && c.Id == autoId
+                                         select c).ToList();
+
+                    foreach (var answer in resultAnswers)
+                    {
+                        answer.QuestionAnswers = splitAnswer[1];
+
+                        db.SaveChanges();
+                    }
+                }
+
+                foreach (var item in splitOptions)
+                {
+                    string[] splitOption = item.Split('~');
+                    int autoId = Convert.ToInt32(splitOption[0]);
+
+                    var resultOptions = (from c in db.Questions
+                                         where c.QuestionSetId == questionSetId && c.QuestionId == questionId && c.Id == autoId
+                                         select c).ToList();
+
+                    foreach (var option in resultOptions)
+                    {
+                        option.Options = splitOption[1];
+
+                        db.SaveChanges();
+                    }
+                }
+
+                var resultExplanation = (from c in db.Explanation
+                                         where c.QuestionSetId == questionSetId && c.QuestionId == questionId
+                                         select c).ToList();
+
+                
+                    foreach (var option in resultExplanation)
+                    {
+                        option.Details = explanation;
+
+                        db.SaveChanges();
+                    }
+            }
+
+            return Json(new { value = "Question details updated successfully!" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

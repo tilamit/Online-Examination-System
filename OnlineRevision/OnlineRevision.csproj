@@ -166,6 +166,7 @@
     <Compile Include="DbContext\Folders.cs">
       <DependentUpon>OnlineRevision.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\QuestionDetails.cs" />
     <Compile Include="Models\FoldersViewModel.cs" />
     <Compile Include="DbContext\OnlineRevision.Context.cs">
       <AutoGen>True</AutoGen>
@@ -8077,6 +8078,7 @@
     <Content Include="Views\RichContent\FileBrowser.cshtml" />
     <Content Include="Views\Shared\AddQuestionsPartialView.cshtml" />
     <Content Include="Views\Shared\Questions.cshtml" />
+    <Content Include="Views\Shared\EditQuestionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

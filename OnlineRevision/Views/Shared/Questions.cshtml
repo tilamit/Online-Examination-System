@@ -98,8 +98,8 @@
                 @item.QuestionName
             </td>
             <td>
-                <a class="btn btn-primary btn-sm mainAnchorContents" id="editContents" data-contentid="@item.Id"><i class="fa fa-pen fa-lg"></i></a>
-                <a class="btn btn-danger btn-sm mainDelete" id="editContents" data-contentid="@item.Id"><i class="fa fa-trash fa-lg"></i></a>
+                <a class="btn btn-primary btn-sm mainAnchorQuestions" id="editQuestions" data-id="@item.QuestionId" data-setId="@item.QuestionSetId"><i class="fa fa-pen fa-lg"></i></a>
+                <a class="btn btn-danger btn-sm mainDelete" data-contentid="@item.QuestionSetId"><i class="fa fa-trash fa-lg"></i></a>
             </td>
         </tr>
     }
@@ -139,12 +139,13 @@
             }
         });
 
-        $('.mainAnchorContents').click(function () {
+        $('.mainAnchorQuestions').click(function () {
             var id = $(this).attr("id");
-            var contentId = $(this).attr("data-contentid");
-            console.log(contentId);
+            var setId = $(this).attr("data-setId");
+            var questionId = $(this).attr("data-id");
+           
             $("#result").html("Loading ......");
-            $("#result").load('@Url.Action("LoadStudentPartialView", "Dashboard")', { passVal: id, id: contentId });
+            $("#result").load('@Url.Action("LoadQuestions", "Dashboard")', { passVal: id, questionSetId: setId, questionId: questionId });
         });
 
         $('#updateQuestions').on('click', function () {

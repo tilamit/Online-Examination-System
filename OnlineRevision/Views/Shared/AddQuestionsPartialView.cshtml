@@ -57,12 +57,6 @@
     }
 </style>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-
-    })
-</script>
-
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
@@ -78,6 +72,16 @@
                     <div class="col-md-5">
                         Questions Set
                         <input type="text" id="quesSetName" class="form-control" />
+                    </div>
+
+                    <div class="col-md-5">
+                        Test Type
+                        <select class="form-control">
+                            <option value="0">--Select Question Type--</option>
+                            <option value="tabs-1">Best of Three</option>
+                            <option value="tabs-2">Ranking Style</option>
+                            <option value="tabs-4">Mock Exam</option>
+                        </select>
                     </div>
 
                     <div class="col-xs-12 table-responsive">
@@ -99,6 +103,9 @@
                                     </td>
                                     <td class="col-xs-3">
                                         <input type="text" class="txtAnswers form-control" value="" /> <span class="addAnswers">(+)</span> &nbsp;
+                                    </td>
+                                    <td class="col-xs-12">
+                                        <input type="text" class="txtExplanation form-control editor1" name="editor1" /> &nbsp;
                                     </td>
                                     <td>
                                         <a href="javascript:void(0);" id="btnAdd" class="btn btn-primary">Add</a>
@@ -123,10 +130,33 @@
     </div>
 </div>
 
+<script src="~/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $(".hideQuestionDetails").hide();
         $(".chartArea").hide();
+
+        //Initialize CKEditor by giving id of text area
+        CKEDITOR.replace('editor1');
+
+        //Get each instance of CKEditor
+        for (instance in CKEDITOR.instances) {
+            //update element
+            CKEDITOR.instances[instance].updateElement();
+        }
+
+        function AddEditors() {
+            //Initialize CKEditor by giving id of text area
+            CKEDITOR.replace('editor1');
+
+            //for (instance in CKEDITOR.instances) {
+            //    //update element
+            //    CKEDITOR.instances[instance].updateElement();
+            //}
+        }
+
+        //Set CKEditor value using jQuery
+        CKEDITOR.instances['editor1'].setData($("#editor1").val());
 
         //$(window).on('load', function (e) {
 
@@ -162,7 +192,8 @@
         });
 
         $("#btnAdd").click(function () {
-            $("#questionDetails").append('<tr><td><input type="text" class="txtQuestionName form-control" class="form-control" /></td> <td><input type="text" class="txtOptions form-control" /><span class="addOptions">(+)</span></td> <td><input type="text" class="txtAnswers form-control" /> <span class="addAnswers">(+)</span></td> <td><a href="javascript:void(0);" class="btn btn-danger remCF">Remove</a></td> &nbsp;</tr>');
+            $("#questionDetails").append('<tr><td><input type="text" class="txtQuestionName form-control" class="form-control" /></td> <td><input type="text" class="txtOptions form-control" /><span class="addOptions">(+)</span></td> <td><input type="text" class="txtAnswers form-control" /> <span class="addAnswers">(+)</span></td><td><input type="text" class="txtExplanation form-control editor1" name="editor1" /></td> <td><a href="javascript:void(0);" class="btn btn-danger remCF">Remove</a></td> &nbsp;</tr>');
+            AddEditors();
         });
 
         $("#questionDetails").on('click', '.remCF', function () {

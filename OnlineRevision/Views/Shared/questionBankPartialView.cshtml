@@ -132,7 +132,7 @@
                             $.each(quesSets.QuestionSetList, function (i, quesSets2) {
                                 html += "<tr>" +
                                         "<td class='details'><input type='checkbox' class='cbCheck' value='" + quesSets2.QuestionSetId + "' id='" + quesSets2.QuestionSetId + "' /></td>" +
-                                        "<td><a class='btn btn-primary btn-sm mainAnchorEditQues' id='QuesDetails' data-userid='" + quesSets2.QuestionSetId + "'><i class='fa fa-pen fa-lg'></i></a></td>" +
+                                        "<td><a class='btn btn-primary btn-sm mainAnchorEditQues' id='QuesDetails' data-setId='" + quesSets2.QuestionSetId + "'><i class='fa fa-pen fa-lg'></i></a></td>" +
                                         "<td class='details'>" + getFormattedDate(quesSets2.CreatedOn) + "</td>" +
                                         "<td class='details hideEmail'>" + quesSets2.QuestionSetName + "</td>";
                                 "</tr>";
@@ -160,7 +160,7 @@
                     //Click event to retrieve student details
                     $('.mainAnchorEditQues').click(function () {
                         var id = $(this).attr("id");
-                        var quesId = $(this).attr("data-userid");
+                        var quesId = $(this).attr("data-setId");
                         console.log(quesId);
                         $("#result").html("Loading ......");
                         $("#result").load('@Url.Action("LoadStudentPartialView", "Dashboard")', { passVal: id, id: quesId });

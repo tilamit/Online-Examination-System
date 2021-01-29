@@ -434,7 +434,8 @@ namespace OnlineRevision.Controllers
             return Json(new { value = "Achived successfully!" }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddQuestions(string quesSetName, List<SampleTable> QuestionSetViewModel)
+        //Add questions here
+        public JsonResult AddQuestions(string selectedVal, string selectedType, string quesSetName, List<SampleTable> QuestionSetViewModel)
         {
             //Check for NULL.
             if (QuestionSetViewModel == null)
@@ -449,6 +450,8 @@ namespace OnlineRevision.Controllers
             //Create Question Set Here 
             QuestionSet aQuestionSet = new QuestionSet();
             aQuestionSet.QuestionSetName = quesSetName;
+            aQuestionSet.Details = selectedType;
+            aQuestionSet.TabName = selectedVal;
             aQuestionSet.CreatedOn = DateTime.Now;
             aQuestionSet.Status = 1;
 
@@ -461,7 +464,7 @@ namespace OnlineRevision.Controllers
             //Loop and insert data
             foreach (SampleTable question in QuestionSetViewModel)
             {
-                var result = db.Questions.OrderByDescending(c => c.QuestionId).FirstOrDefault();
+                var result = db.Questions.Where(c => c.QuestionSetId == quesSetId).OrderByDescending(c => c.QuestionId).FirstOrDefault();
 
                 if (result == null || result.QuestionId.ToString().Count() == 0)
                 {
@@ -477,6 +480,9 @@ namespace OnlineRevision.Controllers
 
                 string quesAnswers = question.QuestionAnswers;
                 string[] splitAnswers = quesAnswers.Split('_');
+
+                string quesExplanation = question.Explanation.TrimEnd('_');
+                string[] splitExplanation = quesExplanation.Split('_');
 
                 foreach (string itemOptions in splitOptions)
                 {
@@ -500,12 +506,29 @@ namespace OnlineRevision.Controllers
                     if (itemAnswers != "")
                     {
                         Answers aAnswers = new Answers();
+                        aAnswers.QuestionSetId = quesSetId;
                         aAnswers.QuestionId = id;
                         aAnswers.QuestionAnswers = itemAnswers.Trim();
                         aAnswers.Status = 1;
                         aAnswers.CreatedOn = DateTime.Now;
 
                         db.Answers.Add(aAnswers);
+                        db.SaveChanges();
+                    }
+                }
+
+                foreach (string itemExplanation in splitExplanation)
+                {
+                    if (itemExplanation != "")
+                    {
+                        Explanation aExplanation = new Explanation();
+                        aExplanation.QuestionSetId = quesSetId;
+                        aExplanation.QuestionId = id;
+                        aExplanation.Details = itemExplanation.Trim();
+                        aExplanation.Status = 1;
+                        aExplanation.CreatedOn = DateTime.Now;
+
+                        db.Explanation.Add(aExplanation);
                         db.SaveChanges();
                     }
                 }
@@ -808,7 +831,7 @@ namespace OnlineRevision.Controllers
                     item.Status = 1;
                     entities.SaveChanges();
                 }
-                              
+
                 preference += 1;
             }
 
@@ -1018,7 +1041,7 @@ namespace OnlineRevision.Controllers
                                 aQuestion = grp.Key.QuestionName,
                                 aOption = db.Questions.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).ToList(),
                                 aAnswer = db.Answers.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).ToList(),
-                                aExplanation = db.Explanation.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).Select(d => d.Details)
+                                aExplanation = db.Explanation.Where(d => d.QuestionSetId == questionSetId && d.QuestionId == questionId && d.Status == 1).ToList()
                             }).ToList();
                 }
                 catch (Exception ex)
@@ -1094,16 +1117,121 @@ namespace OnlineRevision.Controllers
                                          where c.QuestionSetId == questionSetId && c.QuestionId == questionId
                                          select c).ToList();
 
-                
-                    foreach (var option in resultExplanation)
-                    {
-                        option.Details = explanation;
 
-                        db.SaveChanges();
-                    }
+                foreach (var option in resultExplanation)
+                {
+                    option.Details = explanation;
+
+                    db.SaveChanges();
+                }
             }
 
             return Json(new { value = "Question details updated successfully!" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetQuestionSet()
+        {
+            List<QuestionSet> aLst = null;
+
+            using (OnlineRevisionEntities db = new OnlineRevisionEntities())
+            {
+                try
+                {
+                    aLst = (from c in db.QuestionSet
+                            where c.Status == 1
+                            select c).ToList();
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+
+                return Json(aLst, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //Transfer questions here
+        public async Task<JsonResult> TransferQuestions(int quesSetIdFrom, int quesSetIdTo, string quesId)
+        {
+            int id = 0;
+            int insertedRecords = 0;
+
+            string[] splitIds = quesId.Split('_');
+
+            //Insert Question With Options Here
+            //Loop and insert data
+            foreach (string question in splitIds)
+            {
+                int ques = Convert.ToInt32(question);
+
+                var resultQuestion = db.Questions.Where(c => c.QuestionSetId == quesSetIdFrom && c.QuestionId == ques).ToList();
+                var resultAnswer = db.Answers.Where(c => c.QuestionSetId == quesSetIdFrom && c.QuestionId == ques).ToList();
+                var resultExplanation = db.Explanation.Where(c => c.QuestionSetId == quesSetIdFrom && c.QuestionId == ques).ToList();
+
+                var resultTo = db.Questions.Where(c => c.QuestionSetId == quesSetIdTo).OrderByDescending(c => c.QuestionId).FirstOrDefault();
+
+                if (resultTo == null || resultTo.QuestionId.ToString().Count() == 0)
+                {
+                    id = 1;
+                }
+                else
+                {
+                    id = Convert.ToInt32(resultTo.QuestionId) + 1;
+                }
+
+                if (resultQuestion.Count > 0)
+                {
+                    foreach (Questions itemOptions in resultQuestion)
+                    {
+                        Questions aQuestions = new Questions();
+                        aQuestions.QuestionSetId = quesSetIdTo;
+                        aQuestions.QuestionId = id;
+                        aQuestions.QuestionType = itemOptions.QuestionType;
+                        aQuestions.QuestionName = itemOptions.QuestionName.Trim();
+                        aQuestions.Options = itemOptions.Options.Trim();
+                        aQuestions.Status = 1;
+                        aQuestions.CreatedOn = DateTime.Now;
+
+                        db.Questions.Add(aQuestions);
+                        insertedRecords = db.SaveChanges();
+                    }
+                }
+
+                if (resultAnswer.Count > 0)
+                {
+                    foreach (Answers itemAnswers in resultAnswer)
+                    {
+                        Answers aAnswers = new Answers();
+                        aAnswers.QuestionSetId = quesSetIdTo;
+                        aAnswers.QuestionId = id;
+                        aAnswers.QuestionAnswers = itemAnswers.QuestionAnswers.Trim();
+                        aAnswers.Status = 1;
+                        aAnswers.CreatedOn = DateTime.Now;
+
+                        db.Answers.Add(aAnswers);
+                        db.SaveChanges();
+                    }
+                }
+
+                if (resultExplanation.Count > 0)
+                {
+                    foreach (Explanation itemExplanation in resultExplanation)
+                    {
+                        Explanation aExplanation = new Explanation();
+                        aExplanation.QuestionSetId = quesSetIdTo;
+                        aExplanation.QuestionId = id;
+                        aExplanation.Details = itemExplanation.Details.Trim();
+                        aExplanation.Status = 1;
+                        aExplanation.CreatedOn = DateTime.Now;
+
+                        db.Explanation.Add(aExplanation);
+                        db.SaveChanges();
+                    }
+                }
+            }
+
+            return await Task.Run(() => Json(new { value = "Question transferred successfully!" }, JsonRequestBehavior.AllowGet));
         }
     }
 }

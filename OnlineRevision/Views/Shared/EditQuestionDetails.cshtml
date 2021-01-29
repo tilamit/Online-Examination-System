@@ -83,7 +83,7 @@
 
     foreach (var item in val.aExplanation)
     {
-        <input type="text" class="txtExplanation form-control" name="editor1" id="editor1" value="@item" /><br />
+        <input type="text" class="txtExplanation form-control" name="editor1" id="editor1" data-id="@item.Id" value="@item.Details" /><br />
     }
 }
 <br />

@@ -18,5 +18,6 @@ namespace OnlineRevision.DbContext
         public string QuestionName { get; set; }
         public string Options { get; set; }
         public string QuestionAnswers { get; set; }
+        public string Explanation { get; set; }
     }
 }

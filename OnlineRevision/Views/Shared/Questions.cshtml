@@ -75,94 +75,68 @@
     });
 </script>
 
-<a class="btn btn-primary" id="updateQuestions">Update Preference</a><br /><br />
+<div class="col-md-12">
+    <div class="col-md-2 input-group">
+        <div id="dropDownValues"></div>
+        <span class="input-group-btn">
+            <input type="button" class="btn btn-primary" id="transfer" value="Transfer" />
+        </span>&nbsp;
+        <span class="input-group-btn">
+            <a class="btn btn-primary" id="updateQuestions">Update Preference</a><br />
+        </span>
+    </div>
 
-<table id="questions">
-    <tr>
-        <th>Set Id</th>
-        <th>Id</th>
-        <th>Question Name</th>
-        <th>Action</th>
-    </tr>
-
-    @foreach (var item in Model.OrderBy(c => c.QuestionId))
-    {
-        <tr id="@item.QuestionId">
-            <td class="details dataVal hideSetId nr" data-value="@item.QuestionSetId">
-                @item.QuestionSetId
-            </td>
-            <td class="details hideId nr" data-id="@item.QuestionId">
-                @item.QuestionId
-            </td>
-            <td class="details">
-                @item.QuestionName
-            </td>
-            <td>
-                <a class="btn btn-primary btn-sm mainAnchorQuestions" id="editQuestions" data-id="@item.QuestionId" data-setId="@item.QuestionSetId"><i class="fa fa-pen fa-lg"></i></a>
-                <a class="btn btn-danger btn-sm mainDelete" data-contentid="@item.QuestionSetId"><i class="fa fa-trash fa-lg"></i></a>
-            </td>
+    <table class="questionDetails" id="questions">
+        <tr>
+            <th>Set Id</th>
+            <th>Id</th>
+            <th>Question Name</th>
+            <th>Action</th>
         </tr>
-    }
-</table>
 
+        @foreach (var item in Model.OrderBy(c => c.QuestionId))
+        {
+            <tr id="@item.QuestionId">
+                <td class="details">
+                    <input type="checkbox" id="@item.Id" class='cbCheck' value="@item.QuestionId" />
+                </td>
+                <td class="details dataVal hideSetId nr" data-value="@item.QuestionSetId">
+                    @item.QuestionSetId
+                </td>
+                <td class="details hideId nr" data-id="@item.QuestionId">
+                    @item.QuestionId
+                </td>
+                <td class="details">
+                    @item.QuestionName
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm mainAnchorQuestions" id="editQuestions" data-id="@item.QuestionId" data-setId="@item.QuestionSetId"><i class="fa fa-pen fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm mainDelete" data-contentid="@item.QuestionSetId"><i class="fa fa-trash fa-lg"></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
 <script>
-    $(document).ready(function () {
-        $(".mainDelete").click(function () {
-            var cnfrm = confirm('Are you sure to delete?');
-            if (cnfrm == true) {
-                var item = $(this).closest("tr").find(".nr").text();
+    GetDropDownListValues();
+    $("#transfer").hide();
 
-                //alert($.trim(item.replace(/[\t\n]+/g, ' ')));
-                $(this).closest('tr').remove();
+    $(".mainDelete").click(function () {
+        var cnfrm = confirm('Are you sure to delete?');
+        if (cnfrm == true) {
+            var item = $(this).closest("tr").find(".nr").text();
 
-                var val = $.trim(item.replace(/[\t\n]+/g, ' '));
+            //alert($.trim(item.replace(/[\t\n]+/g, ' ')));
+            $(this).closest('tr').remove();
 
-                $.ajax({
-                    url: "/Dashboard/DeleteContent",
-                    type: "POST",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify({ contentId: val }),
-                    success: function (response) {
-                        if (response.value != "") {
-                            alert(response.value);
-                        } else {
-                            alert("Failed!");
-                        }
-                    },
-                    error: function (er) {
-                        //alert(er);
-                    }
-                });
-            } else {
-                return false;
-            }
-        });
-
-        $('.mainAnchorQuestions').click(function () {
-            var id = $(this).attr("id");
-            var setId = $(this).attr("data-setId");
-            var questionId = $(this).attr("data-id");
-           
-            $("#result").html("Loading ......");
-            $("#result").load('@Url.Action("LoadQuestions", "Dashboard")', { passVal: id, questionSetId: setId, questionId: questionId });
-        });
-
-        $('#updateQuestions').on('click', function () {
-            var dataList = $(".details").map(function () {
-                return $(this).data("id");
-            }).get();
-
-            var setId = $(".dataVal").data("value");
-
-            alert(dataList + ' ' + setId);
+            var val = $.trim(item.replace(/[\t\n]+/g, ' '));
 
             $.ajax({
-                url: "/Dashboard/UpdateQuesPreference",
+                url: "/Dashboard/DeleteContent",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify({ quesId: dataList, quesSetId: setId }),
+                data: JSON.stringify({ contentId: val }),
                 success: function (response) {
                     if (response.value != "") {
                         alert(response.value);
@@ -174,8 +148,117 @@
                     //alert(er);
                 }
             });
+        } else {
+            return false;
+        }
+    });
+
+    $('.mainAnchorQuestions').click(function () {
+        var id = $(this).attr("id");
+        var setId = $(this).attr("data-setId");
+        var questionId = $(this).attr("data-id");
+
+        $("#result").html("Loading ......");
+        $("#result").load('@Url.Action("LoadQuestions", "Dashboard")', { passVal: id, questionSetId: setId, questionId: questionId });
+    });
+
+    $('#updateQuestions').on('click', function () {
+        var dataList = $(".details").map(function () {
+            return $(this).data("id");
+        }).get();
+
+        var setId = $(".dataVal").data("value");
+
+        alert(dataList + ' ' + setId);
+
+        $.ajax({
+            url: "/Dashboard/UpdateQuesPreference",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({ quesId: dataList, quesSetId: setId }),
+            success: function (response) {
+                if (response.value != "") {
+                    alert(response.value);
+                } else {
+                    alert("Failed!");
+                }
+            },
+            error: function (er) {
+                //alert(er);
+            }
         });
     });
+
+    //Transfer students to different folders
+    $("#transfer").click(function () {
+        var $container = $('.questionDetails');
+        var $checked = $container.find('.cbCheck:checked');
+
+        var setIdFrom = $('.dataVal').attr("data-value");
+
+        var values = $checked.map(function () {
+            return this.value
+        }).get();
+
+        var setIdTo = $('#testType').val();
+        alert("From: " + setIdFrom + ' ' + values.join('_') + ' ' + "To: " + setIdTo);
+
+        $.ajax({
+            url: "/Dashboard/TransferQuestions",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify({ quesSetIdFrom: setIdFrom, quesSetIdTo: setIdTo, quesId: values.join('_') }),
+            success: function (response) {
+                if (response.value != null || response.value != "") {
+                    alert(response.value);
+
+                    //$("#result").load('@Url.Action("LoadPartialView", "Dashboard")', { passVal: "studentDetails" });
+                }
+            }
+        });
+    });
+
+    //Get drop down list values
+    function GetDropDownListValues() {
+        var selectType = "";
+        $("#dropDownValues").empty();
+
+        $.ajax({
+            url: "/Dashboard/GetQuestionSet",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                if (data != null || data != "") {
+
+                    selectType += "<select class='ui-button ui-corner-all ui-widget' name='testType' id='testType'>";
+                    selectType += "<option value='0'>----Select Question Set----</option>";
+                    $.each(data, function (i, dataAll) {
+                        selectType += "<option value='" + dataAll.QuestionSetId + "'>" + dataAll.QuestionSetName + "</option>";
+                    })
+                    selectType += "</select>";
+                }
+
+                $("#dropDownValues").append(selectType);
+
+                //Drop down value change event
+                $("#testType").change(function () {
+                    var val = $('#testType').val();
+
+                    if (val != "0") {
+                        $("#transfer").show();
+                    } else {
+                        $("#transfer").hide();
+                    }
+                });
+            },
+            error: function (er) {
+                //alert(er);
+            }
+        });
+    }
 </script>
 
 <script src="~/dist/js/jquery-ui-1.12.1.js"></script>

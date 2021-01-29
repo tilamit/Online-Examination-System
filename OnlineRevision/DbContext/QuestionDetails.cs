@@ -12,6 +12,6 @@ namespace OnlineRevision.DbContext
         public string aQuestion { get; set; }
         public List<Questions> aOption { get; set; }
         public List<Answers> aAnswer { get; set; }
-        public IEnumerable<string> aExplanation { get; set; }
+        public IEnumerable<Explanation> aExplanation { get; set; }
     }
 }

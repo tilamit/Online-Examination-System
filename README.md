@@ -56,7 +56,7 @@ Admin Dashboard             |  Student Details
 :-------------------------:|:-------------------------:
 ![](https://i.ibb.co/SKcGXTG/screencapture-localhost-51888-Dashboard-2024-01-07-16-14-16.png)  |  ![](https://i.ibb.co/Kjr1nK7/screencapture-localhost-51888-Dashboard-2024-01-07-16-14-26.png)
 
-#### Questions Type
+#### Question Type
 
 * **Best of Three** - Three possible answers to select
 * **Drag & Drop** - The correct answers from the right have to be reorganized to the left boxes  

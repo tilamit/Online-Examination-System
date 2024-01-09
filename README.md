@@ -1,7 +1,6 @@
-<p align="center">
-  <a style="text-decoration: none; font-size:60px;" href="https://github.com/tilamit/Online-Examination-System">
-    <span class="pass">PASSDEN+</span>
-  </a>
+<p style="text-align:center; font-size:60px;">
+    PASSDEN+
+</p>
 
  <h3 align="center">
    <img src="https://i.ibb.co/1JR5W1H/Pngtree-tick-vector-icon-4015270.png" height="30" width="30" />Online Revision Platform<img src="https://i.ibb.co/1JR5W1H/Pngtree-tick-vector-icon-4015270.png" height="30" width="30" />
@@ -14,7 +13,7 @@
     <a href="https://github.com/tilamit/Online-Examination-System"><strong>Explore the docs »</strong></a>
     <br/>
   </p>
-</p>
+
 
 ## Table Of Contents
 
@@ -31,12 +30,13 @@
 
 ## About The Project
 
-<img style="display:block;margin:0 auto;margin-bottom:12px" src="https://i.ibb.co/QN0nJ1j/passdent.png" />
-<div></div>
-
 Passden+ is an online exam and revision platform for dental students to experience the online trial as well as real exam pattern. The platform consists of a user-friendly UI and it has feature to monitor progress of a student. 
+   
+<div style="text-align:center">
+    <img src="https://i.ibb.co/QN0nJ1j/passdent.png" />
+</div>
 
-Features: 
+### Features: 
 
 #### Student Section
 

@@ -1,9 +1,5 @@
-<p style="text-align:center; font-size:60px;">
-    PASSDEN+
-</p>
-
- <h3 align="center">
-   <img src="https://i.ibb.co/1JR5W1H/Pngtree-tick-vector-icon-4015270.png" height="30" width="30" />Online Revision Platform<img src="https://i.ibb.co/1JR5W1H/Pngtree-tick-vector-icon-4015270.png" height="30" width="30" />
+<h3 align="center">
+   <img src="https://i.ibb.co/1JR5W1H/Pngtree-tick-vector-icon-4015270.png" height="30" width="30" />Passden+ - Online Revision Platform<img src="https://i.ibb.co/1JR5W1H/Pngtree-tick-vector-icon-4015270.png" height="30" width="30" />
  </h3>
   
   <p align="center">
@@ -31,10 +27,10 @@
 ## About The Project
 
 Passden+ is an online exam and revision platform for dental students to experience the online trial as well as real exam pattern. The platform consists of a user-friendly UI and it has feature to monitor progress of a student. 
-   
-<div style="text-align:center">
-    <img src="https://i.ibb.co/QN0nJ1j/passdent.png" />
-</div>
+
+<p align="center">
+    <img src="https://i.ibb.co/QN0nJ1j/passdent.png" alt="passden+" />
+</p>
 
 ### Features: 
 
